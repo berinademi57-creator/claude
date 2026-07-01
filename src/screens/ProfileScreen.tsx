@@ -186,7 +186,7 @@ export function ProfileScreen() {
 
       <Card>
         <Banner tone="warn">
-          Hinweis: Die Formeln sind für Erwachsene ausgelegt. Mit 15 Jahren bist
+          Hinweis: Die Formeln sind für Erwachsene ausgelegt. Mit 16 Jahren bist
           du noch im Wachstum — nutze die Zahlen als grobe Orientierung und
           besprich Cutting/Kaloriendefizite am besten mit Eltern, Arzt oder
           Trainer. Iss genug, um Training UND Wachstum zu unterstützen.

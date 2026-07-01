@@ -16,13 +16,13 @@ import { baseTargets } from '../services/goals';
 
 const PROFILE_KEY = 'profile_v1';
 
-// Defaults from the user's own details: 74 kg, 178 cm, 15 y, trains daily
+// Defaults from the user's own details: 74 kg, 178 cm, 16 y, trains daily
 // (Hyrox / Gym / Ironman-style / Joggen) → very high activity, goal = recomp
 // ("Muskel aufbauen + shredden"). All editable in the Profile screen.
 export const DEFAULT_PROFILE: Profile = {
   weightKg: 74,
   heightCm: 178,
-  age: 15,
+  age: 16,
   sex: 'male',
   goal: 'recomp', // Muskelaufbau + gleichzeitig shredden
   activityMultiplier: 1.9, // tägliches intensives Training (Hyrox/Gym/Cardio)

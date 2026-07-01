@@ -165,7 +165,7 @@ In `src/services/goals.ts`, rein funktional und testbar:
 
 ## Hinweis (Alter/Gesundheit)
 
-Die Zielformeln sind für Erwachsene gedacht. Mit 15 bist du noch im Wachstum —
+Die Zielformeln sind für Erwachsene gedacht. Mit 16 bist du noch im Wachstum —
 nimm die Zahlen als grobe Orientierung, iss genug für Training **und** Wachstum,
 und bespreche Kaloriendefizite/Cutting am besten mit Eltern, Arzt oder Trainer.
 Die App zeigt diesen Hinweis auch im Profil-Screen.
