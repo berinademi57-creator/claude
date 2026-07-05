@@ -1,0 +1,50 @@
+{% comment %} ELURA · Section 11 – Newsletter mit 10%-Anreiz (E-Mails sammeln → Wiederkäufe) {% endcomment %}
+<style>
+  .el-news{--ink:#211d1a;--muted:#7a7168;--gold:#b08d57;text-align:center;padding:88px 0;
+    background:linear-gradient(120% 120% at 20% 0%,#f2e7d6,#e9dcc7);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  .el-news .wrap{max-width:620px;margin:0 auto;padding:0 24px}
+  .el-news .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .el-news h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(32px,4vw,48px);font-weight:600;margin:12px 0;color:var(--ink)}
+  .el-news p{color:var(--muted);margin:0 auto 26px;max-width:480px}
+  .el-news form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+  .el-news input[type=email]{flex:1;min-width:220px;padding:15px 18px;border:1px solid var(--ink);border-radius:2px;background:#fff;font-size:14px}
+  .el-news button{font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:15px 30px;
+    border-radius:2px;border:1px solid var(--ink);background:var(--ink);color:#f5ece0;cursor:pointer}
+  .el-news .ok{color:#2c7a4b;font-weight:600;margin-top:14px}
+  .el-news .note{font-size:12px;color:var(--muted);margin-top:14px}
+</style>
+<section class="el-news">
+  <div class="wrap">
+    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    <h2>{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.text }}</p>
+    {% form 'customer' %}
+      {% if form.posted_successfully? %}
+        <p class="ok">✓ Danke! Prüfe dein Postfach für deinen {{ section.settings.discount }}-Code.</p>
+      {% else %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="{{ section.settings.placeholder }}" required>
+        <button type="submit">{{ section.settings.btn_text }}</button>
+      {% endif %}
+    {% endform %}
+    <p class="note">{{ section.settings.note }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ELURA · Newsletter",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kleiner Text", "default": "Werde Teil der Familie" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "10% auf deine erste Bestellung" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Melde dich für unseren Newsletter an und erhalte exklusive Angebote, neue Kollektionen und deinen Willkommensrabatt." },
+    { "type": "text", "id": "discount", "label": "Rabatt-Bezeichnung", "default": "10%" },
+    { "type": "text", "id": "placeholder", "label": "Platzhalter", "default": "Deine E-Mail-Adresse" },
+    { "type": "text", "id": "btn_text", "label": "Button-Text", "default": "Anmelden" },
+    { "type": "text", "id": "note", "label": "Kleiner Hinweis", "default": "Kein Spam. Abmeldung jederzeit möglich." }
+  ],
+  "presets": [ { "name": "ELURA · Newsletter" } ]
+}
+{% endschema %}

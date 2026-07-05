@@ -1,0 +1,83 @@
+{% comment %} ELURA · Section 07 – Kundenstimmen + Statistik (Social Proof = stärkster Conversion-Hebel) {% endcomment %}
+<style>
+  .el-rev{--gold:#b08d57;background:#211d1a;color:#efe6d8;padding:88px 0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  .el-rev .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+  .el-rev .head{text-align:center;max-width:640px;margin:0 auto 52px}
+  .el-rev .stars{color:var(--gold);letter-spacing:3px;font-size:15px}
+  .el-rev h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(34px,4.4vw,52px);font-weight:600;color:#fff;margin:12px 0 14px}
+  .el-rev .head p{color:#b7ab98;font-size:16px;margin:0}
+  .el-rev .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .el-rev .card{background:#2b2521;border:1px solid #3a322b;border-radius:6px;padding:30px 26px}
+  .el-rev .card p{font-size:15px;color:#e7ddce;margin:14px 0 18px;line-height:1.7}
+  .el-rev .who{display:flex;align-items:center;gap:12px}
+  .el-rev .av{width:40px;height:40px;border-radius:50%;background:var(--gold);color:#211d1a;display:flex;
+    align-items:center;justify-content:center;font-weight:700;font-size:16px;font-family:"Cormorant Garamond",Georgia,serif}
+  .el-rev .who b{font-size:14px;display:block;color:#fff}
+  .el-rev .who span{font-size:12px;color:#a99c88}
+  .el-rev .stats{display:flex;justify-content:center;gap:60px;margin-top:56px;flex-wrap:wrap;text-align:center}
+  .el-rev .stats .n{font-family:"Cormorant Garamond",Georgia,serif;font-size:44px;color:var(--gold);line-height:1}
+  .el-rev .stats .l{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#b7ab98;margin-top:6px}
+  @media(max-width:820px){ .el-rev .grid{grid-template-columns:1fr} .el-rev .stats{gap:34px} }
+</style>
+<section class="el-rev">
+  <div class="wrap">
+    <div class="head">
+      <div class="stars">★★★★★</div>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subheading }}</p>
+    </div>
+    <div class="grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'review' %}
+          <div class="card" {{ block.shopify_attributes }}>
+            <div class="stars">★★★★★</div>
+            <p>„{{ block.settings.text }}"</p>
+            <div class="who">
+              <div class="av">{{ block.settings.name | slice: 0 }}</div>
+              <div><b>{{ block.settings.name }}</b><span>{{ block.settings.meta }}</span></div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="stats">
+      {% for block in section.blocks %}
+        {% if block.type == 'stat' %}
+          <div {{ block.shopify_attributes }}><div class="n">{{ block.settings.number }}</div><div class="l">{{ block.settings.label }}</div></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ELURA · Kundenstimmen",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Das sagen unsere Kundinnen" },
+    { "type": "text", "id": "subheading", "label": "Unterzeile", "default": "Über 1.200 zufriedene Kundinnen in der ganzen Schweiz." }
+  ],
+  "blocks": [
+    { "type": "review", "name": "Bewertung", "settings": [
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Ich trage mein Armband seit Wochen — beim Duschen, beim Sport, einfach immer. Es glänzt noch wie am ersten Tag!" },
+      { "type": "text", "id": "name", "label": "Name", "default": "Lea M." },
+      { "type": "text", "id": "meta", "label": "Ort / Info", "default": "Zürich · Verifizierter Kauf" }
+    ]},
+    { "type": "stat", "name": "Statistik", "settings": [
+      { "type": "text", "id": "number", "label": "Zahl", "default": "4.9★" },
+      { "type": "text", "id": "label", "label": "Label", "default": "Durchschnitt" }
+    ]}
+  ],
+  "presets": [ { "name": "ELURA · Kundenstimmen", "blocks": [
+    { "type": "review", "settings": { "text": "Ich trage mein Flower-Armband seit Wochen — beim Duschen, beim Sport, einfach immer. Es glänzt noch wie am ersten Tag. Absolute Kaufempfehlung!", "name": "Lea M.", "meta": "Zürich · Verifizierter Kauf" } },
+    { "type": "review", "settings": { "text": "Endlich Schmuck, der nicht grün wird! Die Halskette Isleen ist wunderschön verarbeitet und der Versand war blitzschnell.", "name": "Sara B.", "meta": "Bern · Verifizierter Kauf" } },
+    { "type": "review", "settings": { "text": "Habe die Kleeblatt-Armbänder verschenkt und selbst behalten. Tolle Qualität für den Preis, hautfreundlich und richtig hübsch.", "name": "Nadia K.", "meta": "Luzern · Verifizierter Kauf" } },
+    { "type": "stat", "settings": { "number": "4.9★", "label": "Durchschnitt" } },
+    { "type": "stat", "settings": { "number": "1.200+", "label": "Zufriedene Kundinnen" } },
+    { "type": "stat", "settings": { "number": "48h", "label": "Schneller Versand" } },
+    { "type": "stat", "settings": { "number": "100%", "label": "Hypoallergen" } }
+  ]}]
+}
+{% endschema %}

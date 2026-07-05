@@ -1,0 +1,65 @@
+{% comment %} ELURA · Section 09 – Instagram / UGC-Galerie (echte Menschen = Vertrauen) {% endcomment %}
+<style>
+  .el-ig{--gold:#b08d57;--muted:#7a7168;--ink:#211d1a;padding:80px 0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  .el-ig .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+  .el-ig .head{text-align:center;max-width:640px;margin:0 auto 40px}
+  .el-ig .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .el-ig h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(32px,4vw,48px);font-weight:600;margin:12px 0 14px;color:var(--ink)}
+  .el-ig .head p{color:var(--muted);margin:0}
+  .el-ig .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .el-ig .grid a{aspect-ratio:1/1;overflow:hidden;border-radius:3px;display:block;position:relative}
+  .el-ig .grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .el-ig .grid a:hover img{transform:scale(1.1)}
+  @media(max-width:1000px){ .el-ig .grid{grid-template-columns:repeat(4,1fr)} }
+  @media(max-width:560px){ .el-ig .grid{grid-template-columns:repeat(3,1fr)} }
+</style>
+<section class="el-ig">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">{{ section.settings.handle }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.text }}</p>
+    </div>
+    <div class="grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link | default: section.settings.profile_link }}" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url: width: 500 }}" alt="ELURA Instagram" loading="lazy">
+          {% elsif block.settings.img_url != blank %}
+            <img src="{{ block.settings.img_url }}" alt="ELURA Instagram" loading="lazy">
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ELURA · Instagram",
+  "tag": "section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "handle", "label": "Instagram-Handle", "default": "@elura" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Getragen & geliebt" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Tagge uns mit #elura für die Chance, hier gefeatured zu werden." },
+    { "type": "url", "id": "profile_link", "label": "Instagram-Profil-Link", "default": "https://instagram.com" }
+  ],
+  "blocks": [
+    { "type": "photo", "name": "Foto", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Bild" },
+      { "type": "text", "id": "img_url", "label": "Bild-URL (optional)" },
+      { "type": "url", "id": "link", "label": "Link (optional)" }
+    ]}
+  ],
+  "presets": [ { "name": "ELURA · Instagram", "blocks": [
+    { "type": "photo", "settings": { "img_url": "https://cdn.shopify.com/s/files/1/1035/8548/1052/files/BF9D70D2-DE44-4682-9688-69767FD072A5.jpg?v=1783120756" } },
+    { "type": "photo", "settings": { "img_url": "https://cdn.shopify.com/s/files/1/1035/8548/1052/files/3910C864-5904-4DA4-910C-19D026EF0CF5.jpg?v=1783120830" } },
+    { "type": "photo", "settings": { "img_url": "https://cdn.shopify.com/s/files/1/1035/8548/1052/files/8483D79A-CD0B-4E6D-8099-CA7D6C76A571.jpg?v=1783120831" } },
+    { "type": "photo", "settings": { "img_url": "https://cdn.shopify.com/s/files/1/1035/8548/1052/files/265EE88C-B1E3-4712-812C-132AA13F5FFE.jpg?v=1783120831" } },
+    { "type": "photo", "settings": { "img_url": "https://cdn.shopify.com/s/files/1/1035/8548/1052/files/6A6BDE63-C95E-4E7A-AB48-89B370DF9B51.jpg?v=1783120757" } },
+    { "type": "photo", "settings": { "img_url": "https://cdn.shopify.com/s/files/1/1035/8548/1052/files/9F15FCC1-DBDC-4B53-AC9A-9D387778057A.jpg?v=1783120760" } }
+  ]}]
+}
+{% endschema %}

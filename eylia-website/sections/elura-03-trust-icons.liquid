@@ -1,0 +1,46 @@
+{% comment %} ELURA · Section 03 – Trust-/USP-Icons (senkt Kaufangst → mehr Conversion) {% endcomment %}
+<style>
+  .el-usp{--ink:#211d1a;--muted:#7a7168;--line:#e5dccf;background:#f2ebe2;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  .el-usp .grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+  .el-usp .item{padding:26px 18px;text-align:center;border-right:1px solid var(--line)}
+  .el-usp .item:last-child{border-right:none}
+  .el-usp .ic{font-size:24px;margin-bottom:8px}
+  .el-usp h4{font-size:13.5px;letter-spacing:.09em;text-transform:uppercase;margin:0 0 3px;color:var(--ink)}
+  .el-usp p{font-size:12.5px;color:var(--muted);margin:0}
+  @media(max-width:700px){ .el-usp .grid{grid-template-columns:1fr 1fr}
+    .el-usp .item:nth-child(2){border-right:none} .el-usp .item{border-bottom:1px solid var(--line)} }
+</style>
+<div class="el-usp">
+  <div class="grid">
+    {% for block in section.blocks %}
+      <div class="item" {{ block.shopify_attributes }}>
+        <div class="ic">{{ block.settings.icon }}</div>
+        <h4>{{ block.settings.title }}</h4>
+        <p>{{ block.settings.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ELURA · Trust-Icons",
+  "tag": "section",
+  "max_blocks": 4,
+  "blocks": [
+    { "type": "item", "name": "USP", "settings": [
+      { "type": "text", "id": "icon", "label": "Emoji/Icon", "default": "💧" },
+      { "type": "text", "id": "title", "label": "Titel", "default": "Wasserfest" },
+      { "type": "text", "id": "text", "label": "Text", "default": "Duschen, Schwimmen, Alltag" }
+    ]}
+  ],
+  "presets": [ { "name": "ELURA · Trust-Icons", "blocks": [
+    { "type": "item", "settings": { "icon": "💧", "title": "Wasserfest", "text": "Duschen, Schwimmen, Alltag" } },
+    { "type": "item", "settings": { "icon": "✨", "title": "Anlaufbeständig", "text": "Behält seinen Glanz" } },
+    { "type": "item", "settings": { "icon": "🌿", "title": "Hypoallergen", "text": "Sanft zur Haut" } },
+    { "type": "item", "settings": { "icon": "🇨🇭", "title": "Versand aus CH", "text": "Schnell & sicher in 48h" } }
+  ]}]
+}
+{% endschema %}
