@@ -1,0 +1,284 @@
+{% comment %}
+  ============================================================
+  EYLIA JEWELS – Startseiten-Sektionen für Shopify
+  ------------------------------------------------------------
+  So benutzt du diese Datei:
+  1. Shopify-Admin -> Onlineshop -> Themes -> Anpassen
+  2. Links "Abschnitt hinzufügen" -> "Individuelles Liquid" (Custom Liquid)
+  3. Den GESAMTEN Inhalt dieser Datei hier hineinkopieren -> Speichern
+  ------------------------------------------------------------
+  Header (Logo/Menü) und Footer liefert dein Theme bereits –
+  die sind hier absichtlich NICHT enthalten, damit nichts doppelt ist.
+  Alles ist unter ".eylia-home" gekapselt, damit es dein Theme
+  nicht beeinflusst.
+  ============================================================
+{% endcomment %}
+
+<style>
+.eylia-home{
+  --bg:#faf6f1; --bg-2:#f2ebe2; --ink:#211d1a; --muted:#7a7168;
+  --gold:#b08d57; --line:#e5dccf; --white:#fff; --sale:#a8443a;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-family:var(--sans); color:var(--ink); line-height:1.6;
+
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+  .serif{font-family:var(--serif)}
+  .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .sec{padding:88px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 52px}
+  .sec-head h2{font-family:var(--serif);font-size:clamp(34px,4.4vw,52px);font-weight:600;line-height:1.06;margin:12px 0 14px}
+  .sec-head p{color:var(--muted);font-size:16px}
+
+  .btn{display:inline-block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:15px 30px;border-radius:2px;transition:.22s;cursor:pointer;border:1px solid var(--ink)}
+  .btn-dark{background:var(--ink);color:#f5ece0}
+  .btn-dark:hover{background:#000}
+  .btn-ghost{background:transparent;color:var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:#f5ece0}
+
+  /* HERO */
+  .hero{position:relative;min-height:78vh;display:flex;align-items:center;overflow:hidden;background:radial-gradient(120% 120% at 80% 10%,#f7efe4 0%,#efe4d4 45%,#e8dccb 100%)}
+  .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;width:100%}
+  .hero-copy{padding:60px 0}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(46px,6.6vw,88px);line-height:1.02;margin:18px 0 20px}
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero p{font-size:17px;color:var(--muted);max-width:440px;margin-bottom:34px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-visual{position:relative;height:66vh;min-height:440px;border-radius:6px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(60,45,30,.4)}
+  .hero-visual img{width:100%;height:100%;object-fit:cover}
+  .hero-badge{position:absolute;bottom:22px;left:22px;background:rgba(250,246,241,.9);padding:12px 18px;border-radius:4px;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .hero-badge b{color:var(--gold)}
+
+  /* USP */
+  .usp{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .usp-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+  .usp-item{padding:26px 18px;text-align:center;border-right:1px solid var(--line)}
+  .usp-item:last-child{border-right:none}
+  .usp-item .ic{font-size:22px;margin-bottom:8px}
+  .usp-item h4{font-size:13.5px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:3px}
+  .usp-item p{font-size:12.5px;color:var(--muted)}
+
+  /* PRODUCT GRID */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:4px;overflow:hidden;transition:.25s;position:relative}
+  .card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -26px rgba(60,45,30,.45)}
+  .card-img{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--bg-2)}
+  .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .card:hover .card-img img{transform:scale(1.05)}
+  .tag{position:absolute;top:12px;left:12px;background:var(--sale);color:#fff;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:2px;font-weight:600}
+  .tag.neu{background:var(--ink)}
+  .card-body{padding:16px 16px 20px}
+  .card-body .type{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .card-body h3{font-size:15.5px;font-weight:500;margin:5px 0 8px;line-height:1.3}
+  .price{font-size:15px;font-weight:600}
+  .price .old{color:var(--muted);text-decoration:line-through;font-weight:400;margin-left:7px;font-size:13.5px}
+  .center-btn{text-align:center;margin-top:48px}
+
+  /* CATEGORIES */
+  .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .cat{position:relative;aspect-ratio:3/4;border-radius:5px;overflow:hidden;display:block}
+  .cat img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .cat:hover img{transform:scale(1.06)}
+  .cat::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(25,20,15,.62),rgba(25,20,15,0) 55%)}
+  .cat-label{position:absolute;left:0;right:0;bottom:26px;text-align:center;z-index:2;color:#fff}
+  .cat-label h3{font-family:var(--serif);font-size:28px;font-weight:600}
+  .cat-label span{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.9}
+
+  /* EDITORIAL */
+  .editorial{background:var(--bg-2)}
+  .ed-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:520px}
+  .ed-img{height:100%;min-height:460px;overflow:hidden}
+  .ed-img img{width:100%;height:100%;object-fit:cover}
+  .ed-copy{padding:70px}
+  .ed-copy h2{font-family:var(--serif);font-size:clamp(32px,4vw,50px);font-weight:600;line-height:1.08;margin:16px 0 18px}
+  .ed-copy p{color:var(--muted);font-size:16px;margin-bottom:28px;max-width:440px}
+
+  /* REVIEWS */
+  .reviews{background:var(--ink);color:#efe6d8}
+  .reviews .sec-head h2{color:#fff}
+  .reviews .sec-head p{color:#b7ab98}
+  .stars{color:var(--gold);letter-spacing:3px;font-size:15px}
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .rev{background:#2b2521;border:1px solid #3a322b;border-radius:6px;padding:30px 26px}
+  .rev p{font-size:15px;color:#e7ddce;margin:14px 0 18px;line-height:1.7}
+  .rev .who{display:flex;align-items:center;gap:12px}
+  .rev .av{width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;font-family:var(--serif)}
+  .rev .who b{font-size:14px;display:block}
+  .rev .who span{font-size:12px;color:#a99c88}
+  .rev-stats{display:flex;justify-content:center;gap:60px;margin-top:56px;flex-wrap:wrap;text-align:center}
+  .rev-stats .n{font-family:var(--serif);font-size:44px;color:var(--gold);line-height:1}
+  .rev-stats .l{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#b7ab98;margin-top:6px}
+
+  /* GALLERY */
+  .gal-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .gal-grid a{aspect-ratio:1/1;overflow:hidden;border-radius:3px}
+  .gal-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .gal-grid a:hover img{transform:scale(1.1)}
+
+  /* NEWSLETTER */
+  .news{background:linear-gradient(120% 120% at 20% 0%,#f2e7d6,#e9dcc7);text-align:center}
+  .news h2{font-family:var(--serif);font-size:clamp(32px,4vw,48px);font-weight:600;margin-bottom:12px}
+  .news p{color:var(--muted);max-width:480px;margin:0 auto 26px}
+  .news form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+  .news input{flex:1;min-width:220px;padding:15px 18px;border:1px solid var(--ink);border-radius:2px;background:var(--white);font-size:14px}
+
+  @media(max-width:1000px){ .grid{grid-template-columns:repeat(3,1fr)} .gal-grid{grid-template-columns:repeat(4,1fr)} }
+  @media(max-width:820px){
+    .hero-inner{grid-template-columns:1fr} .hero-visual{display:none} .hero-copy{padding:48px 0}
+    .usp-grid{grid-template-columns:1fr 1fr} .usp-item:nth-child(2){border-right:none}
+    .ed-grid{grid-template-columns:1fr} .ed-copy{padding:48px 28px}
+    .cats{grid-template-columns:1fr} .rev-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){ .grid{grid-template-columns:1fr 1fr;gap:16px} .gal-grid{grid-template-columns:repeat(3,1fr)} .sec{padding:56px 0} }
+}
+</style>
+
+<div class="eylia-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">EYLIA JEWELS · Neue Kollektion</span>
+        <h1 class="serif">Schmuck, der <em>bleibt.</em></h1>
+        <p>Zeitlose Armbänder, Halsketten und Armreife aus hochwertigem Edelstahl — wasserfest, anlaufbeständig und hypoallergen. Für jeden Tag. Für jeden Moment.</p>
+        <div class="hero-cta">
+          <a href="/collections/all" class="btn btn-dark">Kollektion entdecken</a>
+          <a href="#kategorien" class="btn btn-ghost">Kategorien ansehen</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/39676ACF-DB1F-4199-AF3C-A172C0835DDA.jpg?v=1783120756" alt="EYLIA Jewels Flower Halskette">
+        <div class="hero-badge">★★★★★ &nbsp;<b>4.9/5</b> von über 1.200 Kundinnen</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP -->
+  <div class="usp">
+    <div class="wrap usp-grid">
+      <div class="usp-item"><div class="ic">💧</div><h4>Wasserfest</h4><p>Duschen, Schwimmen, Alltag</p></div>
+      <div class="usp-item"><div class="ic">✨</div><h4>Anlaufbeständig</h4><p>Behält seinen Glanz</p></div>
+      <div class="usp-item"><div class="ic">🌿</div><h4>Hypoallergen</h4><p>Sanft zur Haut</p></div>
+      <div class="usp-item"><div class="ic">🇨🇭</div><h4>Versand aus CH</h4><p>Schnell &amp; sicher</p></div>
+    </div>
+  </div>
+
+  <!-- BESTSELLER -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Beliebt bei unseren Kundinnen</span>
+        <h2 class="serif">Unsere Bestseller</h2>
+        <p>Die Lieblingsstücke, die immer wieder ausverkauft sind — jetzt sichern.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><a href="/products/halskette-flower-gold"><div class="card-img"><span class="tag neu">Neu</span><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/39676ACF-DB1F-4199-AF3C-A172C0835DDA.jpg?v=1783120756" alt="Halskette Flower Gold"></div></a><div class="card-body"><div class="type">Halskette</div><h3>Halskette Flower — Gold</h3><div class="price">CHF 18.50</div></div></div>
+        <div class="card"><a href="/products/armband-flower-rose"><div class="card-img"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/BF9D70D2-DE44-4682-9688-69767FD072A5.jpg?v=1783120756" alt="Armband Flower Rosé"></div></a><div class="card-body"><div class="type">Armband</div><h3>Armband Flower — Rosé</h3><div class="price">CHF 15.00</div></div></div>
+        <div class="card"><a href="/products/armband-kleeblatt-diamant-weiss"><div class="card-img"><span class="tag neu">Neu</span><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/14497769-E5C5-440B-BA26-672896E01331.jpg?v=1783120832" alt="Kleeblatt Diamant Weiß"></div></a><div class="card-body"><div class="type">Armband</div><h3>Kleeblatt Diamant — Weiß</h3><div class="price">CHF 13.50</div></div></div>
+        <div class="card"><a href="/products/halskette-isleen-gold-schwarz"><div class="card-img"><span class="tag">Sale</span><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/8AE06322-F721-4D12-A59D-C3BC6E5DE390.jpg?v=1783120952" alt="Halskette Isleen"></div></a><div class="card-body"><div class="type">Halskette</div><h3>Halskette Isleen — Gold-Schwarz</h3><div class="price">CHF 10.00 <span class="old">CHF 16.00</span></div></div></div>
+        <div class="card"><a href="/products/armreif-melissa-gold"><div class="card-img"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/265EE88C-B1E3-4712-812C-132AA13F5FFE.jpg?v=1783120831" alt="Armreif Melissa Gold"></div></a><div class="card-body"><div class="type">Armreif</div><h3>Armreif Melissa — Gold</h3><div class="price">CHF 14.00</div></div></div>
+        <div class="card"><a href="/products/armband-seyana-gold"><div class="card-img"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/3910C864-5904-4DA4-910C-19D026EF0CF5.jpg?v=1783120830" alt="Armband Seyana Gold"></div></a><div class="card-body"><div class="type">Armband</div><h3>Armband Seyana — Gold</h3><div class="price">CHF 12.50</div></div></div>
+        <div class="card"><a href="/products/armband-yuna-weiss"><div class="card-img"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/8483D79A-CD0B-4E6D-8099-CA7D6C76A571.jpg?v=1783120831" alt="Armband Yuna Weiß"></div></a><div class="card-body"><div class="type">Armband</div><h3>Armband Yuna — Weiß</h3><div class="price">CHF 13.50</div></div></div>
+        <div class="card"><a href="/products/armband-nieten-silber"><div class="card-img"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/79BB61CB-04B5-46BF-92EF-5D8C14C6D9D6.jpg?v=1783120951" alt="Armband Nieten Silber"></div></a><div class="card-body"><div class="type">Armband</div><h3>Armband Nieten — Silber</h3><div class="price">CHF 14.00</div></div></div>
+      </div>
+      <div class="center-btn"><a href="/collections/all" class="btn btn-dark">Alle Produkte ansehen</a></div>
+    </div>
+  </section>
+
+  <!-- KATEGORIEN -->
+  <section class="sec" id="kategorien" style="background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Finde deinen Stil</span><h2 class="serif">Nach Kategorie shoppen</h2></div>
+      <div class="cats">
+        <a class="cat" href="/collections/armbander-1"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/2DFE4632-1775-4461-B522-C17E692919D9.jpg?v=1783120759" alt="Armbänder"><div class="cat-label"><h3 class="serif">Armbänder</h3><span>Flower · Kleeblatt · Kaia</span></div></a>
+        <a class="cat" href="/collections/halsketten"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/9EC4A7FD-6E76-48CA-AE8B-938B13251007.jpg?v=1783120756" alt="Halsketten"><div class="cat-label"><h3 class="serif">Halsketten</h3><span>Flower · Isleen · Kleeblatt</span></div></a>
+        <a class="cat" href="/collections/ringe"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/758BBBC3-7E46-43C4-B438-6B3DD1CAB323.jpg?v=1783121012" alt="Ringe"><div class="cat-label"><h3 class="serif">Ringe</h3><span>Flower · Amélia · Koh Samui</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL: FLOWER -->
+  <section class="editorial">
+    <div class="ed-grid">
+      <div class="ed-img"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/07F6E33F-F30A-42FF-80EF-4768A9FD735B.jpg?v=1783120756" alt="Flower Kollektion"></div>
+      <div class="ed-copy">
+        <span class="eyebrow">Signature Kollektion</span>
+        <h2 class="serif">Die Flower Kollektion</h2>
+        <p>Filigrane Blüten in 12 handverlesenen Farben — von zartem Rosé bis leuchtendem Türkis. Jedes Stück ein kleines Statement, das zu allem passt und dich überallhin begleitet.</p>
+        <a href="/collections/flower" class="btn btn-dark">Flower entdecken</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="sec reviews">
+    <div class="wrap">
+      <div class="sec-head"><div class="stars">★★★★★</div><h2 class="serif">Das sagen unsere Kundinnen</h2><p>Über 1.200 zufriedene Kundinnen in der ganzen Schweiz.</p></div>
+      <div class="rev-grid">
+        <div class="rev"><div class="stars">★★★★★</div><p>„Ich trage mein Flower-Armband seit Wochen — beim Duschen, beim Sport, einfach immer. Es glänzt noch wie am ersten Tag. Absolute Kaufempfehlung!“</p><div class="who"><div class="av">L</div><div><b>Lea M.</b><span>Zürich · Verifizierter Kauf</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>„Endlich Schmuck, der nicht grün wird! Die Halskette Isleen ist wunderschön verarbeitet und der Versand war blitzschnell. Ich bestelle definitiv wieder.“</p><div class="who"><div class="av">S</div><div><b>Sara B.</b><span>Bern · Verifizierter Kauf</span></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p>„Habe die Kleeblatt-Armbänder verschenkt und selbst behalten. Tolle Qualität für den Preis, hautfreundlich und richtig hübsch. Meine Freundinnen fragen alle nach.“</p><div class="who"><div class="av">N</div><div><b>Nadia K.</b><span>Luzern · Verifizierter Kauf</span></div></div></div>
+      </div>
+      <div class="rev-stats">
+        <div><div class="n">4.9★</div><div class="l">Durchschnitt</div></div>
+        <div><div class="n">1.200+</div><div class="l">Zufriedene Kundinnen</div></div>
+        <div><div class="n">48h</div><div class="l">Schneller Versand</div></div>
+        <div><div class="n">100%</div><div class="l">Hypoallergen</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALE -->
+  <section class="sec" style="background:var(--bg-2);text-align:center">
+    <div class="wrap">
+      <span class="eyebrow">Nur für kurze Zeit</span>
+      <h2 class="serif" style="font-size:clamp(30px,4vw,46px);margin:12px 0 8px">Sale — bis zu 40% reduziert</h2>
+      <p style="color:var(--muted);margin-bottom:26px">Ausgewählte Lieblingsstücke ab CHF 10. Solange der Vorrat reicht.</p>
+      <a href="/collections/sale" class="btn btn-dark">Zum Sale</a>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">@eylia.jewels</span><h2 class="serif">Getragen &amp; geliebt</h2><p>Tagge uns mit #EyliaJewels für die Chance, hier gefeatured zu werden.</p></div>
+      <div class="gal-grid">
+        <a href="#"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/BF9D70D2-DE44-4682-9688-69767FD072A5.jpg?v=1783120756" alt=""></a>
+        <a href="#"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/3910C864-5904-4DA4-910C-19D026EF0CF5.jpg?v=1783120830" alt=""></a>
+        <a href="#"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/8483D79A-CD0B-4E6D-8099-CA7D6C76A571.jpg?v=1783120831" alt=""></a>
+        <a href="#"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/265EE88C-B1E3-4712-812C-132AA13F5FFE.jpg?v=1783120831" alt=""></a>
+        <a href="#"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/6A6BDE63-C95E-4E7A-AB48-89B370DF9B51.jpg?v=1783120757" alt=""></a>
+        <a href="#"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/9F15FCC1-DBDC-4B53-AC9A-9D387778057A.jpg?v=1783120760" alt=""></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="sec news">
+    <div class="wrap">
+      <span class="eyebrow">Werde Teil der Familie</span>
+      <h2 class="serif">10% auf deine erste Bestellung</h2>
+      <p>Melde dich für unseren Newsletter an und erhalte exklusive Angebote, neue Kollektionen und deinen Willkommensrabatt.</p>
+      {% form 'customer' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" placeholder="Deine E-Mail-Adresse" required>
+        <button class="btn btn-dark" type="submit">Anmelden</button>
+      {% endform %}
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "EYLIA Startseite",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    { "name": "EYLIA Startseite" }
+  ]
+}
+{% endschema %}
