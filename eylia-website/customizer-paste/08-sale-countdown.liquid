@@ -1,30 +1,28 @@
 <style>
-.elp08{--ink:#111111;--muted:#6b6b6b;--gold:#c9a227;background:#f7f6f3;text-align:center;padding:70px 0;
+.elp08{--gold:#e3c26b;position:relative;padding:130px 24px;text-align:center;overflow:hidden;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-.elp08 .wrap{max-width:900px;margin:0 auto;padding:0 24px}
-.elp08 .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.elp08 h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:clamp(28px,3.6vw,42px);
-  font-weight:400;margin:12px 0 8px;color:var(--ink)}
-.elp08 p{color:var(--muted);margin:0 0 24px}
-.elp08 .timer{display:flex;justify-content:center;gap:12px;margin:0 0 28px}
-.elp08 .unit{background:var(--ink);color:#fff;min-width:70px;padding:12px 6px}
-.elp08 .unit .num{font-size:28px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
-.elp08 .unit .lab{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:5px}
-.elp08 .btn{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  padding:16px 32px;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none}
-.elp08 .btn:hover{background:transparent;color:var(--ink)}
-@media(max-width:500px){.elp08 .unit{min-width:58px}.elp08 .unit .num{font-size:22px}}
+.elp08 .bg{position:absolute;inset:0;z-index:0}
+.elp08 .bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.4) saturate(.9)}
+.elp08 .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.35),rgba(10,10,10,.75))}
+.elp08 .inner{position:relative;z-index:1;max-width:640px;margin:0 auto;color:#f4f2ec}
+.elp08 .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:18px}
+.elp08 h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(32px,4.6vw,58px);font-weight:400;margin:0 0 14px}
+.elp08 p{color:#d8d5cc;margin:0 0 34px;font-size:15px}
+.elp08 .timer{font-family:Georgia,serif;font-size:clamp(24px,3.4vw,38px);letter-spacing:.05em;color:#fff;margin-bottom:34px}
+.elp08 .timer span{color:var(--gold);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  display:inline-block;vertical-align:middle;margin:0 8px;font-family:-apple-system,sans-serif}
+.elp08 .btn{display:inline-block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  padding:17px 34px;border:1px solid #fff;color:#fff;text-decoration:none;transition:.25s}
+.elp08 .btn:hover{background:#fff;color:#0d0d0d}
 </style>
 <section class="elp08">
-  <div class="wrap">
-    <span class="eyebrow">Nur für kurze Zeit</span>
+  <div class="bg"><img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/74C17C41-34A9-427F-BFEC-7067B4AC04A7.jpg?v=1783343396" alt=""></div>
+  <div class="inner">
+    <div class="eyebrow">Nur für kurze Zeit</div>
     <h2>Gold-Momente</h2>
     <p>Unsere vergoldeten Lieblingsstücke — solange der Vorrat reicht.</p>
     <div class="timer" id="elp08-timer">
-      <div class="unit"><div class="num" data-d>00</div><div class="lab">Tage</div></div>
-      <div class="unit"><div class="num" data-h>00</div><div class="lab">Std</div></div>
-      <div class="unit"><div class="num" data-m>00</div><div class="lab">Min</div></div>
-      <div class="unit"><div class="num" data-s>00</div><div class="lab">Sek</div></div>
+      <span data-d>00</span>T <span></span><span data-h>00</span>Std <span></span><span data-m>00</span>Min <span></span><span data-s>00</span>Sek
     </div>
     <a href="/collections/gold-momente" class="btn">Kollektion ansehen</a>
   </div>

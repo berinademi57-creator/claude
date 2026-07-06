@@ -1,35 +1,42 @@
 <style>
-.elp05{--ink:#111111;--muted:#6b6b6b;--gold:#c9a227;--line:#e8e6e1;background:#fff;padding:90px 0;
+.elp05{--ink:#0d0d0d;--muted:#6f6c64;--gold:#a9832f;--line:#e6e3da;background:#f4f2ec;padding:100px 0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 .elp05 .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
-.elp05 .head{margin-bottom:40px;border-bottom:1px solid var(--line);padding-bottom:24px}
-.elp05 .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.elp05 h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:clamp(28px,3.6vw,42px);
-  font-weight:400;margin:10px 0 0;color:var(--ink)}
-.elp05 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.elp05 .tile{position:relative;aspect-ratio:3/4;overflow:hidden;display:block;background:#f7f6f3}
-.elp05 .tile img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.elp05 .tile:hover img{transform:scale(1.06)}
-.elp05 .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.7),rgba(10,10,10,0) 55%)}
-.elp05 .label{position:absolute;left:0;right:0;bottom:24px;text-align:center;z-index:2;color:#fff}
-.elp05 .label h3{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:24px;font-weight:400;margin:0}
-.elp05 .label span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.elp05 .head{display:flex;align-items:baseline;gap:16px;margin-bottom:44px}
+.elp05 .head .num{font-family:Georgia,serif;font-style:italic;font-size:15px;color:var(--gold)}
+.elp05 h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,3.6vw,46px);font-weight:400;
+  margin:0;color:var(--ink)}
+.elp05 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ink)}
+.elp05 .tile{position:relative;aspect-ratio:3/4;overflow:hidden;display:block;background:#000}
+.elp05 .tile img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .4s}
+.elp05 .tile:hover img{transform:scale(1.06);opacity:.55}
+.elp05 .tile .idx{position:absolute;top:22px;left:22px;color:#fff;font-size:12px;letter-spacing:.1em;opacity:.8;z-index:2}
+.elp05 .tile .cnt{position:absolute;top:22px;right:22px;color:#fff;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;z-index:2}
+.elp05 .tile .name{position:absolute;left:22px;bottom:24px;z-index:2;color:#fff}
+.elp05 .tile .name h3{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:30px;font-weight:400;margin:0}
+.elp05 .tile .arrow{position:absolute;right:22px;bottom:24px;z-index:2;color:#fff;font-size:22px;
+  transform:translateX(-8px);opacity:0;transition:.25s}
+.elp05 .tile:hover .arrow{transform:translateX(0);opacity:1}
 @media(max-width:800px){.elp05 .grid{grid-template-columns:1fr}}
 </style>
 <section class="elp05">
   <div class="wrap">
-    <div class="head"><span class="eyebrow">Nach Kategorie</span><h2>Shop the Look</h2></div>
+    <div class="head"><span class="num">(03)</span><h2>Shop nach Kategorie</h2></div>
     <div class="grid">
-      {% for handle in "armbander,halsketten,ringe" | split: "," %}
+      {% assign handles = "armbander,halsketten,ringe" | split: "," %}
+      {% for handle in handles %}
         {% assign c = collections[handle] %}
         {% if c %}
           <a class="tile" href="{{ c.url }}">
+            <span class="idx">0{{ forloop.index }}</span>
+            <span class="cnt">{{ c.products_count }} Stück</span>
             {% if c.image %}
               <img src="{{ c.image | image_url: width: 700 }}" alt="{{ c.title | escape }}">
             {% elsif c.products.first %}
               <img src="{{ c.products.first.featured_image | image_url: width: 700 }}" alt="{{ c.title | escape }}">
             {% endif %}
-            <div class="label"><h3>{{ c.title }}</h3><span>{{ c.products_count }} Produkte</span></div>
+            <span class="name"><h3>{{ c.title }}</h3></span>
+            <span class="arrow">→</span>
           </a>
         {% endif %}
       {% endfor %}

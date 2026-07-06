@@ -1,60 +1,74 @@
 <style>
-.elpp{--ink:#111111;--muted:#6b6b6b;--gold:#c9a227;--line:#e8e6e1;padding:50px 0 90px;
+.elpp{--ink:#0d0d0d;--muted:#6f6c64;--gold:#a9832f;--line:#e6e3da;padding:56px 0 100px;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink)}
 .elpp .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
-.elpp .crumb{font-size:12px;color:var(--muted);margin-bottom:26px}
+.elpp .crumb{font-size:11.5px;color:var(--muted);margin-bottom:30px;letter-spacing:.02em}
 .elpp .crumb a{color:var(--muted);text-decoration:none}
 .elpp .crumb a:hover{color:var(--ink)}
-.elpp .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px}
-.elpp .gallery .main{aspect-ratio:1/1;overflow:hidden;background:#f7f6f3;margin-bottom:10px}
+.elpp .grid{display:grid;grid-template-columns:1.15fr 1fr;gap:60px}
+.elpp .gallery .main{aspect-ratio:4/5;overflow:hidden;background:#f4f2ec;margin-bottom:12px}
 .elpp .gallery .main img{width:100%;height:100%;object-fit:cover;display:block}
 .elpp .thumbs{display:flex;gap:8px;flex-wrap:wrap}
-.elpp .thumbs img{width:72px;height:72px;object-fit:cover;cursor:pointer;border:1px solid var(--line);opacity:.7;transition:.15s}
-.elpp .thumbs img:hover,.elpp .thumbs img.active{opacity:1;border-color:var(--ink)}
-.elpp .info{padding-top:8px}
-.elpp .vendor{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.elpp h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,3vw,38px);font-weight:400;
-  margin:10px 0 14px;line-height:1.15}
-.elpp .price-row{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.elpp .price{font-size:22px;font-weight:700}
+.elpp .thumbs img{width:64px;height:64px;object-fit:cover;cursor:pointer;opacity:.5;transition:.15s;filter:grayscale(.2)}
+.elpp .thumbs img:hover,.elpp .thumbs img.active{opacity:1;filter:none;box-shadow:0 0 0 1px var(--ink)}
+.elpp .info{padding-top:6px}
+.elpp .vendor{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.elpp h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,2.8vw,38px);font-weight:400;
+  margin:12px 0 16px;line-height:1.2}
+.elpp .price-row{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+.elpp .price{font-size:21px;font-weight:600}
 .elpp .compare{font-size:15px;color:var(--muted);text-decoration:line-through}
-.elpp .stars{color:var(--gold);letter-spacing:2px;font-size:13px;margin-bottom:24px}
-.elpp .stars span{color:var(--muted);letter-spacing:0;font-size:12.5px;margin-left:6px}
-.elpp .opt{margin-bottom:18px}
-.elpp .opt label{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
-.elpp select{width:100%;padding:13px 14px;border:1px solid var(--ink);background:#fff;font-size:14px;color:var(--ink);
+.elpp .stars{color:var(--gold);letter-spacing:2px;font-size:12.5px;margin-bottom:28px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.elpp .stars span{color:var(--muted);letter-spacing:0;font-size:12px;margin-left:8px;font-style:italic;font-family:Georgia,serif}
+.elpp .opt{margin-bottom:20px}
+.elpp .opt label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--muted)}
+.elpp select{width:100%;padding:14px;border:1px solid var(--ink);background:#fff;font-size:14px;color:var(--ink);
   appearance:none;-webkit-appearance:none;border-radius:0;
-  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5" stroke="%23111" fill="none" stroke-width="1.5"/></svg>');
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5" stroke="%230d0d0d" fill="none" stroke-width="1.4"/></svg>');
   background-repeat:no-repeat;background-position:right 14px center}
-.elpp .qty-row{display:flex;gap:12px;margin:24px 0}
+.elpp .qty-row{display:flex;gap:12px;margin:26px 0 0}
 .elpp .qty{display:flex;align-items:center;border:1px solid var(--ink)}
-.elpp .qty button{width:40px;height:48px;background:none;border:none;font-size:16px;cursor:pointer}
-.elpp .qty input{width:44px;text-align:center;border:none;font-size:14px;-moz-appearance:textfield}
+.elpp .qty button{width:42px;height:50px;background:none;border:none;font-size:16px;cursor:pointer;color:var(--ink)}
+.elpp .qty input{width:42px;text-align:center;border:none;font-size:14px;-moz-appearance:textfield}
 .elpp .qty input::-webkit-outer-spin-button,.elpp .qty input::-webkit-inner-spin-button{-webkit-appearance:none}
-.elpp .add{flex:1;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  padding:0 24px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+.elpp .add{flex:1;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  padding:0 24px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:.2s}
 .elpp .add:hover{background:transparent;color:var(--ink)}
-.elpp .add[disabled]{opacity:.4;cursor:not-allowed}
-.elpp .micro{display:flex;gap:22px;flex-wrap:wrap;margin:22px 0 30px;font-size:12px;color:var(--muted)}
-.elpp .micro span{display:flex;align-items:center;gap:6px}
-.elpp .desc{font-size:14.5px;line-height:1.75;color:#333;border-top:1px solid var(--line);padding-top:24px}
+.elpp .add[disabled]{opacity:.35;cursor:not-allowed}
+.elpp .micro{display:flex;gap:0;margin:28px 0 34px;font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+.elpp .micro span{padding:0 16px;border-right:1px solid var(--line)}
+.elpp .micro span:first-child{padding-left:0}
+.elpp .micro span:last-child{border-right:none}
+.elpp .desc{font-size:14px;line-height:1.8;color:#333;border-top:1px solid var(--line);padding-top:26px}
 .elpp details{border-bottom:1px solid var(--line)}
-.elpp summary{list-style:none;cursor:pointer;padding:16px 0;font-size:14px;font-weight:600;
-  display:flex;justify-content:space-between;align-items:center}
+.elpp summary{list-style:none;cursor:pointer;padding:17px 0;font-size:13.5px;font-weight:600;
+  display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
 .elpp summary::-webkit-details-marker{display:none}
-.elpp summary::after{content:"+";font-size:20px;color:var(--gold);font-weight:400}
+.elpp summary::after{content:"+";font-size:19px;color:var(--gold);font-weight:300}
 .elpp details[open] summary::after{content:"–"}
-.elpp .ans{font-size:13.5px;color:var(--muted);line-height:1.7;padding:0 0 18px}
-.elpp .related{max-width:1240px;margin:80px auto 0;padding:0 24px}
-.elpp .related h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:24px;
-  font-weight:400;margin:0 0 24px;border-top:1px solid var(--line);padding-top:40px}
-.elpp .rel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.elpp .ans{font-size:13px;color:var(--muted);line-height:1.75;padding:0 0 20px}
+.elpp .related{max-width:1240px;margin:90px auto 0;padding:0 24px}
+.elpp .related .lead{display:flex;align-items:baseline;gap:16px;border-top:1px solid var(--line);padding-top:44px;margin-bottom:28px}
+.elpp .related .num{font-family:Georgia,serif;font-style:italic;font-size:14px;color:var(--gold)}
+.elpp .related h2{font-family:Georgia,"Times New Roman",serif;font-size:24px;font-weight:400;margin:0;color:var(--ink)}
+.elpp .rel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 .elpp .rel-grid a{text-decoration:none;color:var(--ink);display:block}
-.elpp .rel-grid .imgw{aspect-ratio:1/1;overflow:hidden;background:#f7f6f3;margin-bottom:10px}
-.elpp .rel-grid .imgw img{width:100%;height:100%;object-fit:cover}
-.elpp .rel-grid h4{font-size:13.5px;font-weight:500;margin:0 0 4px}
-.elpp .rel-grid .p{font-size:13px;font-weight:700}
-@media(max-width:820px){.elpp .grid{grid-template-columns:1fr;gap:28px}.elpp .rel-grid{grid-template-columns:1fr 1fr}}
+.elpp .rel-grid .imgw{aspect-ratio:1/1;overflow:hidden;background:#f4f2ec;margin-bottom:12px}
+.elpp .rel-grid .imgw img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.elpp .rel-grid a:hover .imgw img{transform:scale(1.05)}
+.elpp .rel-grid h4{font-size:13px;font-weight:500;margin:0 0 4px}
+.elpp .rel-grid .p{font-size:12.5px;font-weight:700}
+.elpp .sticky-bar{display:none}
+@media(max-width:820px){
+  .elpp .grid{grid-template-columns:1fr;gap:30px}
+  .elpp .rel-grid{grid-template-columns:1fr 1fr}
+  .elpp .sticky-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:#fff;
+    border-top:1px solid var(--line);padding:12px 16px;gap:12px;align-items:center;box-shadow:0 -6px 20px rgba(0,0,0,.06)}
+  .elpp .sticky-bar .p{font-size:14px;font-weight:700;white-space:nowrap}
+  .elpp .sticky-bar button{flex:1;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+    padding:13px;border:1px solid var(--ink);background:var(--ink);color:#fff}
+  .elpp{padding-bottom:120px}
+}
 </style>
 
 <section class="elpp">
@@ -84,7 +98,7 @@
             <span class="compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
           {% endif %}
         </div>
-        <div class="stars">★★★★★ <span>4.9 (128 Bewertungen)</span></div>
+        <div class="stars">★★★★★<span>4.9 · 128 Bewertungen</span></div>
 
         <form method="post" action="/cart/add" id="elpp-form">
           <input type="hidden" name="id" id="elpp-variant-id" value="{{ product.selected_or_first_available_variant.id }}">
@@ -115,9 +129,9 @@
         </form>
 
         <div class="micro">
-          <span>✋ Handgefertigt</span>
-          <span>📦 Sicher verpackt</span>
-          <span>↩ 14 Tage Rückgaberecht</span>
+          <span>Handgefertigt</span>
+          <span>Sicher verpackt</span>
+          <span>14 Tage Rückgabe</span>
         </div>
 
         <div class="desc">{{ product.description }}</div>
@@ -135,7 +149,7 @@
   </div>
 
   <div class="related">
-    <h2>Das könnte dir auch gefallen</h2>
+    <div class="lead"><span class="num">(*)</span><h2>Das könnte dir auch gefallen</h2></div>
     <div class="rel-grid">
       {% assign relColl = collections[product.type | handleize] %}
       {% assign shown = 0 %}
@@ -153,6 +167,11 @@
       {% endif %}
     </div>
   </div>
+
+  <div class="sticky-bar">
+    <span class="p" id="elpp-sticky-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+    <button type="button" onclick="document.getElementById('elpp-form').requestSubmit ? document.getElementById('elpp-form').requestSubmit() : document.getElementById('elpp-add').click()">In den Warenkorb</button>
+  </div>
 </section>
 
 <script>
@@ -160,6 +179,7 @@
   var variants = {{ product.variants | json }};
   var selects = document.querySelectorAll('.elpp-option');
   var priceEl = document.getElementById('elpp-price');
+  var stickyPriceEl = document.getElementById('elpp-sticky-price');
   var idInput = document.getElementById('elpp-variant-id');
   var addBtn = document.getElementById('elpp-add');
 
@@ -178,12 +198,14 @@
     }
     return null;
   }
+  function fmt(cents){ return (cents/100).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
   function updateUI(){
     if (!selects.length) return;
     var v = findVariant(currentSelection());
     if (!v) return;
     idInput.value = v.id;
-    priceEl.textContent = (v.price/100).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    priceEl.textContent = fmt(v.price);
+    if (stickyPriceEl) stickyPriceEl.textContent = fmt(v.price);
     if (v.available){ addBtn.disabled=false; addBtn.textContent='In den Warenkorb'; }
     else { addBtn.disabled=true; addBtn.textContent='Ausverkauft'; }
   }

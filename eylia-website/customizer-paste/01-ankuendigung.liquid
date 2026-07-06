@@ -1,7 +1,27 @@
 <style>
-.elp01{background:#111111;color:#f5f5f0;text-align:center;font-size:12px;letter-spacing:.16em;
-  text-transform:uppercase;padding:10px 16px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-.elp01 b{color:#c9a227;font-weight:700}
-@media(max-width:600px){.elp01{font-size:10.5px;letter-spacing:.08em}}
+.elp01{background:#0d0d0d;color:#f4f2ec;overflow:hidden;white-space:nowrap;position:relative;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;border-bottom:1px solid #262626}
+.elp01 .track{display:inline-flex;animation:elp01scroll 26s linear infinite}
+.elp01:hover .track{animation-play-state:paused}
+.elp01 .seg{display:inline-flex;align-items:center;padding:10px 0}
+.elp01 .seg span{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;padding:0 28px;font-weight:600}
+.elp01 .seg span em{font-style:normal;color:#c9a24a}
+.elp01 .seg i{color:#4a4a4a;font-style:normal}
+@keyframes elp01scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 </style>
-<div class="elp01">✦ Kostenloser Versand ab <b>CHF 50</b> · Handgefertigter Schmuck · Sicher verpackt ✦</div>
+<div class="elp01">
+  <div class="track">
+    <span class="seg">
+      <span>Kostenlose Lieferung ab <em>CHF 50</em></span><i>—</i>
+      <span>Handgefertigter <em>Schmuck</em></span><i>—</i>
+      <span>Sicher verpackt &amp; <em>versichert</em></span><i>—</i>
+      <span>14 Tage <em>Rückgaberecht</em></span><i>—</i>
+    </span>
+    <span class="seg" aria-hidden="true">
+      <span>Kostenlose Lieferung ab <em>CHF 50</em></span><i>—</i>
+      <span>Handgefertigter <em>Schmuck</em></span><i>—</i>
+      <span>Sicher verpackt &amp; <em>versichert</em></span><i>—</i>
+      <span>14 Tage <em>Rückgaberecht</em></span><i>—</i>
+    </span>
+  </div>
+</div>

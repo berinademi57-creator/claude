@@ -1,24 +1,25 @@
 <style>
-.elp11{--ink:#111111;--muted:#6b6b6b;--gold:#c9a227;text-align:center;padding:90px 0;background:#111111;
+.elp11{--gold:#c9a24a;text-align:center;padding:110px 24px;background:#0d0d0d;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-.elp11 .wrap{max-width:600px;margin:0 auto;padding:0 24px}
-.elp11 .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.elp11 h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:clamp(28px,3.6vw,42px);
-  font-weight:400;margin:12px 0;color:#fff}
-.elp11 p{color:#a8a39a;margin:0 auto 26px;max-width:460px}
-.elp11 form{display:flex;gap:10px;max-width:440px;margin:0 auto;flex-wrap:wrap;justify-content:center}
-.elp11 input[type=email]{flex:1;min-width:220px;padding:15px 18px;border:1px solid #444;background:#1a1a1a;color:#fff;font-size:14px}
-.elp11 input[type=email]::placeholder{color:#8f897e}
-.elp11 button{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:15px 28px;
-  border:1px solid #fff;background:#fff;color:#111;cursor:pointer}
-.elp11 button:hover{background:var(--gold);border-color:var(--gold)}
-.elp11 .ok{color:#7fd88f;font-weight:600;margin-top:14px}
-.elp11 .note{font-size:11.5px;color:#8f897e;margin-top:14px}
+.elp11 .wrap{max-width:560px;margin:0 auto}
+.elp11 .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:20px}
+.elp11 h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,4.2vw,52px);font-weight:400;
+  line-height:1.1;margin:0 0 18px;color:#fff}
+.elp11 h2 em{font-style:italic;color:var(--gold)}
+.elp11 p{color:#a8a49a;margin:0 auto 34px;max-width:420px;font-size:14.5px}
+.elp11 form{display:flex;gap:0;max-width:420px;margin:0 auto;border-bottom:1px solid #4a4a4a;padding-bottom:12px}
+.elp11 input[type=email]{flex:1;background:none;border:none;color:#fff;font-size:15px;padding:8px 0;outline:none}
+.elp11 input[type=email]::placeholder{color:#6f6c64}
+.elp11 button{background:none;border:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--gold);cursor:pointer;white-space:nowrap;padding:8px 0 8px 16px}
+.elp11 button:hover{color:#fff}
+.elp11 .ok{color:#8fd39a;font-weight:600;margin-top:16px;font-size:14px}
+.elp11 .note{font-size:11px;color:#6f6c64;margin-top:18px;letter-spacing:.02em}
 </style>
 <section class="elp11">
   <div class="wrap">
-    <span class="eyebrow">Werde Teil der Familie</span>
-    <h2>10% auf deine erste Bestellung</h2>
+    <div class="eyebrow">Werde Teil der Familie</div>
+    <h2>10% auf deine <em>erste Bestellung</em></h2>
     <p>Melde dich für unseren Newsletter an und erhalte exklusive Angebote, neue Kollektionen und deinen Willkommensrabatt.</p>
     {% form 'customer' %}
       {% if form.posted_successfully? %}
@@ -26,7 +27,7 @@
       {% else %}
         <input type="hidden" name="contact[tags]" value="newsletter">
         <input type="email" name="contact[email]" placeholder="Deine E-Mail-Adresse" required>
-        <button type="submit">Anmelden</button>
+        <button type="submit">Anmelden →</button>
       {% endif %}
     {% endform %}
     <p class="note">Kein Spam. Abmeldung jederzeit möglich.</p>

@@ -1,31 +1,37 @@
 <style>
-.elp09{--gold:#c9a227;--muted:#6b6b6b;--ink:#111111;padding:80px 0;
+.elp09{--gold:#a9832f;--muted:#6f6c64;--ink:#0d0d0d;padding:90px 0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 .elp09 .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
-.elp09 .head{text-align:center;max-width:640px;margin:0 auto 36px}
-.elp09 .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.elp09 h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:clamp(26px,3.4vw,40px);
-  font-weight:400;margin:12px 0 14px;color:var(--ink)}
-.elp09 .head p{color:var(--muted);margin:0}
-.elp09 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-.elp09 .grid a{aspect-ratio:1/1;overflow:hidden;display:block;background:#f7f6f3}
-.elp09 .grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.elp09 .grid a:hover img{transform:scale(1.08)}
+.elp09 .head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:32px}
+.elp09 .lead{display:flex;align-items:baseline;gap:16px}
+.elp09 .lead .num{font-family:Georgia,serif;font-style:italic;font-size:15px;color:var(--gold)}
+.elp09 h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(26px,3vw,38px);font-weight:400;margin:0;color:var(--ink)}
+.elp09 .head a{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink);
+  border-bottom:1px solid var(--ink);padding-bottom:2px;text-decoration:none}
+.elp09 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.elp09 .grid a{position:relative;aspect-ratio:1/1;overflow:hidden;display:block;background:#f4f2ec}
+.elp09 .grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .3s}
+.elp09 .grid a:hover img{transform:scale(1.08);filter:brightness(.7)}
+.elp09 .grid .view{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:.25s}
+.elp09 .grid a:hover .view{opacity:1}
 @media(max-width:1000px){.elp09 .grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:560px){.elp09 .grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 <section class="elp09">
   <div class="wrap">
     <div class="head">
-      <span class="eyebrow">@elura</span>
-      <h2>Getragen &amp; geliebt</h2>
-      <p>Tagge uns mit #elura für die Chance, hier gefeatured zu werden.</p>
+      <div class="lead"><span class="num">(05)</span><h2>Getragen &amp; geliebt</h2></div>
+      <a href="https://instagram.com">@elura folgen</a>
     </div>
     <div class="grid">
       {% assign c = collections['gold-momente'] %}
       {% if c %}
         {% for product in c.products limit: 6 %}
-          <a href="{{ product.url }}"><img src="{{ product.featured_image | image_url: width: 500 }}" alt="{{ product.title | escape }}" loading="lazy"></a>
+          <a href="{{ product.url }}">
+            <img src="{{ product.featured_image | image_url: width: 500 }}" alt="{{ product.title | escape }}" loading="lazy">
+            <span class="view">Ansehen</span>
+          </a>
         {% endfor %}
       {% endif %}
     </div>

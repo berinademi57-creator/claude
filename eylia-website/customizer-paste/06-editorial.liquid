@@ -1,18 +1,21 @@
 <style>
-.elp06{--ink:#111111;--muted:#6b6b6b;--gold:#c9a227;background:#f7f6f3;
+.elp06{--ink:#0d0d0d;--muted:#6f6c64;--gold:#a9832f;background:#fff;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-.elp06 .grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:520px}
-.elp06 .imgw{height:100%;min-height:460px;overflow:hidden}
+.elp06 .grid{display:grid;grid-template-columns:1fr 1.05fr;align-items:stretch;min-height:560px}
+.elp06 .imgw{position:relative;overflow:hidden;background:#f4f2ec}
 .elp06 .imgw img{width:100%;height:100%;object-fit:cover;display:block}
-.elp06 .copy{padding:70px}
-.elp06 .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
-.elp06 h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:clamp(30px,4vw,46px);
-  font-weight:400;line-height:1.1;margin:16px 0 18px;color:var(--ink)}
-.elp06 p{color:var(--muted);font-size:16px;margin:0 0 28px;max-width:440px;line-height:1.6}
-.elp06 .btn{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
-  padding:16px 30px;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none}
-.elp06 .btn:hover{background:transparent;color:var(--ink)}
-@media(max-width:820px){.elp06 .grid{grid-template-columns:1fr}.elp06 .copy{padding:48px 28px}}
+.elp06 .copy{padding:80px 70px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.elp06 .quote-mark{font-family:Georgia,serif;font-size:150px;line-height:1;color:var(--gold);opacity:.18;
+  position:absolute;top:10px;left:36px;pointer-events:none}
+.elp06 .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:16px}
+.elp06 h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,3.4vw,42px);
+  font-weight:400;line-height:1.28;margin:0 0 26px;color:var(--ink);position:relative;z-index:1;max-width:480px}
+.elp06 h2 em{font-style:italic;color:var(--gold)}
+.elp06 p.sub{color:var(--muted);font-size:14.5px;margin:0 0 30px;max-width:400px;line-height:1.7}
+.elp06 .btn{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:4px;width:fit-content}
+.elp06 .btn:hover{color:var(--gold);border-color:var(--gold)}
+@media(max-width:860px){.elp06 .grid{grid-template-columns:1fr}.elp06 .copy{padding:56px 30px}.elp06 .imgw{aspect-ratio:4/3}}
 </style>
 {% assign c = collections['glucksbringer'] %}
 <section class="elp06">
@@ -23,10 +26,11 @@
       {% endif %}
     </div>
     <div class="copy">
+      <span class="quote-mark">"</span>
       <span class="eyebrow">Signature Kollektion</span>
-      <h2>Glücksbringer</h2>
-      <p>Kleeblatt, Evil Eye &amp; Co. — kleine Symbole mit großer Bedeutung. Kombiniert mit Gold- und Kristall-Details für ein Statement, das mehr erzählt als nur Schmuck.</p>
-      {% if c %}<a href="{{ c.url }}" class="btn">Kollektion entdecken</a>{% endif %}
+      <h2>Kleine Symbole, <em>große Bedeutung</em> — für alles, was du still bei dir tragen willst.</h2>
+      <p class="sub">Kleeblatt, Evil Eye &amp; Co. treffen auf Gold- und Kristall-Details. Kein lauter Schmuck — sondern ein persönliches Statement.</p>
+      {% if c %}<a href="{{ c.url }}" class="btn">Kollektion entdecken →</a>{% endif %}
     </div>
   </div>
 </section>

@@ -1,20 +1,21 @@
 <style>
-.elp03{--ink:#111111;--muted:#6b6b6b;--line:#e8e6e1;background:#f7f6f3;border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-.elp03 .grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
-.elp03 .item{padding:28px 18px;text-align:center;border-right:1px solid var(--line)}
-.elp03 .item:last-child{border-right:none}
-.elp03 .ic{font-size:22px;margin-bottom:8px}
-.elp03 h4{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 3px;color:var(--ink);font-weight:700}
-.elp03 p{font-size:12px;color:var(--muted);margin:0}
-@media(max-width:700px){.elp03 .grid{grid-template-columns:1fr 1fr}.elp03 .item:nth-child(2){border-right:none}
-  .elp03 .item{border-bottom:1px solid var(--line)}}
+.elp03{--ink:#0d0d0d;--muted:#6f6c64;--gold:#a9832f;--line:#e6e3da;background:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.elp03 .wrap{max-width:1240px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr)}
+.elp03 .item{padding:26px 26px;border-right:1px solid var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.elp03 .item:first-child{border-left:1px solid var(--line)}
+.elp03 .num{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:13px;color:var(--gold);margin-bottom:8px;display:block}
+.elp03 h4{font-size:13px;letter-spacing:.03em;margin:0 0 3px;color:var(--ink);font-weight:600}
+.elp03 p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+@media(max-width:800px){.elp03 .wrap{grid-template-columns:1fr 1fr}
+  .elp03 .item:nth-child(odd){border-left:1px solid var(--line)}}
+@media(max-width:460px){.elp03 .wrap{grid-template-columns:1fr}}
 </style>
 <div class="elp03">
-  <div class="grid">
-    <div class="item"><div class="ic">✋</div><h4>Handgefertigt</h4><p>Mit Liebe zum Detail</p></div>
-    <div class="item"><div class="ic">📏</div><h4>Verstellbar</h4><p>Passt sich flexibel an</p></div>
-    <div class="item"><div class="ic">✨</div><h4>Gold &amp; Kristall</h4><p>Zeitlose Symbole</p></div>
-    <div class="item"><div class="ic">📦</div><h4>Sicher verpackt</h4><p>Mit Sendungsverfolgung</p></div>
+  <div class="wrap">
+    <div class="item"><span class="num">01</span><h4>Handgefertigt</h4><p>Jedes Stück mit Sorgfalt gearbeitet</p></div>
+    <div class="item"><span class="num">02</span><h4>Verstellbar</h4><p>Passt sich flexibel an</p></div>
+    <div class="item"><span class="num">03</span><h4>Gold &amp; Kristall</h4><p>Zeitlose Materialien, klare Symbole</p></div>
+    <div class="item"><span class="num">04</span><h4>Sicher verpackt</h4><p>Mit Sendungsverfolgung</p></div>
   </div>
 </div>

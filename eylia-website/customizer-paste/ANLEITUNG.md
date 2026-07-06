@@ -28,6 +28,11 @@ Kein Code-Editor nötig! So geht's:
 
 Nur die Sections 01, 02, 03, 07, 08, 10, 11 haben feste Texte (Ankündigung, Hero, Trust-Icons, Reviews, Gold-Momente-Countdown, FAQ, Newsletter) — die kannst du direkt im eingefügten Text anpassen.
 
+## Design-System (V3 — redaktionell statt generisch)
+- Schwarz `#0d0d0d` / Papier `#f4f2ec` / Gold `#a9832f`–`#c9a24a`, Serifen-Überschriften (Georgia) + klare Sans für Fließtext
+- Keine Emoji-Icons mehr — stattdessen nummerierte Abschnitte „(01)", „(02)" … und feine Trennlinien
+- Laufschrift-Banner statt statischer Ankündigung, asymmetrisches Bestseller-Raster mit Hover-Quick-Add, großes Zitat bei den Kundenstimmen, Vollbild-Hintergrund bei „Gold-Momente"
+
 ## Wichtig
 - Keine Lieferzeit-Angaben mehr im Text (wie gewünscht).
 - Header & Footer liefert dein Theme — nicht doppelt einbauen.
