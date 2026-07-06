@@ -1,128 +1,65 @@
 <style>
-.elp04{--ink:#211d1a;--muted:#7a7168;--gold:#b08d57;--line:#e5dccf;--sale:#a8443a;padding:88px 0;
+.elp04{--ink:#111111;--muted:#6b6b6b;--gold:#c9a227;--line:#e8e6e1;padding:90px 0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 .elp04 .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
-.elp04 .head{text-align:center;max-width:640px;margin:0 auto 52px}
-.elp04 .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
-.elp04 h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(34px,4.4vw,52px);font-weight:600;margin:12px 0 14px;color:var(--ink)}
-.elp04 .head p{color:var(--muted);font-size:16px;margin:0}
-.elp04 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
-.elp04 .card{background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden;transition:.25s;position:relative}
-.elp04 .card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -26px rgba(60,45,30,.45)}
-.elp04 .imgw{position:relative;aspect-ratio:1/1;overflow:hidden;background:#f2ebe2;display:block}
+.elp04 .head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:40px;
+  border-bottom:1px solid var(--line);padding-bottom:24px}
+.elp04 .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.elp04 h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:clamp(28px,3.6vw,42px);
+  font-weight:400;margin:10px 0 0;color:var(--ink);letter-spacing:.01em}
+.elp04 .head a{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink);
+  border-bottom:1px solid var(--ink);padding-bottom:2px;white-space:nowrap;text-decoration:none}
+.elp04 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.elp04 .card{position:relative}
+.elp04 .imgw{position:relative;aspect-ratio:1/1;overflow:hidden;background:#f7f6f3;display:block}
 .elp04 .imgw img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.elp04 .card:hover .imgw img{transform:scale(1.05)}
-.elp04 .tag{position:absolute;top:12px;left:12px;background:var(--ink);color:#fff;font-size:10.5px;
-  letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:2px;font-weight:600}
-.elp04 .body{padding:16px}
-.elp04 .type{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
-.elp04 .body h3{font-size:15px;font-weight:500;margin:5px 0 8px;line-height:1.3;color:var(--ink)}
-.elp04 .price{font-size:15px;font-weight:600;color:var(--ink)}
-.elp04 .add{margin-top:13px;width:100%;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  font-weight:600;padding:11px;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:2px;cursor:pointer;transition:.2s}
-.elp04 .add:hover{background:var(--ink);color:#f5ece0}
-.elp04 .more{text-align:center;margin-top:48px}
+.elp04 .card:hover .imgw img{transform:scale(1.04)}
+.elp04 .tag{position:absolute;top:12px;left:12px;background:var(--ink);color:#fff;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;font-weight:700}
+.elp04 .body{padding:14px 2px 0}
+.elp04 .type{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.elp04 .body h3{font-size:14.5px;font-weight:500;margin:5px 0 8px;line-height:1.3;color:var(--ink)}
+.elp04 .price{font-size:14px;font-weight:700;color:var(--ink)}
+.elp04 .add{margin-top:11px;width:100%;text-align:center;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;padding:11px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:.2s}
+.elp04 .add:hover{background:var(--ink);color:#fff}
+.elp04 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
 @media(max-width:1000px){.elp04 .grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:560px){.elp04 .grid{grid-template-columns:1fr 1fr;gap:16px}.elp04{padding:60px 0}}
+@media(max-width:560px){.elp04 .grid{grid-template-columns:1fr 1fr;gap:14px}.elp04{padding:56px 0}
+  .elp04 .head{flex-direction:column;align-items:flex-start;gap:10px}}
 </style>
 <section class="elp04">
   <div class="wrap">
     <div class="head">
-      <span class="eyebrow">Beliebt bei unseren Kundinnen</span>
-      <h2>Unsere Bestseller</h2>
-      <p>Die Lieblingsstücke, die immer wieder ausverkauft sind — jetzt sichern.</p>
+      <div><span class="eyebrow">Meistverkauft</span><h2>Bestseller</h2></div>
+      <a href="/collections/bestseller">Alle ansehen →</a>
     </div>
     <div class="grid">
-
-      <div class="card">
-        <a class="imgw" href="/products/armband-protect-schutzauge-mit-goldperlen"><span class="tag">Neu</span>
-          <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Buntes-Evil-Eye-Perlen-armband-mit.jpg?v=1783285370" alt="Armband Protect – Schutzauge mit Goldperlen"></a>
-        <div class="body">
-          <div class="type">Armband</div><h3>Armband Protect — Schutzauge mit Goldperlen</h3>
-          <div class="price">CHF 14.90</div>
-          <form method="post" action="/cart/add"><input type="hidden" name="id" value="58208027345244">
-            <button type="submit" class="add">In den Warenkorb</button></form>
-        </div>
-      </div>
-
-      <div class="card">
-        <a class="imgw" href="/products/halskette-gold-pearl-kristall-choker">
-          <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Kristall-kette-Choker-Halskette-Gold-Perle.png?v=1783285403" alt="Halskette Gold Pearl – Kristall-Choker"></a>
-        <div class="body">
-          <div class="type">Halskette</div><h3>Halskette Gold Pearl — Kristall-Choker</h3>
-          <div class="price">CHF 17.90</div>
-          <form method="post" action="/cart/add"><input type="hidden" name="id" value="58208036323676">
-            <button type="submit" class="add">In den Warenkorb</button></form>
-        </div>
-      </div>
-
-      <div class="card">
-        <a class="imgw" href="/products/ohrringe-krista-geflochtene-kristallperlen"><span class="tag">Neu</span>
-          <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Geflochtene-Kristall-Perlen-Ohrringe-Boho-Samen.jpg?v=1783285425" alt="Ohrringe Krista – geflochtene Kristallperlen"></a>
-        <div class="body">
-          <div class="type">Ohrringe</div><h3>Ohrringe Krista — geflochtene Kristallperlen</h3>
-          <div class="price">CHF 13.90</div>
-          <form method="post" action="/cart/add"><input type="hidden" name="id" value="58208040517980">
-            <button type="submit" class="add">In den Warenkorb</button></form>
-        </div>
-      </div>
-
-      <div class="card">
-        <a class="imgw" href="/products/armband-set-golden-hour-mehrlagig-elastisch">
-          <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Damen-Handgefertigtes-Gold-Elastisches-Armband-Mehrschichtiges.png?v=1783285115" alt="Armband-Set Golden Hour"></a>
-        <div class="body">
-          <div class="type">Armband-Set</div><h3>Armband-Set Golden Hour — mehrlagig</h3>
-          <div class="price">CHF 24.90</div>
-          <form method="post" action="/cart/add"><input type="hidden" name="id" value="58207990251868">
-            <button type="submit" class="add">In den Warenkorb</button></form>
-        </div>
-      </div>
-
-      <div class="card">
-        <a class="imgw" href="/products/halskette-fraise-erdbeer-anhanger">
-          <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Transparente-Wasser-tropfen-Erdbeer-Halskette-Anh.jpg?v=1783285417" alt="Halskette Fraise – Erdbeer-Anhänger"></a>
-        <div class="body">
-          <div class="type">Halskette</div><h3>Halskette Fraise — Erdbeer-Anhänger</h3>
-          <div class="price">CHF 17.90</div>
-          <form method="post" action="/cart/add"><input type="hidden" name="id" value="58208039600476">
-            <button type="submit" class="add">In den Warenkorb</button></form>
-        </div>
-      </div>
-
-      <div class="card">
-        <a class="imgw" href="/products/armband-chakra-amethyst-amp-lavastein">
-          <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Gro-handel-8mm-Amethyst-Natural-Lava.jpg?v=1783285278" alt="Armband Chakra – Amethyst &amp; Lavastein"></a>
-        <div class="body">
-          <div class="type">Armband</div><h3>Armband Chakra — Amethyst &amp; Lavastein</h3>
-          <div class="price">CHF 14.90</div>
-          <form method="post" action="/cart/add"><input type="hidden" name="id" value="58208017219932">
-            <button type="submit" class="add">In den Warenkorb</button></form>
-        </div>
-      </div>
-
-      <div class="card">
-        <a class="imgw" href="/products/fusskettchen-silk-seidenband">
-          <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-4mm-Gurtband-Fu-kettchen-Bohemien-Schmuck.jpg?v=1783285238" alt="Fußkettchen Silk – Seidenband"></a>
-        <div class="body">
-          <div class="type">Fußkettchen</div><h3>Fußkettchen Silk — Seidenband</h3>
-          <div class="price">CHF 12.90</div>
-          <form method="post" action="/cart/add"><input type="hidden" name="id" value="58208010797404">
-            <button type="submit" class="add">In den Warenkorb</button></form>
-        </div>
-      </div>
-
-      <div class="card">
-        <a class="imgw" href="/products/halskette-noir-schwarzer-kristall-18k-vergoldet">
-          <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-2024-Neujahr-Hoffnung-Schwarz-Kristall-18K.jpg?v=1783285380" alt="Halskette Noir – schwarzer Kristall, 18K vergoldet"></a>
-        <div class="body">
-          <div class="type">Halskette</div><h3>Halskette Noir — 18K vergoldet</h3>
-          <div class="price">CHF 17.90</div>
-          <form method="post" action="/cart/add"><input type="hidden" name="id" value="58208029835612">
-            <button type="submit" class="add">In den Warenkorb</button></form>
-        </div>
-      </div>
-
+      {% assign coll = collections['bestseller'] %}
+      {% if coll and coll.products.size > 0 %}
+        {% for product in coll.products limit: 8 %}
+          {% assign v = product.selected_or_first_available_variant %}
+          <div class="card">
+            <a class="imgw" href="{{ product.url }}">
+              {% if forloop.index <= 2 %}<span class="tag">Bestseller</span>{% endif %}
+              <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy">
+            </a>
+            <div class="body">
+              <div class="type">{{ product.type }}</div>
+              <h3><a href="{{ product.url }}" style="color:inherit;text-decoration:none">{{ product.title }}</a></h3>
+              <div class="price">{{ product.price | money }}</div>
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ v.id }}">
+                <button type="submit" class="add" {% unless v.available %}disabled{% endunless %}>
+                  {% if v.available %}In den Warenkorb{% else %}Ausverkauft{% endif %}
+                </button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="empty">Sobald Produkte mit dem Tag „Bestseller" markiert sind, erscheinen sie hier automatisch.</p>
+      {% endif %}
     </div>
-    <div class="more"><a href="/collections/all" style="display:inline-block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:15px 30px;border-radius:2px;border:1px solid #211d1a;background:#211d1a;color:#f5ece0;text-decoration:none">Alle Produkte ansehen</a></div>
   </div>
 </section>

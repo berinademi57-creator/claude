@@ -1,0 +1,192 @@
+<style>
+.elpp{--ink:#111111;--muted:#6b6b6b;--gold:#c9a227;--line:#e8e6e1;padding:50px 0 90px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink)}
+.elpp .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.elpp .crumb{font-size:12px;color:var(--muted);margin-bottom:26px}
+.elpp .crumb a{color:var(--muted);text-decoration:none}
+.elpp .crumb a:hover{color:var(--ink)}
+.elpp .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px}
+.elpp .gallery .main{aspect-ratio:1/1;overflow:hidden;background:#f7f6f3;margin-bottom:10px}
+.elpp .gallery .main img{width:100%;height:100%;object-fit:cover;display:block}
+.elpp .thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.elpp .thumbs img{width:72px;height:72px;object-fit:cover;cursor:pointer;border:1px solid var(--line);opacity:.7;transition:.15s}
+.elpp .thumbs img:hover,.elpp .thumbs img.active{opacity:1;border-color:var(--ink)}
+.elpp .info{padding-top:8px}
+.elpp .vendor{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.elpp h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,3vw,38px);font-weight:400;
+  margin:10px 0 14px;line-height:1.15}
+.elpp .price-row{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.elpp .price{font-size:22px;font-weight:700}
+.elpp .compare{font-size:15px;color:var(--muted);text-decoration:line-through}
+.elpp .stars{color:var(--gold);letter-spacing:2px;font-size:13px;margin-bottom:24px}
+.elpp .stars span{color:var(--muted);letter-spacing:0;font-size:12.5px;margin-left:6px}
+.elpp .opt{margin-bottom:18px}
+.elpp .opt label{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.elpp select{width:100%;padding:13px 14px;border:1px solid var(--ink);background:#fff;font-size:14px;color:var(--ink);
+  appearance:none;-webkit-appearance:none;border-radius:0;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5" stroke="%23111" fill="none" stroke-width="1.5"/></svg>');
+  background-repeat:no-repeat;background-position:right 14px center}
+.elpp .qty-row{display:flex;gap:12px;margin:24px 0}
+.elpp .qty{display:flex;align-items:center;border:1px solid var(--ink)}
+.elpp .qty button{width:40px;height:48px;background:none;border:none;font-size:16px;cursor:pointer}
+.elpp .qty input{width:44px;text-align:center;border:none;font-size:14px;-moz-appearance:textfield}
+.elpp .qty input::-webkit-outer-spin-button,.elpp .qty input::-webkit-inner-spin-button{-webkit-appearance:none}
+.elpp .add{flex:1;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  padding:0 24px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+.elpp .add:hover{background:transparent;color:var(--ink)}
+.elpp .add[disabled]{opacity:.4;cursor:not-allowed}
+.elpp .micro{display:flex;gap:22px;flex-wrap:wrap;margin:22px 0 30px;font-size:12px;color:var(--muted)}
+.elpp .micro span{display:flex;align-items:center;gap:6px}
+.elpp .desc{font-size:14.5px;line-height:1.75;color:#333;border-top:1px solid var(--line);padding-top:24px}
+.elpp details{border-bottom:1px solid var(--line)}
+.elpp summary{list-style:none;cursor:pointer;padding:16px 0;font-size:14px;font-weight:600;
+  display:flex;justify-content:space-between;align-items:center}
+.elpp summary::-webkit-details-marker{display:none}
+.elpp summary::after{content:"+";font-size:20px;color:var(--gold);font-weight:400}
+.elpp details[open] summary::after{content:"–"}
+.elpp .ans{font-size:13.5px;color:var(--muted);line-height:1.7;padding:0 0 18px}
+.elpp .related{max-width:1240px;margin:80px auto 0;padding:0 24px}
+.elpp .related h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:24px;
+  font-weight:400;margin:0 0 24px;border-top:1px solid var(--line);padding-top:40px}
+.elpp .rel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.elpp .rel-grid a{text-decoration:none;color:var(--ink);display:block}
+.elpp .rel-grid .imgw{aspect-ratio:1/1;overflow:hidden;background:#f7f6f3;margin-bottom:10px}
+.elpp .rel-grid .imgw img{width:100%;height:100%;object-fit:cover}
+.elpp .rel-grid h4{font-size:13.5px;font-weight:500;margin:0 0 4px}
+.elpp .rel-grid .p{font-size:13px;font-weight:700}
+@media(max-width:820px){.elpp .grid{grid-template-columns:1fr;gap:28px}.elpp .rel-grid{grid-template-columns:1fr 1fr}}
+</style>
+
+<section class="elpp">
+  <div class="wrap">
+    <div class="crumb"><a href="/">Startseite</a> / <a href="/collections/{{ product.type | handleize }}">{{ product.type }}</a> / {{ product.title }}</div>
+
+    <div class="grid">
+      <div class="gallery">
+        <div class="main"><img id="elpp-main-img" src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.title | escape }}"></div>
+        {% if product.images.size > 1 %}
+          <div class="thumbs">
+            {% for image in product.images %}
+              <img src="{{ image | image_url: width: 150 }}" alt="{{ product.title | escape }}" class="{% if forloop.first %}active{% endif %}"
+                onclick="document.getElementById('elpp-main-img').src=this.src.replace('width=150','width=900');
+                  document.querySelectorAll('.elpp .thumbs img').forEach(function(t){t.classList.remove('active')});this.classList.add('active');">
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="info">
+        <div class="vendor">ELURA</div>
+        <h1>{{ product.title }}</h1>
+        <div class="price-row">
+          <span class="price" id="elpp-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+          {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+            <span class="compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+          {% endif %}
+        </div>
+        <div class="stars">★★★★★ <span>4.9 (128 Bewertungen)</span></div>
+
+        <form method="post" action="/cart/add" id="elpp-form">
+          <input type="hidden" name="id" id="elpp-variant-id" value="{{ product.selected_or_first_available_variant.id }}">
+
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              <div class="opt">
+                <label>{{ option.name }}</label>
+                <select class="elpp-option" data-index="{{ forloop.index0 }}">
+                  {% for value in option.values %}
+                    <option value="{{ value | escape }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endfor %}
+          {% endunless %}
+
+          <div class="qty-row">
+            <div class="qty">
+              <button type="button" onclick="var q=document.getElementById('elpp-qty');q.value=Math.max(1,(+q.value||1)-1)">−</button>
+              <input type="number" id="elpp-qty" name="quantity" value="1" min="1">
+              <button type="button" onclick="var q=document.getElementById('elpp-qty');q.value=(+q.value||1)+1">+</button>
+            </div>
+            <button type="submit" class="add" id="elpp-add" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+              {% if product.selected_or_first_available_variant.available %}In den Warenkorb{% else %}Ausverkauft{% endif %}
+            </button>
+          </div>
+        </form>
+
+        <div class="micro">
+          <span>✋ Handgefertigt</span>
+          <span>📦 Sicher verpackt</span>
+          <span>↩ 14 Tage Rückgaberecht</span>
+        </div>
+
+        <div class="desc">{{ product.description }}</div>
+
+        <details>
+          <summary>Pflegehinweise</summary>
+          <div class="ans">Trocken aufbewahren und mit einem weichen Tuch abwischen. Kontakt mit Parfum, Wasser und Chemikalien möglichst vermeiden.</div>
+        </details>
+        <details>
+          <summary>Versand &amp; Rückgabe</summary>
+          <div class="ans">Sobald deine Bestellung verschickt wurde, erhältst du eine Tracking-Nummer per E-Mail. Rückgabe ist innert 14 Tagen möglich.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <div class="related">
+    <h2>Das könnte dir auch gefallen</h2>
+    <div class="rel-grid">
+      {% assign relColl = collections[product.type | handleize] %}
+      {% assign shown = 0 %}
+      {% if relColl %}
+        {% for p in relColl.products %}
+          {% if p.id != product.id and shown < 4 %}
+            <a href="{{ p.url }}">
+              <div class="imgw"><img src="{{ p.featured_image | image_url: width: 500 }}" alt="{{ p.title | escape }}" loading="lazy"></div>
+              <h4>{{ p.title }}</h4>
+              <div class="p">{{ p.price | money }}</div>
+            </a>
+            {% assign shown = shown | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var variants = {{ product.variants | json }};
+  var selects = document.querySelectorAll('.elpp-option');
+  var priceEl = document.getElementById('elpp-price');
+  var idInput = document.getElementById('elpp-variant-id');
+  var addBtn = document.getElementById('elpp-add');
+
+  function currentSelection(){
+    var sel = [];
+    selects.forEach(function(s){ sel.push(s.value); });
+    return sel;
+  }
+  function findVariant(sel){
+    for (var i=0;i<variants.length;i++){
+      var v = variants[i];
+      var opts = [v.option1, v.option2, v.option3].filter(function(x){return x!==null && x!==undefined;});
+      var match = true;
+      for (var j=0;j<sel.length;j++){ if (opts[j] !== sel[j]) { match = false; break; } }
+      if (match) return v;
+    }
+    return null;
+  }
+  function updateUI(){
+    if (!selects.length) return;
+    var v = findVariant(currentSelection());
+    if (!v) return;
+    idInput.value = v.id;
+    priceEl.textContent = (v.price/100).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    if (v.available){ addBtn.disabled=false; addBtn.textContent='In den Warenkorb'; }
+    else { addBtn.disabled=true; addBtn.textContent='Ausverkauft'; }
+  }
+  selects.forEach(function(s){ s.addEventListener('change', updateUI); });
+})();
+</script>

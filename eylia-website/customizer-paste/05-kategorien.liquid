@@ -1,37 +1,38 @@
 <style>
-.elp05{--ink:#211d1a;--muted:#7a7168;--gold:#b08d57;--line:#e5dccf;background:#fff;padding:88px 0;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+.elp05{--ink:#111111;--muted:#6b6b6b;--gold:#c9a227;--line:#e8e6e1;background:#fff;padding:90px 0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 .elp05 .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
-.elp05 .head{text-align:center;margin:0 auto 52px}
-.elp05 .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
-.elp05 h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(34px,4.4vw,52px);font-weight:600;margin:12px 0 0;color:var(--ink)}
-.elp05 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.elp05 .tile{position:relative;aspect-ratio:3/4;border-radius:5px;overflow:hidden;display:block}
+.elp05 .head{margin-bottom:40px;border-bottom:1px solid var(--line);padding-bottom:24px}
+.elp05 .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.elp05 h2{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:clamp(28px,3.6vw,42px);
+  font-weight:400;margin:10px 0 0;color:var(--ink)}
+.elp05 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.elp05 .tile{position:relative;aspect-ratio:3/4;overflow:hidden;display:block;background:#f7f6f3}
 .elp05 .tile img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .elp05 .tile:hover img{transform:scale(1.06)}
-.elp05 .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(25,20,15,.62),rgba(25,20,15,0) 55%)}
-.elp05 .label{position:absolute;left:0;right:0;bottom:26px;text-align:center;z-index:2;color:#fff}
-.elp05 .label h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:28px;font-weight:600;margin:0}
-.elp05 .label span{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.9}
+.elp05 .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.7),rgba(10,10,10,0) 55%)}
+.elp05 .label{position:absolute;left:0;right:0;bottom:24px;text-align:center;z-index:2;color:#fff}
+.elp05 .label h3{font-family:Georgia,"Times New Roman",serif;text-transform:uppercase;font-size:24px;font-weight:400;margin:0}
+.elp05 .label span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
 @media(max-width:800px){.elp05 .grid{grid-template-columns:1fr}}
 </style>
 <section class="elp05">
   <div class="wrap">
-    <div class="head"><span class="eyebrow">Finde deinen Stil</span><h2>Nach Kategorie shoppen</h2></div>
+    <div class="head"><span class="eyebrow">Nach Kategorie</span><h2>Shop the Look</h2></div>
     <div class="grid">
-      <a class="tile" href="/collections/armbander">
-        <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Buntes-Evil-Eye-Perlen-armband-mit.jpg?v=1783285370" alt="Armbänder">
-        <div class="label"><h3>Armbänder</h3><span>Kristall · Naturstein · Boho</span></div>
-      </a>
-      <a class="tile" href="/collections/halsketten-amp-choker">
-        <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Kristall-kette-Choker-Halskette-Gold-Perle.png?v=1783285403" alt="Halsketten &amp; Choker">
-        <div class="label"><h3>Halsketten &amp; Choker</h3><span>Kristall · Elegant · Sommer</span></div>
-      </a>
-      <a class="tile" href="/collections/ohrringe-1">
-        <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/Go2boho-Geflochtene-Kristall-Perlen-Ohrringe-Boho-Samen.jpg?v=1783285425" alt="Ohrringe">
-        <div class="label"><h3>Ohrringe</h3><span>Boho · Perlen · Handgefertigt</span></div>
-      </a>
+      {% for handle in "armbander,halsketten,ringe" | split: "," %}
+        {% assign c = collections[handle] %}
+        {% if c %}
+          <a class="tile" href="{{ c.url }}">
+            {% if c.image %}
+              <img src="{{ c.image | image_url: width: 700 }}" alt="{{ c.title | escape }}">
+            {% elsif c.products.first %}
+              <img src="{{ c.products.first.featured_image | image_url: width: 700 }}" alt="{{ c.title | escape }}">
+            {% endif %}
+            <div class="label"><h3>{{ c.title }}</h3><span>{{ c.products_count }} Produkte</span></div>
+          </a>
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 </section>
