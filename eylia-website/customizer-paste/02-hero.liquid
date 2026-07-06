@@ -1,0 +1,42 @@
+<style>
+.elp02{--ink:#211d1a;--muted:#7a7168;--gold:#b08d57;position:relative;min-height:78vh;display:flex;
+  align-items:center;overflow:hidden;background:radial-gradient(120% 120% at 80% 10%,#f7efe4 0%,#efe4d4 45%,#e8dccb 100%);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.elp02 .wrap{max-width:1240px;margin:0 auto;padding:0 24px;width:100%;display:grid;
+  grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.elp02 .eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.elp02 h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:clamp(46px,6.6vw,88px);
+  line-height:1.02;margin:18px 0 20px;color:var(--ink)}
+.elp02 h1 em{font-style:italic;color:var(--gold)}
+.elp02 p.sub{font-size:17px;color:var(--muted);max-width:440px;margin-bottom:20px}
+.elp02 .cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.elp02 .btn{display:inline-block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+  padding:15px 30px;border-radius:2px;border:1px solid var(--ink);transition:.2s;text-decoration:none}
+.elp02 .btn-dark{background:var(--ink);color:#f5ece0}
+.elp02 .btn-dark:hover{background:#000}
+.elp02 .btn-ghost{background:transparent;color:var(--ink)}
+.elp02 .btn-ghost:hover{background:var(--ink);color:#f5ece0}
+.elp02 .proof{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--muted)}
+.elp02 .proof .stars{color:var(--gold);letter-spacing:2px}
+.elp02 .visual{position:relative;height:66vh;min-height:440px;border-radius:6px;overflow:hidden;
+  box-shadow:0 30px 60px -30px rgba(60,45,30,.4)}
+.elp02 .visual img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:820px){.elp02 .wrap{grid-template-columns:1fr}.elp02 .visual{display:none}}
+</style>
+<section class="elp02">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">ELURA · Neue Kollektion</span>
+      <h1>Schmuck, der <em>bleibt.</em></h1>
+      <p class="sub">Zeitlose Armbänder, Halsketten und Ringe aus hochwertigem Edelstahl — wasserfest, anlaufbeständig und hypoallergen. Für jeden Tag. Für jeden Moment.</p>
+      <div class="cta">
+        <a href="/collections/all" class="btn btn-dark">Kollektion entdecken</a>
+        <a href="/collections/flower" class="btn btn-ghost">Bestseller ansehen</a>
+      </div>
+      <div class="proof"><span class="stars">★★★★★</span> 4.9/5 von über 1.200 zufriedenen Kundinnen</div>
+    </div>
+    <div class="visual">
+      <img src="https://cdn.shopify.com/s/files/1/1035/8548/1052/files/39676ACF-DB1F-4199-AF3C-A172C0835DDA.jpg?v=1783120756" alt="ELURA Schmuck">
+    </div>
+  </div>
+</section>
