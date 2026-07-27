@@ -3,303 +3,401 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Festim Ademi | Profi-Boxer</title>
-<meta name="description" content="Festim Ademi – Profi-Boxer aus Deutschland. Offizielle Website: Kämpfe, News, Galerie und Kontakt.">
-<meta property="og:title" content="Festim Ademi | Profi-Boxer">
-<meta property="og:description" content="Offizielle Website von Profi-Boxer Festim Ademi – Kämpfe, News, Galerie und Kontakt.">
+<title>Festim Ademi | Professional Boxer</title>
+<meta name="description" content="Festim Ademi – Profi-Boxer aus der Schweiz mit albanischen Wurzeln. Ungeschlagen. Live auf DAZN. Offizielle Website: Geschichte, Kämpfe, Karriere, Sponsoring und Kontakt.">
+<meta property="og:title" content="Festim Ademi | Professional Boxer">
+<meta property="og:description" content="Ungeschlagener Profi-Boxer aus der Schweiz. Live auf DAZN in über 250 Ländern.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="bilder/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥊</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230c0b09'/%3E%3Ctext x='32' y='44' font-family='Arial Black' font-size='30' font-weight='900' fill='%23c8a165' text-anchor='middle'%3EFA%3C/text%3E%3C/svg%3E">
 
 <!-- ============================================================
-     ANLEITUNG – BILDER VON INSTAGRAM EINFÜGEN:
-     1. Lade die gewünschten Fotos von Instagram (@ademi_festim) herunter
-        (eigene Fotos: Instagram-App > Beitrag > "..." > Herunterladen,
-         oder über instagram.com > Rechtsklick).
-     2. Lege sie in den Ordner "bilder/" neben dieser Datei.
-     3. Benenne sie so:
-          bilder/hero.jpg      -> großes Hintergrundbild oben (Kampf-/Posingfoto)
-          bilder/portrait.jpg  -> Porträt im Bereich "Über mich"
-          bilder/foto-1.jpg bis bilder/foto-6.jpg -> Galerie
-     4. Fertig! Solange ein Bild fehlt, zeigt die Seite automatisch
-        einen stilvollen Platzhalter an.
+     FESTIM ADEMI – OFFIZIELLE WEBSITE (One-Page mit Tabs)
+     Tabs: Start · Geschichte · Kampf · Karriere · Sponsoring · Kontakt
 
-     KAMPFREKORD ANPASSEN:
-     Suche unten nach "REKORD ANPASSEN" und trage die echten Zahlen ein.
+     WICHTIG – SELBST ANPASSEN:
+     1. NÄCHSTER KAMPF: unten im <script> nach "KAMPF_DATUM" suchen.
+     2. Social-Media-Links: nach "SOCIAL LINKS" suchen.
+     3. Sponsoren-Logos: aktuell als Schriftzüge. Echte Logo-Dateien in
+        bilder/logos/ legen und die <img>-Variante nutzen (siehe Kommentar
+        bei "SPONSOREN-KARUSSELL").
      ============================================================ -->
 
 <style>
 :root{
-  --schwarz:#0a0a0b;
-  --kohle:#121214;
-  --anthrazit:#1a1a1e;
-  --linie:#2a2a30;
-  --gold:#c9a227;
-  --gold-hell:#e6c35c;
-  --rot:#b3122e;
-  --weiss:#f5f2ea;
-  --grau:#9b9890;
-  --font-display:'Oswald',sans-serif;
-  --font-text:'Barlow',sans-serif;
+  --schwarz:#0c0b09;
+  --kohle:#14120f;
+  --anthrazit:#1c1915;
+  --linie:#2b2620;
+  --linie-gold:rgba(200,161,101,.35);
+  --gold:#c8a165;
+  --gold-hell:#e3c690;
+  --gold-dunkel:#8f6f3f;
+  --creme:#f1ece2;
+  --grau:#a39c8f;
+  --rot:#a91b32;
+  --font-d:'Oswald',sans-serif;
+  --font-t:'Barlow',sans-serif;
+  --font-s:'Cormorant Garamond',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  background:var(--schwarz);
-  color:var(--weiss);
-  font-family:var(--font-text);
-  font-weight:300;
-  line-height:1.7;
-  overflow-x:hidden;
+  background:var(--schwarz);color:var(--creme);
+  font-family:var(--font-t);font-weight:300;line-height:1.7;
+  overflow-x:hidden;min-height:100vh;
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-h1,h2,h3,h4{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.04em;line-height:1.15}
-.container{max-width:1140px;margin:0 auto;padding:0 24px}
-section{padding:100px 0}
+button{font:inherit;cursor:pointer}
+h1,h2,h3,h4{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.05em;line-height:1.12;font-weight:600}
+.container{max-width:1180px;margin:0 auto;padding:0 26px}
 
-/* ---------- Kopfzeile ---------- */
+/* ---------- Header / Navigation ---------- */
 header{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(10,10,11,.85);
-  backdrop-filter:blur(12px);
+  position:fixed;inset:0 0 auto 0;z-index:200;
+  background:rgba(12,11,9,.9);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--linie);
 }
-.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
-.logo{font-family:var(--font-display);font-weight:700;font-size:1.3rem;text-transform:uppercase;letter-spacing:.1em}
-.logo span{color:var(--gold)}
-.nav-links{display:flex;gap:34px;list-style:none}
-.nav-links a{
-  font-family:var(--font-display);font-size:.82rem;text-transform:uppercase;
-  letter-spacing:.14em;color:var(--grau);transition:color .25s;
+.nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
+.marke{display:flex;align-items:center;gap:14px}
+.fa-logo{
+  width:44px;height:44px;border:1.5px solid var(--gold);display:grid;place-items:center;
+  font-family:var(--font-d);font-weight:700;font-size:1.15rem;color:var(--gold);letter-spacing:.02em;
 }
-.nav-links a:hover{color:var(--gold-hell)}
-.nav-cta{
-  font-family:var(--font-display);font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;
-  border:1px solid var(--gold);color:var(--gold);padding:9px 22px;transition:all .25s;
+.marke .name{font-family:var(--font-d);font-size:.95rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.marke .sub{font-size:.6rem;letter-spacing:.3em;color:var(--grau);text-transform:uppercase;display:block;margin-top:2px}
+.nav-tabs{display:flex;gap:6px;list-style:none}
+.nav-tabs button{
+  background:none;border:none;color:var(--grau);
+  font-family:var(--font-d);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:10px 14px;position:relative;transition:color .3s;
 }
-.nav-cta:hover{background:var(--gold);color:var(--schwarz)}
-.burger{display:none;background:none;border:none;color:var(--weiss);font-size:1.6rem;cursor:pointer}
+.nav-tabs button::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:4px;height:1.5px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s;
+}
+.nav-tabs button:hover{color:var(--creme)}
+.nav-tabs button.aktiv{color:var(--gold)}
+.nav-tabs button.aktiv::after{transform:scaleX(1)}
+.burger{display:none;background:none;border:1px solid var(--linie);color:var(--creme);font-size:1.35rem;padding:6px 13px}
 
-/* ---------- Hero ---------- */
-.hero{
-  min-height:100vh;display:flex;align-items:center;position:relative;
-  padding:140px 0 80px;
-  background:
-    linear-gradient(105deg, rgba(10,10,11,.96) 38%, rgba(10,10,11,.55) 70%, rgba(10,10,11,.85)),
-    radial-gradient(ellipse at 75% 35%, rgba(201,162,39,.14), transparent 55%),
-    var(--kohle);
+/* ---------- Tab-System ---------- */
+main{padding-top:76px}
+.tab{display:none}
+.tab.aktiv{display:block;animation:tabRein .6s cubic-bezier(.22,.7,.3,1) both}
+@keyframes tabRein{
+  from{opacity:0;transform:translateY(26px)}
+  to{opacity:1;transform:translateY(0)}
 }
-.hero-bild{
-  position:absolute;inset:0;z-index:0;
-  background-image:url('bilder/hero.jpg');
-  background-size:cover;background-position:center 25%;
-  opacity:.35;filter:grayscale(35%) contrast(1.1);
+section{padding:90px 0}
+
+/* ---------- Gemeinsame Elemente ---------- */
+.ueberzeile{
+  font-family:var(--font-d);font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:16px;
 }
-.hero-inhalt{position:relative;z-index:2;max-width:720px}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:12px;
-  font-family:var(--font-display);font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:22px;
-}
-.hero-tag::before{content:"";width:44px;height:1px;background:var(--gold)}
-.hero h1{
-  font-size:clamp(3.2rem,9vw,6.4rem);font-weight:700;
-  text-transform:uppercase;line-height:.98;margin-bottom:10px;
-}
-.hero h1 .nachname{
-  display:block;color:transparent;
-  -webkit-text-stroke:1.5px var(--gold);
-}
-.hero-sub{
-  font-size:1.15rem;color:var(--grau);max-width:520px;margin:26px 0 40px;
-}
-.hero-buttons{display:flex;gap:18px;flex-wrap:wrap}
+.ueberzeile::before{content:"";width:38px;height:1px;background:var(--gold)}
+.titel{font-size:clamp(2rem,4.6vw,3.1rem);margin-bottom:26px}
 .btn{
-  font-family:var(--font-display);text-transform:uppercase;letter-spacing:.14em;font-size:.85rem;
-  padding:15px 36px;display:inline-block;transition:all .25s;cursor:pointer;border:none;
+  font-family:var(--font-d);text-transform:uppercase;letter-spacing:.16em;font-size:.8rem;
+  padding:15px 34px;display:inline-flex;align-items:center;gap:10px;border:none;transition:all .3s;
 }
 .btn-gold{background:var(--gold);color:var(--schwarz);font-weight:600}
 .btn-gold:hover{background:var(--gold-hell);transform:translateY(-2px)}
-.btn-outline{border:1px solid var(--linie);color:var(--weiss)}
-.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
-.hero-scroll{
-  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
-  color:var(--grau);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
-  writing-mode:vertical-rl;opacity:.7;
-}
+.btn-rand{border:1px solid var(--linie-gold);color:var(--creme);background:transparent}
+.btn-rand:hover{border-color:var(--gold);color:var(--gold)}
+.gold{color:var(--gold)}
 
-/* ---------- Statistik-Leiste ---------- */
-.stats{
+/* ---------- START: Hero ---------- */
+.hero{
+  position:relative;min-height:calc(100vh - 76px);display:flex;align-items:center;
+  padding:60px 0;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('bilder/hero.jpg') center 30%/cover no-repeat;
+  filter:grayscale(25%) contrast(1.08) brightness(.9);
+}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg, rgba(12,11,9,.97) 30%, rgba(12,11,9,.72) 58%, rgba(12,11,9,.45));
+}
+.hero-inhalt{position:relative;z-index:2;max-width:660px}
+.hero h1{
+  font-size:clamp(3.4rem,9vw,6.6rem);font-weight:700;line-height:.95;
+  text-transform:uppercase;letter-spacing:.01em;
+}
+.hero .untertitel{
+  font-family:var(--font-d);color:var(--gold);letter-spacing:.42em;text-transform:uppercase;
+  font-size:clamp(.8rem,1.6vw,1rem);margin:20px 0 12px;font-weight:400;
+}
+.flaggen{
+  display:flex;align-items:center;gap:12px;font-family:var(--font-d);
+  font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;color:var(--creme);
+}
+.flaggen .x{color:var(--gold);font-size:.75rem}
+.hero-zitat{
+  font-family:var(--font-s);font-style:italic;font-size:1.35rem;color:var(--creme);
+  margin:30px 0 38px;max-width:430px;line-height:1.5;
+}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
+
+/* ---------- START: Stats-Band ---------- */
+.stats-band{
   background:var(--kohle);border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);
-  padding:0;
 }
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stats-band .container{
+  display:grid;grid-template-columns:repeat(6,1fr);
+}
 .stat{
-  text-align:center;padding:44px 20px;border-right:1px solid var(--linie);
+  text-align:center;padding:34px 12px;border-right:1px solid var(--linie);
 }
-.stat:last-child{border-right:none}
-.stat .zahl{
-  font-family:var(--font-display);font-size:2.9rem;font-weight:700;color:var(--gold);line-height:1;
+.stat:first-child{border-left:1px solid var(--linie)}
+.stat .z{font-family:var(--font-d);font-size:1.6rem;font-weight:600;color:var(--gold);line-height:1.2}
+.stat .l{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grau);margin-top:6px}
+
+/* ---------- START: Intro-Split ---------- */
+.intro{background:var(--creme);color:#171310}
+.intro-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center}
+.intro .ueberzeile{color:var(--gold-dunkel)}
+.intro .ueberzeile::before{background:var(--gold-dunkel)}
+.intro h2{color:#171310}
+.intro p{color:#4a443c;margin-bottom:18px;font-size:1.04rem;font-weight:400}
+.intro-bild{position:relative}
+.intro-bild img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%}
+.intro-bild::after{
+  content:"";position:absolute;top:18px;left:18px;right:-18px;bottom:-18px;
+  border:1px solid var(--gold-dunkel);opacity:.55;pointer-events:none;
 }
-.stat .label{
-  font-size:.78rem;text-transform:uppercase;letter-spacing:.22em;color:var(--grau);margin-top:10px;
+.signatur{
+  font-family:var(--font-s);font-style:italic;font-size:1.7rem;color:var(--gold-dunkel);margin-top:20px;
 }
 
-/* ---------- Abschnitts-Titel ---------- */
-.abschnitt-kopf{margin-bottom:60px}
-.abschnitt-kopf .ueber{
-  font-family:var(--font-display);font-size:.8rem;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:14px;
+/* ---------- GESCHICHTE ---------- */
+.geschichte-hero{
+  position:relative;padding:120px 0;overflow:hidden;border-bottom:1px solid var(--linie);
 }
-.abschnitt-kopf .ueber::before{content:"";width:36px;height:1px;background:var(--gold)}
-.abschnitt-kopf h2{font-size:clamp(2rem,5vw,3.2rem);font-weight:600}
+.geschichte-hero .bg{
+  position:absolute;inset:0;background:url('bilder/training-wand.jpg') center 25%/cover no-repeat;
+  filter:grayscale(45%) brightness(.5);
+}
+.geschichte-hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(12,11,9,.55), var(--schwarz))}
+.geschichte-hero .container{position:relative;z-index:2}
+.story-grid{display:grid;grid-template-columns:1.35fr .8fr;gap:70px;align-items:start}
+.story p{color:#cfc8bb;margin-bottom:22px;font-size:1.05rem}
+.story p strong{color:var(--creme);font-weight:500}
+.story .absatz-titel{
+  font-family:var(--font-d);text-transform:uppercase;letter-spacing:.14em;font-size:1.05rem;
+  color:var(--gold);margin:36px 0 14px;
+}
+.story-seite{position:sticky;top:110px;display:flex;flex-direction:column;gap:26px}
+.story-seite img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.story-fakt{
+  border:1px solid var(--linie);padding:24px;background:var(--kohle);
+}
+.story-fakt .z{font-family:var(--font-d);font-size:2rem;color:var(--gold);font-weight:600}
+.story-fakt .l{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grau)}
+.zeitstrahl{margin-top:70px;border-top:1px solid var(--linie);padding-top:60px}
+.zs-liste{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--linie)}
+.zs{background:var(--kohle);padding:28px 22px;transition:background .3s}
+.zs:hover{background:var(--anthrazit)}
+.zs .jahr{font-family:var(--font-d);color:var(--gold);font-size:1.25rem;font-weight:600}
+.zs .txt{font-size:.88rem;color:var(--grau);margin-top:8px;line-height:1.55}
 
-/* ---------- Über mich ---------- */
-.ueber-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:70px;align-items:center}
-.portrait-rahmen{position:relative}
-.portrait-rahmen::after{
-  content:"";position:absolute;top:22px;left:22px;right:-22px;bottom:-22px;
-  border:1px solid var(--gold);z-index:0;opacity:.5;
+/* ---------- ZITAT-BAND (mehrfach nutzbar) ---------- */
+.zitat-band{
+  border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);
+  background:radial-gradient(ellipse at 50% -20%, rgba(200,161,101,.12), transparent 60%), var(--kohle);
+  text-align:center;padding:80px 0;
 }
-.portrait{
-  position:relative;z-index:1;aspect-ratio:4/5;overflow:hidden;background:var(--anthrazit);
+.zitat-band blockquote{
+  font-family:var(--font-s);font-style:italic;font-size:clamp(1.5rem,3.6vw,2.3rem);
+  max-width:820px;margin:0 auto;line-height:1.4;color:var(--creme);
 }
-.portrait img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%)}
-.ueber-text p{color:var(--grau);margin-bottom:20px;font-size:1.05rem}
-.ueber-text strong{color:var(--weiss);font-weight:500}
-.fakten{list-style:none;margin-top:34px;border-top:1px solid var(--linie)}
-.fakten li{
-  display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--linie);
-  font-size:.95rem;
-}
-.fakten .k{color:var(--grau);text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-family:var(--font-display)}
-.fakten .w{color:var(--weiss);font-weight:500}
-
-/* ---------- Kämpfe ---------- */
-.kaempfe{background:var(--kohle)}
-.kampf-liste{display:flex;flex-direction:column}
-.kampf{
-  display:grid;grid-template-columns:110px 1fr auto;gap:28px;align-items:center;
-  padding:30px 26px;border:1px solid var(--linie);border-bottom:none;
-  transition:background .25s;
-}
-.kampf:last-child{border-bottom:1px solid var(--linie)}
-.kampf:hover{background:var(--anthrazit)}
-.kampf .datum{
-  font-family:var(--font-display);color:var(--grau);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;
-}
-.kampf .gegner{font-family:var(--font-display);font-size:1.25rem;font-weight:500;text-transform:uppercase}
-.kampf .ort{color:var(--grau);font-size:.9rem;margin-top:3px}
-.ergebnis{
-  font-family:var(--font-display);font-weight:600;font-size:.85rem;letter-spacing:.14em;
-  padding:8px 18px;text-transform:uppercase;
-}
-.ergebnis.sieg{background:rgba(201,162,39,.12);color:var(--gold);border:1px solid rgba(201,162,39,.4)}
-.ergebnis.offen{background:rgba(179,18,46,.12);color:#e05a72;border:1px solid rgba(179,18,46,.45)}
-
-/* ---------- Galerie ---------- */
-.galerie-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
-}
-.g-item{
-  position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--anthrazit);
-  border:1px solid var(--linie);
-}
-.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:grayscale(20%)}
-.g-item:hover img{transform:scale(1.06);filter:grayscale(0)}
-.g-item .platzhalter{
-  position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
-  gap:12px;text-align:center;padding:20px;
-  background:
-    radial-gradient(ellipse at center, rgba(201,162,39,.08), transparent 70%),
-    var(--anthrazit);
-}
-.g-item.leer .platzhalter{display:flex}
-.g-item.leer img{display:none}
-.platzhalter .icon{font-size:2rem;opacity:.85}
-.platzhalter .hinweis{
-  font-family:var(--font-display);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grau);
-}
-.galerie-fuss{text-align:center;margin-top:44px}
-.insta-link{
-  display:inline-flex;align-items:center;gap:12px;
-  font-family:var(--font-display);letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;
-  color:var(--gold);border:1px solid var(--gold);padding:14px 34px;transition:all .25s;
-}
-.insta-link:hover{background:var(--gold);color:var(--schwarz)}
-
-/* ---------- Zitat ---------- */
-.zitat{
-  background:
-    linear-gradient(rgba(10,10,11,.92),rgba(10,10,11,.92)),
-    radial-gradient(ellipse at 50% 0%, rgba(179,18,46,.25), transparent 60%),
-    var(--kohle);
-  text-align:center;border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);
-}
-.zitat blockquote{
-  font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2.5rem);font-weight:500;
-  text-transform:uppercase;max-width:820px;margin:0 auto;line-height:1.35;
-}
-.zitat blockquote span{color:var(--gold)}
-.zitat cite{
-  display:block;margin-top:26px;font-style:normal;color:var(--grau);
-  letter-spacing:.28em;text-transform:uppercase;font-size:.8rem;
+.zitat-band cite{
+  display:block;margin-top:22px;font-style:normal;font-family:var(--font-d);
+  letter-spacing:.3em;text-transform:uppercase;font-size:.75rem;color:var(--gold);
 }
 
-/* ---------- Kontakt ---------- */
-.kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px}
-.kontakt-info p{color:var(--grau);margin-bottom:28px;font-size:1.05rem}
-.kontakt-kanaele{list-style:none}
-.kontakt-kanaele li{
-  display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--linie);
+/* ---------- KAMPF ---------- */
+.kampf-hero{
+  position:relative;padding:110px 0;overflow:hidden;
 }
-.kontakt-kanaele .sym{
-  width:42px;height:42px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;
+.kampf-hero .bg{
+  position:absolute;inset:0;background:url('bilder/kampf-dazn.jpg') center 20%/cover no-repeat;
+  filter:brightness(.42) contrast(1.05);
+}
+.kampf-hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(12,11,9,.4), var(--schwarz) 92%)}
+.kampf-hero .container{position:relative;z-index:2;text-align:center}
+.countdown{
+  display:flex;justify-content:center;gap:1px;background:var(--linie-gold);
+  border:1px solid var(--linie-gold);max-width:640px;margin:44px auto 0;
+}
+.cd{background:rgba(12,11,9,.88);flex:1;padding:26px 10px}
+.cd .z{font-family:var(--font-d);font-size:clamp(2rem,5vw,3.2rem);font-weight:600;color:var(--creme);line-height:1}
+.cd .l{font-size:.65rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-top:8px}
+.kampf-datum{
+  font-family:var(--font-d);font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;color:var(--creme);
+  letter-spacing:.04em;margin-top:10px;
+}
+.kampf-ort{color:var(--grau);letter-spacing:.24em;text-transform:uppercase;font-size:.8rem;margin-top:10px}
+.kampf-hinweis{
+  display:none;margin:40px auto 0;max-width:520px;border:1px solid var(--linie-gold);
+  padding:22px 30px;font-family:var(--font-d);letter-spacing:.16em;text-transform:uppercase;
+  font-size:.85rem;color:var(--gold);background:rgba(12,11,9,.85);
+}
+.dazn-zeile{
+  display:flex;align-items:center;justify-content:center;gap:16px;margin-top:44px;color:var(--grau);
+  font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;
+}
+.dazn-box{
+  border:2px solid var(--creme);font-family:var(--font-d);font-weight:700;font-size:1rem;
+  padding:5px 10px;line-height:1.05;color:var(--creme);letter-spacing:.05em;
+}
+.vergangene{padding-top:0}
+.kampf-karten{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+.kk{
+  border:1px solid var(--linie);background:var(--kohle);padding:30px 26px;position:relative;
+  transition:border-color .3s, transform .3s;
+}
+.kk:hover{border-color:var(--linie-gold);transform:translateY(-4px)}
+.kk .datum{font-size:.75rem;letter-spacing:.2em;color:var(--grau);text-transform:uppercase}
+.kk .gegner{font-family:var(--font-d);font-size:1.3rem;text-transform:uppercase;margin:10px 0 4px;font-weight:500}
+.kk .ort{color:var(--grau);font-size:.85rem}
+.kk .resultat{
+  margin-top:18px;display:inline-block;font-family:var(--font-d);font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;color:var(--gold);
+  border:1px solid var(--linie-gold);padding:7px 16px;
+}
+.kk .methode{font-size:.75rem;color:var(--grau);margin-left:10px;letter-spacing:.1em}
+
+/* ---------- KARRIERE ---------- */
+.bilanz-grid{display:grid;grid-template-columns:.9fr 1.3fr;gap:64px;align-items:center}
+.bilanz-zahl{
+  font-family:var(--font-d);font-size:clamp(4.5rem,10vw,7.5rem);font-weight:700;color:var(--gold);
+  line-height:1;letter-spacing:.02em;
+}
+.bilanz-sub{color:var(--grau);letter-spacing:.24em;text-transform:uppercase;font-size:.8rem;margin-top:10px}
+.bilanz-detail{list-style:none;margin-top:30px;border-top:1px solid var(--linie)}
+.bilanz-detail li{
+  display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--linie);font-size:.95rem;
+}
+.bilanz-detail .k{font-family:var(--font-d);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grau)}
+.bilanz-detail .w{font-weight:500}
+.karriere-bild img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:center 30%}
+.meilensteine{background:var(--kohle);border-top:1px solid var(--linie)}
+.ms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:20px}
+.ms{border:1px solid var(--linie);padding:30px;background:var(--schwarz)}
+.ms .icon{color:var(--gold);font-size:1.4rem}
+.ms h3{font-size:1.05rem;margin:14px 0 10px;letter-spacing:.12em}
+.ms p{color:var(--grau);font-size:.92rem}
+
+/* ---------- SPONSOREN ---------- */
+/* SPONSOREN-KARUSSELL: Endlos-Marquee von rechts nach links.
+   Echte Logos einbauen: in .marquee-inhalt statt <span class="logo-wort">
+   einfach <img src="bilder/logos/NAME.png" alt="NAME" style="height:34px"> je Marke
+   (beide Kopien der Liste identisch halten!). */
+.marquee{
+  overflow:hidden;border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);
+  background:var(--kohle);padding:38px 0;position:relative;
+}
+.marquee::before,.marquee::after{
+  content:"";position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;
+}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--kohle),transparent)}
+.marquee::after{right:0;background:linear-gradient(270deg,var(--kohle),transparent)}
+.marquee-spur{display:flex;width:max-content;animation:lauf 30s linear infinite}
+.marquee:hover .marquee-spur{animation-play-state:paused}
+@keyframes lauf{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-inhalt{display:flex;align-items:center;gap:74px;padding-right:74px}
+.logo-wort{
+  font-family:var(--font-d);font-weight:600;font-size:1.25rem;letter-spacing:.1em;
+  color:var(--grau);text-transform:uppercase;white-space:nowrap;transition:color .3s;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-wort:hover{color:var(--creme)}
+.logo-wort .dazn{border:2px solid currentColor;padding:3px 8px;line-height:1.05;font-size:.95rem}
+.pakete{padding-top:70px}
+.pakete-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px}
+.paket{
+  border:1px solid var(--linie);background:var(--kohle);padding:34px 28px;
+  display:flex;flex-direction:column;transition:transform .3s,border-color .3s;
+}
+.paket:hover{transform:translateY(-6px);border-color:var(--linie-gold)}
+.paket.hervor{border-color:var(--gold);background:linear-gradient(180deg, rgba(200,161,101,.09), var(--kohle))}
+.paket .stufe{font-family:var(--font-d);letter-spacing:.24em;text-transform:uppercase;font-size:.8rem;color:var(--gold)}
+.paket .preis{font-family:var(--font-d);font-size:1.9rem;font-weight:600;margin:12px 0 22px}
+.paket .preis small{font-size:.85rem;color:var(--grau);font-weight:400}
+.paket ul{list-style:none;flex:1}
+.paket li{
+  padding:9px 0;border-bottom:1px solid var(--linie);font-size:.88rem;color:#cfc8bb;
+  display:flex;gap:10px;align-items:baseline;
+}
+.paket li::before{content:"→";color:var(--gold);font-size:.8rem}
+.paket .btn{margin-top:26px;justify-content:center}
+
+/* ---------- KONTAKT ---------- */
+.kontakt-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+.k-info p{color:var(--grau);margin-bottom:28px;font-size:1.03rem}
+.k-kanaele{list-style:none}
+.k-kanaele li{display:flex;align-items:center;gap:16px;padding:15px 0;border-bottom:1px solid var(--linie)}
+.k-kanaele .sym{
+  width:44px;height:44px;border:1px solid var(--linie-gold);display:grid;place-items:center;
   color:var(--gold);flex-shrink:0;
 }
-.kontakt-kanaele a:hover{color:var(--gold-hell)}
-form .feld{margin-bottom:18px}
-input,textarea{
-  width:100%;background:var(--anthrazit);border:1px solid var(--linie);color:var(--weiss);
-  padding:15px 16px;font-family:var(--font-text);font-size:.95rem;transition:border-color .25s;
+.k-kanaele a:hover{color:var(--gold-hell)}
+.k-kanaele .l{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--grau);display:block}
+.sozial-zahlen{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--linie);border:1px solid var(--linie);margin-top:36px}
+.sz{background:var(--kohle);text-align:center;padding:20px 8px}
+.sz .z{font-family:var(--font-d);color:var(--gold);font-weight:600;font-size:1.2rem}
+.sz .l{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--grau);margin-top:4px}
+form .feld{margin-bottom:16px}
+input,textarea,select{
+  width:100%;background:var(--anthrazit);border:1px solid var(--linie);color:var(--creme);
+  padding:15px 16px;font-family:var(--font-t);font-size:.95rem;transition:border-color .3s;
 }
-input:focus,textarea:focus{outline:none;border-color:var(--gold)}
-textarea{min-height:140px;resize:vertical}
-::placeholder{color:#5c5a54}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold)}
+textarea{min-height:150px;resize:vertical}
+::placeholder{color:#6b6458}
 
-/* ---------- Fußzeile ---------- */
-footer{
-  border-top:1px solid var(--linie);padding:44px 0;background:var(--kohle);
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
+.footer-innen{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:22px}
+.footer-innen .copy{color:var(--grau);font-size:.83rem}
+.footer-links{display:flex;gap:22px}
+.footer-links a,.footer-links button{
+  background:none;border:none;color:var(--grau);font-family:var(--font-d);font-size:.75rem;
+  letter-spacing:.18em;text-transform:uppercase;transition:color .3s;
 }
-.footer-innen{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
-footer .copy{color:var(--grau);font-size:.85rem}
-.footer-social{display:flex;gap:20px}
-.footer-social a{color:var(--grau);transition:color .25s;font-family:var(--font-display);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase}
-.footer-social a:hover{color:var(--gold)}
+.footer-links a:hover,.footer-links button:hover{color:var(--gold)}
+
+/* ---------- Scroll-Reveal ---------- */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.sichtbar{opacity:1;transform:none}
 
 /* ---------- Responsiv ---------- */
-@media (max-width:900px){
-  section{padding:70px 0}
-  .ueber-grid,.kontakt-grid{grid-template-columns:1fr;gap:50px}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
-  .stat:nth-child(2){border-right:none}
+@media (max-width:1000px){
+  .stats-band .container{grid-template-columns:repeat(3,1fr)}
   .stat{border-bottom:1px solid var(--linie)}
-  .stat:nth-child(3),.stat:nth-child(4){border-bottom:none}
-  .galerie-grid{grid-template-columns:repeat(2,1fr)}
-  .kampf{grid-template-columns:1fr;gap:10px;text-align:left}
-  .nav-links{
-    display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;
-    background:var(--schwarz);border-bottom:1px solid var(--linie);padding:24px;gap:20px;
-  }
-  .nav-links.offen{display:flex}
-  .burger{display:block}
-  .nav-cta{display:none}
+  .kampf-karten,.pakete-grid{grid-template-columns:repeat(2,1fr)}
+  .ms-grid{grid-template-columns:1fr}
 }
-@media (max-width:520px){
-  .galerie-grid{grid-template-columns:1fr}
+@media (max-width:860px){
+  section{padding:64px 0}
+  .nav-tabs{
+    display:none;position:absolute;top:76px;left:0;right:0;flex-direction:column;
+    background:var(--schwarz);border-bottom:1px solid var(--linie);padding:20px 26px;gap:4px;
+  }
+  .nav-tabs.offen{display:flex}
+  .burger{display:block}
+  .intro-grid,.story-grid,.bilanz-grid,.kontakt-grid{grid-template-columns:1fr;gap:46px}
+  .story-seite{position:static}
+  .kampf-karten,.pakete-grid{grid-template-columns:1fr}
+  .stats-band .container{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -307,220 +405,454 @@ footer .copy{color:var(--grau);font-size:.85rem}
 
 <header>
   <div class="container nav">
-    <a href="#start" class="logo">Festim <span>Ademi</span></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#ueber">Über mich</a></li>
-      <li><a href="#kaempfe">Kämpfe</a></li>
-      <li><a href="#galerie">Galerie</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
+    <a href="#start" class="marke" data-tab-link="start">
+      <span class="fa-logo">FA</span>
+      <span><span class="name">Festim Ademi</span><span class="sub">Professional Boxer</span></span>
+    </a>
+    <ul class="nav-tabs" id="navTabs">
+      <li><button data-tab="start" class="aktiv">Start</button></li>
+      <li><button data-tab="geschichte">Geschichte</button></li>
+      <li><button data-tab="kampf">Kampf</button></li>
+      <li><button data-tab="karriere">Karriere</button></li>
+      <li><button data-tab="sponsoring">Sponsoring</button></li>
+      <li><button data-tab="kontakt">Kontakt</button></li>
     </ul>
-    <a href="#kontakt" class="nav-cta">Anfragen</a>
-    <button class="burger" id="burger" aria-label="Menü öffnen">☰</button>
+    <button class="burger" id="burger" aria-label="Menü">☰</button>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero" id="start">
-  <div class="hero-bild" aria-hidden="true"></div>
-  <div class="container hero-inhalt">
-    <div class="hero-tag">Profi-Boxer · Deutschland</div>
-    <h1>Festim <span class="nachname">Ademi</span></h1>
-    <p class="hero-sub">
-      Disziplin. Wille. Präzision. Im Ring zählt nur eines – wer am Ende steht.
-      Willkommen auf der offiziellen Website von Profi-Boxer Festim Ademi.
-    </p>
-    <div class="hero-buttons">
-      <a href="#kaempfe" class="btn btn-gold">Meine Kämpfe</a>
-      <a href="https://www.instagram.com/ademi_festim/" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
+<main>
+
+<!-- ==================================================== START -->
+<div class="tab aktiv" id="tab-start">
+  <section class="hero" style="padding-top:0;padding-bottom:0">
+    <div class="hero-bg"></div>
+    <div class="container hero-inhalt">
+      <h1>Festim<br>Ademi</h1>
+      <div class="untertitel">Professional Boxer</div>
+      <div class="flaggen">Switzerland 🇨🇭 <span class="x">✕</span> Albania 🇦🇱</div>
+      <p class="hero-zitat">“Discipline creates opportunities.<br>Character creates legacy.”</p>
+      <div class="hero-buttons">
+        <button class="btn btn-gold" data-tab-link="sponsoring">Partner werden →</button>
+        <button class="btn btn-rand" data-tab-link="kampf">Nächster Kampf</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-band">
+    <div class="container">
+      <div class="stat"><div class="z">4×</div><div class="l">Schweizer Meister</div></div>
+      <div class="stat"><div class="z">3-0</div><div class="l">Ungeschlagen Profi</div></div>
+      <div class="stat"><div class="z">300'000+</div><div class="l">Monatliche Reichweite</div></div>
+      <div class="stat"><div class="z">250+</div><div class="l">Länder via DAZN</div></div>
+      <div class="stat"><div class="z">BOXRAW</div><div class="l">Official Athlete</div></div>
+      <div class="stat"><div class="z">RUHE</div><div class="l">Boxing Stall</div></div>
     </div>
   </div>
-  <div class="hero-scroll">Scrollen</div>
-</section>
 
-<!-- ================= STATISTIK =================
-     !!! REKORD ANPASSEN: Das sind BEISPIELWERTE.
-     Trage bei data-ziel="..." die echten Zahlen ein (z.B. von BoxRec). -->
-<div class="stats">
-  <div class="container stats-grid">
-    <div class="stat"><div class="zahl" data-ziel="10">10</div><div class="label">Siege</div></div>
-    <div class="stat"><div class="zahl" data-ziel="7">7</div><div class="label">Davon K.o.</div></div>
-    <div class="stat"><div class="zahl" data-ziel="0">0</div><div class="label">Niederlagen</div></div>
-    <div class="stat"><div class="zahl" data-ziel="5">5</div><div class="label">Jahre im Ring</div></div>
+  <section class="intro">
+    <div class="container intro-grid">
+      <div class="reveal">
+        <div class="ueberzeile">Wer ist Festim?</div>
+        <h2 class="titel" style="color:#171310">Mehr als ein Boxer.<br>Eine Mentalität.</h2>
+        <p>In der Schweiz geboren, mit albanischen Wurzeln – Festim Ademi entdeckt das Boxen
+           bereits mit sechs Jahren. Aus einer Leidenschaft wird schnell eine Berufung.</p>
+        <p>Nach mehreren nationalen Titeln bei den Amateuren und Einsätzen für die Schweizer
+           Nationalmannschaft wagt er den Schritt ins Profilager – heute steht er bei
+           <strong>Ruhe Boxing</strong> unter Vertrag und boxt live auf <strong>DAZN</strong>.</p>
+        <p>Sein Ziel ist klar definiert: <strong>Weltmeister werden.</strong></p>
+        <button class="btn btn-gold" data-tab-link="geschichte" style="margin-top:14px">Meine Geschichte →</button>
+        <div class="signatur">Festim Ademi</div>
+      </div>
+      <div class="intro-bild reveal">
+        <img src="bilder/portrait-gym.jpg" alt="Festim Ademi im Training">
+      </div>
+    </div>
+  </section>
+
+  <div class="zitat-band">
+    <div class="container">
+      <blockquote>„Kämpfe werden im Ring gewonnen. Das Selbstvertrauen dafür – lange davor."</blockquote>
+      <cite>Festim Ademi</cite>
+    </div>
   </div>
 </div>
 
-<!-- ================= ÜBER MICH ================= -->
-<section id="ueber">
-  <div class="container">
-    <div class="abschnitt-kopf">
-      <div class="ueber">Der Athlet</div>
-      <h2>Über mich</h2>
+<!-- ==================================================== GESCHICHTE -->
+<div class="tab" id="tab-geschichte">
+  <div class="geschichte-hero">
+    <div class="bg"></div>
+    <div class="container">
+      <div class="ueberzeile">Über mich</div>
+      <h2 class="titel">Die Geschichte eines Traums,<br>der zur Mission wurde</h2>
+      <p style="max-width:560px;color:#cfc8bb">Jeder Champion hat eine Geschichte. Meine beginnt lange
+         vor meinem ersten Profikampf.</p>
     </div>
-    <div class="ueber-grid">
-      <div class="portrait-rahmen">
-        <div class="portrait">
-          <img src="bilder/portrait.jpg" alt="Festim Ademi – Porträt"
-               onerror="this.closest('.portrait').innerHTML='<div style=\'height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:radial-gradient(ellipse at center,rgba(201,162,39,.08),transparent 70%)\'><span style=\'font-size:3rem\'>🥊</span><span style=\'font-family:Oswald,sans-serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#9b9890;text-align:center;padding:0 20px\'>Porträtfoto hier einfügen<br>(bilder/portrait.jpg)</span></div>'">
+  </div>
+
+  <section>
+    <div class="container story-grid">
+      <div class="story reveal">
+        <p><strong>2009, mit sechs Jahren,</strong> habe ich das Boxen für mich entdeckt. Nur ein Jahr
+           später stand ich bereits bei meinen ersten Light-Contact-Wettkämpfen im Ring – oft gegen
+           ältere, erfahrenere und körperlich weiter entwickelte Gegner. Sehr früh habe ich verstanden:
+           Talent allein reicht nicht. Nur Arbeit, Disziplin und Durchhaltewillen bringen dich
+           nachhaltig weiter.</p>
+        <p>In diesen ersten Jahren holte ich <strong>drei Schweizer-Meister-Titel im Light-Contact</strong>,
+           bevor ich meine Karriere mit zehn Jahren endgültig auf das olympische Boxen ausrichtete.</p>
+
+        <div class="absatz-titel">Die Amateur-Jahre</div>
+        <p><strong>2014</strong> bestritt ich meinen ersten grossen Wettkampf: die Schweizer
+           Meisterschaften – ausgetragen in meiner Heimatstadt <strong>Biel</strong>. Vor eigenem
+           Publikum die Farben meiner Stadt zu vertreten, gehört bis heute zu den prägendsten
+           Momenten meines Werdegangs.</p>
+        <p>Über die Jahre baute ich mir eine solide Amateurkarriere auf – mit über
+           <strong>zwanzig Kämpfen</strong> (rund 15 Siege bei 5 Niederlagen) und
+           <strong>vier Schweizer-Meister-Titeln</strong>. Diese Resultate öffneten mir die Tür zur
+           <strong>Schweizer Nationalmannschaft</strong>, die ich bei internationalen Wettkämpfen in
+           Irland, Deutschland, Frankreich, Belgien und Italien vertreten durfte. Jede dieser
+           Erfahrungen hat meinen Ehrgeiz gestärkt und meinen Charakter geformt.</p>
+
+        <div class="absatz-titel">2025 – Der Wendepunkt</div>
+        <p>Aus über <strong>400 Kandidaten</strong> wurde ich für das deutsche Format
+           <strong>„Werde der Pro"</strong> ausgewählt und schaffte es unter die
+           <strong>Top 100</strong>. Am Ende des Programms bezeichnete mich
+           <strong>Piergiulio Ruhe</strong> – amtierender WBA-Gold-Champion und Gründer von
+           Ruhe Boxing – als einen <strong>zukünftigen Weltmeister</strong>.</p>
+        <p>Diese Anerkennung mündete in die Unterschrift meines ersten
+           <strong>Profivertrags bei Ruhe Boxing</strong>. Seither werden alle meine Kämpfe live auf
+           <strong>DAZN</strong> übertragen – mit internationaler Sichtbarkeit in über 150 Ländern.</p>
+
+        <div class="absatz-titel">Heute</div>
+        <p>Ich verfolge meine Profikarriere mit einer einzigen Ambition: die grössten Bühnen des
+           Weltboxsports zu erreichen und die prestigeträchtigsten Titel dieses Sports zu erobern.
+           Jedes Training, jedes Opfer und jeder Kampf bringen mich diesem Ziel näher.</p>
+        <p><strong>Ich bin ungeschlagen – und das soll so bleiben.<br>
+           Denn meine Geschichte fängt gerade erst an.</strong></p>
+      </div>
+
+      <aside class="story-seite reveal">
+        <img src="bilder/portrait-stand.jpg" alt="Festim Ademi – Porträt im Gym">
+        <div class="story-fakt"><div class="z">7×</div><div class="l">Schweizer Meister (Amateur + Light-Contact)</div></div>
+        <div class="story-fakt"><div class="z">20+</div><div class="l">Amateurkämpfe · Nationalmannschaft</div></div>
+        <div class="story-fakt"><div class="z">Top 100</div><div class="l">„Werde der Pro" – aus 400+ Kandidaten</div></div>
+      </aside>
+    </div>
+
+    <div class="container zeitstrahl reveal">
+      <div class="ueberzeile">Der Weg</div>
+      <div class="zs-liste">
+        <div class="zs"><div class="jahr">2009</div><div class="txt">Mit 6 Jahren: erste Schritte im Boxsport</div></div>
+        <div class="zs"><div class="jahr">2010</div><div class="txt">Erste Light-Contact-Wettkämpfe · 3× Schweizer Meister</div></div>
+        <div class="zs"><div class="jahr">2013</div><div class="txt">Wechsel ins olympische Boxen mit 10 Jahren</div></div>
+        <div class="zs"><div class="jahr">2014</div><div class="txt">Erste Schweizer Meisterschaften – in der Heimatstadt Biel</div></div>
+        <div class="zs"><div class="jahr">2015–24</div><div class="txt">4× Schweizer Meister · Schweizer Nationalmannschaft · Einsätze in 5 Ländern</div></div>
+        <div class="zs"><div class="jahr">2025</div><div class="txt">„Werde der Pro" Top 100 · Profivertrag bei Ruhe Boxing · live auf DAZN</div></div>
+        <div class="zs"><div class="jahr">2026</div><div class="txt">Ungeschlagen als Profi – 3 Siege, 0 Niederlagen</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="zitat-band">
+    <div class="container">
+      <blockquote>„Ich kämpfe für meine Familie, meine Herkunft und alle, die an mich glauben –
+        um zu zeigen, dass man mit Disziplin, Arbeit und Glauben das Unmögliche erreichen kann."</blockquote>
+      <cite>Warum ich kämpfe</cite>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================== KAMPF -->
+<div class="tab" id="tab-kampf">
+  <div class="kampf-hero">
+    <div class="bg"></div>
+    <div class="container">
+      <div class="ueberzeile" style="justify-content:center">Fight Night</div>
+      <h2 class="titel" style="margin-bottom:6px">Nächster Kampf</h2>
+      <div class="kampf-datum" id="kampfDatumAnzeige">–</div>
+      <div class="kampf-ort" id="kampfOrtAnzeige">Ort wird bekannt gegeben</div>
+
+      <div class="countdown" id="countdown">
+        <div class="cd"><div class="z" id="cdTage">0</div><div class="l">Tage</div></div>
+        <div class="cd"><div class="z" id="cdStunden">0</div><div class="l">Stunden</div></div>
+        <div class="cd"><div class="z" id="cdMinuten">0</div><div class="l">Minuten</div></div>
+        <div class="cd"><div class="z" id="cdSekunden">0</div><div class="l">Sekunden</div></div>
+      </div>
+      <div class="kampf-hinweis" id="kampfHinweis">Nächster Kampf wird in Kürze bekannt gegeben</div>
+
+      <div class="dazn-zeile">
+        <span>Live &amp; weltweit auf</span><span class="dazn-box">DA<br>ZN</span><span>in über 250 Ländern</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="vergangene">
+    <div class="container">
+      <div class="ueberzeile">Bisherige Profikämpfe</div>
+      <h2 class="titel">Meine Profikämpfe</h2>
+      <div class="kampf-karten">
+        <div class="kk reveal">
+          <div class="datum">12.12.2025</div>
+          <div class="gegner">vs G. Nikolic</div>
+          <div class="ort">Zürich, Schweiz</div>
+          <div><span class="resultat">Sieg</span><span class="methode">Einstimmig n. Punkten</span></div>
+        </div>
+        <div class="kk reveal">
+          <div class="datum">03.10.2025</div>
+          <div class="gegner">vs M. Petrov</div>
+          <div class="ort">München, Deutschland</div>
+          <div><span class="resultat">Sieg</span><span class="methode">K.o. · Runde 2</span></div>
+        </div>
+        <div class="kk reveal">
+          <div class="datum">05.09.2025</div>
+          <div class="gegner">vs O. Shevchenko</div>
+          <div class="ort">München, Deutschland</div>
+          <div><span class="resultat">Sieg</span><span class="methode">Einstimmig n. Punkten</span></div>
         </div>
       </div>
-      <div class="ueber-text">
-        <p>
-          <strong>Festim Ademi</strong> ist Profi-Boxer aus Deutschland. Was mit harter Arbeit
-          im Gym begann, ist heute eine Karriere im Profiboxsport – geprägt von Disziplin,
-          Ehrgeiz und dem unbedingten Willen, jeden Kampf zu gewinnen.
-        </p>
-        <p>
-          Zusammen mit seinem Team bereitet er sich akribisch auf jeden Gegner vor.
-          Sein Stil: druckvoll, präzise und kompromisslos. Jeder Kampf ist für ihn
-          mehr als ein Wettkampf – es ist die Bestätigung von tausenden Stunden Training.
-        </p>
-        <p>
-          Abseits des Rings steht Festim für Bodenständigkeit, Respekt und den engen
-          Zusammenhalt seiner Familie – <strong>#AdemiBrothers</strong>.
-        </p>
-        <ul class="fakten">
-          <!-- REKORD ANPASSEN: Trage hier die echten Daten ein -->
-          <li><span class="k">Name</span><span class="w">Festim Ademi</span></li>
-          <li><span class="k">Nationalität</span><span class="w">Deutschland</span></li>
-          <li><span class="k">Gewichtsklasse</span><span class="w">–</span></li>
-          <li><span class="k">Auslage</span><span class="w">–</span></li>
-          <li><span class="k">Team</span><span class="w">#AdemiBrothers</span></li>
+    </div>
+  </section>
+</div>
+
+<!-- ==================================================== KARRIERE -->
+<div class="tab" id="tab-karriere">
+  <section>
+    <div class="container bilanz-grid">
+      <div class="reveal">
+        <div class="ueberzeile">Bilanz</div>
+        <div class="bilanz-zahl">3-0-0</div>
+        <div class="bilanz-sub">Ungeschlagen als Profi</div>
+        <ul class="bilanz-detail">
+          <li><span class="k">Siege</span><span class="w">3 (davon 1 K.o.)</span></li>
+          <li><span class="k">Niederlagen</span><span class="w">0</span></li>
+          <li><span class="k">Unentschieden</span><span class="w">0</span></li>
+          <li><span class="k">Nationalität</span><span class="w">Schweiz 🇨🇭 / Albanien 🇦🇱</span></li>
+          <li><span class="k">Heimatstadt</span><span class="w">Biel/Bienne</span></li>
+          <li><span class="k">Boxstall</span><span class="w">Ruhe Boxing</span></li>
+          <li><span class="k">Übertragung</span><span class="w">Live auf DAZN</span></li>
         </ul>
       </div>
+      <div class="karriere-bild reveal">
+        <img src="bilder/kampf-action.jpg" alt="Festim Ademi im Ring">
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ================= KÄMPFE ================= -->
-<section class="kaempfe" id="kaempfe">
-  <div class="container">
-    <div class="abschnitt-kopf">
-      <div class="ueber">Fight Record</div>
-      <h2>Meine Kämpfe</h2>
-    </div>
-    <div class="kampf-liste">
-      <!-- KÄMPFE ANPASSEN: Für jeden Kampf einen Block kopieren.
-           class="sieg" = goldenes Sieg-Badge, class="offen" = rotes Badge -->
-      <div class="kampf">
-        <div class="datum">13.09.2025</div>
-        <div>
-          <div class="gegner">Fight Night Hameln</div>
-          <div class="ort">Hameln, Deutschland · #AdemiBrothers</div>
+  <section class="meilensteine">
+    <div class="container">
+      <div class="ueberzeile">Meilensteine</div>
+      <h2 class="titel">Vom Talent zum Profi</h2>
+      <div class="ms-grid">
+        <div class="ms reveal">
+          <div class="icon">🏆</div>
+          <h3>7× Schweizer Meister</h3>
+          <p>3 Titel im Light-Contact, 4 Titel im olympischen Boxen – aufgebaut über eine
+             Amateurkarriere mit mehr als 20 Kämpfen.</p>
         </div>
-        <div class="ergebnis sieg">Sieg</div>
-      </div>
-      <div class="kampf">
-        <div class="datum">Demnächst</div>
-        <div>
-          <div class="gegner">Nächster Kampf</div>
-          <div class="ort">Ort &amp; Gegner werden bekannt gegeben</div>
+        <div class="ms reveal">
+          <div class="icon">🇨🇭</div>
+          <h3>Schweizer Nationalmannschaft</h3>
+          <p>Internationale Einsätze in Irland, Deutschland, Frankreich, Belgien und Italien –
+             Erfahrungen, die Ehrgeiz und Charakter geformt haben.</p>
         </div>
-        <div class="ergebnis offen">Coming Soon</div>
+        <div class="ms reveal">
+          <div class="icon">📺</div>
+          <h3>„Werde der Pro" – Top 100</h3>
+          <p>Aus über 400 Kandidaten ausgewählt. WBA-Gold-Champion Piergiulio Ruhe bezeichnete
+             Festim als zukünftigen Weltmeister.</p>
+        </div>
+        <div class="ms reveal">
+          <div class="icon">✍️</div>
+          <h3>Profivertrag bei Ruhe Boxing</h3>
+          <p>Seit 2025 Profi im Stall von Ruhe Boxing – jeder Kampf live auf DAZN, sichtbar in
+             über 250 Ländern weltweit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="zitat-band">
+    <div class="container">
+      <blockquote>„Talent bringt dich in den Ring – Disziplin lässt dich dort gewinnen."</blockquote>
+      <cite>Festim Ademi</cite>
+    </div>
+  </div>
+</div>
+
+<!-- ==================================================== SPONSORING -->
+<div class="tab" id="tab-sponsoring">
+  <section style="padding-bottom:50px">
+    <div class="container">
+      <div class="ueberzeile">Partner &amp; Sponsoren</div>
+      <h2 class="titel">Starke Marken.<br>Eine gemeinsame Mission.</h2>
+      <p style="max-width:600px;color:var(--grau)">Verbinden Sie Ihre Marke mit einer Geschichte aus
+         Disziplin, Werten und internationaler Sichtbarkeit – live auf DAZN, in über 250 Ländern,
+         mit über 300'000 monatlichen Kontakten auf Social Media.</p>
+    </div>
+  </section>
+
+  <!-- SPONSOREN-KARUSSELL (läuft endlos von rechts nach links) -->
+  <div class="marquee reveal">
+    <div class="marquee-spur">
+      <div class="marquee-inhalt">
+        <span class="logo-wort">⟩ Boxraw</span>
+        <span class="logo-wort"><span class="dazn">DA<br>ZN</span></span>
+        <span class="logo-wort">Ruhe Boxing</span>
+        <span class="logo-wort">Everlast</span>
+        <span class="logo-wort">Leone 1947</span>
+        <span class="logo-wort">WowHydrate</span>
+        <span class="logo-wort">Goldenco</span>
+        <span class="logo-wort">AB Group</span>
+        <span class="logo-wort">Swiss Boxing 🇨🇭</span>
+      </div>
+      <div class="marquee-inhalt" aria-hidden="true">
+        <span class="logo-wort">⟩ Boxraw</span>
+        <span class="logo-wort"><span class="dazn">DA<br>ZN</span></span>
+        <span class="logo-wort">Ruhe Boxing</span>
+        <span class="logo-wort">Everlast</span>
+        <span class="logo-wort">Leone 1947</span>
+        <span class="logo-wort">WowHydrate</span>
+        <span class="logo-wort">Goldenco</span>
+        <span class="logo-wort">AB Group</span>
+        <span class="logo-wort">Swiss Boxing 🇨🇭</span>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ================= ZITAT ================= -->
-<section class="zitat">
-  <div class="container">
-    <blockquote>
-      „Talent bringt dich in den Ring – <span>Disziplin</span> lässt dich dort gewinnen."
-    </blockquote>
-    <cite>— Festim Ademi</cite>
-  </div>
-</section>
-
-<!-- ================= GALERIE ================= -->
-<section id="galerie">
-  <div class="container">
-    <div class="abschnitt-kopf">
-      <div class="ueber">Impressionen</div>
-      <h2>Galerie</h2>
-    </div>
-    <div class="galerie-grid">
-      <!-- Bilder in den Ordner "bilder/" legen: foto-1.jpg bis foto-6.jpg -->
-      <figure class="g-item">
-        <img src="bilder/foto-1.jpg" alt="Festim Ademi – Training" onerror="this.closest('.g-item').classList.add('leer')">
-        <div class="platzhalter"><span class="icon">🥊</span><span class="hinweis">Instagram-Foto<br>bilder/foto-1.jpg</span></div>
-      </figure>
-      <figure class="g-item">
-        <img src="bilder/foto-2.jpg" alt="Festim Ademi – Im Ring" onerror="this.closest('.g-item').classList.add('leer')">
-        <div class="platzhalter"><span class="icon">🥊</span><span class="hinweis">Instagram-Foto<br>bilder/foto-2.jpg</span></div>
-      </figure>
-      <figure class="g-item">
-        <img src="bilder/foto-3.jpg" alt="Festim Ademi – Fight Night" onerror="this.closest('.g-item').classList.add('leer')">
-        <div class="platzhalter"><span class="icon">🥊</span><span class="hinweis">Instagram-Foto<br>bilder/foto-3.jpg</span></div>
-      </figure>
-      <figure class="g-item">
-        <img src="bilder/foto-4.jpg" alt="Festim Ademi – Vorbereitung" onerror="this.closest('.g-item').classList.add('leer')">
-        <div class="platzhalter"><span class="icon">🥊</span><span class="hinweis">Instagram-Foto<br>bilder/foto-4.jpg</span></div>
-      </figure>
-      <figure class="g-item">
-        <img src="bilder/foto-5.jpg" alt="Festim Ademi – Siegerpose" onerror="this.closest('.g-item').classList.add('leer')">
-        <div class="platzhalter"><span class="icon">🥊</span><span class="hinweis">Instagram-Foto<br>bilder/foto-5.jpg</span></div>
-      </figure>
-      <figure class="g-item">
-        <img src="bilder/foto-6.jpg" alt="Festim Ademi – Team" onerror="this.closest('.g-item').classList.add('leer')">
-        <div class="platzhalter"><span class="icon">🥊</span><span class="hinweis">Instagram-Foto<br>bilder/foto-6.jpg</span></div>
-      </figure>
-    </div>
-    <div class="galerie-fuss">
-      <a class="insta-link" href="https://www.instagram.com/ademi_festim/" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.8" cy="6.2" r="1.2" fill="currentColor" stroke="none"/></svg>
-        @ademi_festim folgen
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= KONTAKT ================= -->
-<section id="kontakt" style="background:var(--kohle);border-top:1px solid var(--linie)">
-  <div class="container">
-    <div class="abschnitt-kopf">
-      <div class="ueber">Management &amp; Sponsoring</div>
-      <h2>Kontakt</h2>
-    </div>
-    <div class="kontakt-grid">
-      <div class="kontakt-info">
-        <p>
-          Anfragen zu Kämpfen, Sponsoring, Presse oder Kooperationen?
-          Schreib eine Nachricht – das Team meldet sich schnellstmöglich zurück.
-        </p>
-        <ul class="kontakt-kanaele">
-          <li>
-            <span class="sym">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.8" cy="6.2" r="1.2" fill="currentColor" stroke="none"/></svg>
-            </span>
-            <a href="https://www.instagram.com/ademi_festim/" target="_blank" rel="noopener">@ademi_festim</a>
-          </li>
-          <li>
-            <span class="sym">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            </span>
-            <!-- E-MAIL ANPASSEN -->
-            <a href="mailto:kontakt@festimademi.de">kontakt@festimademi.de</a>
-          </li>
-        </ul>
+  <section class="pakete">
+    <div class="container">
+      <div class="ueberzeile">Werden Sie Partner</div>
+      <h2 class="titel">Sponsoring-Pakete</h2>
+      <div class="pakete-grid">
+        <div class="paket reveal">
+          <div class="stufe">Bronze</div>
+          <div class="preis">2'500 <small>CHF</small></div>
+          <ul>
+            <li>Logo auf Social Media</li>
+            <li>Erwähnung als Partner</li>
+            <li>Zugang zu exklusiven Inhalten</li>
+            <li>Einladung zum Event</li>
+          </ul>
+          <button class="btn btn-rand" data-tab-link="kontakt">Anfragen</button>
+        </div>
+        <div class="paket reveal">
+          <div class="stufe">Silver</div>
+          <div class="preis">5'000 <small>CHF</small></div>
+          <ul>
+            <li>Logo auf Shorts (klein)</li>
+            <li>Logo auf Social Media</li>
+            <li>Erwähnung als Partner</li>
+            <li>Eigener Content</li>
+            <li>Einladung zu Events</li>
+          </ul>
+          <button class="btn btn-rand" data-tab-link="kontakt">Anfragen</button>
+        </div>
+        <div class="paket hervor reveal">
+          <div class="stufe">Gold</div>
+          <div class="preis">10'000 <small>CHF</small></div>
+          <ul>
+            <li>Logo auf Shorts (sichtbar)</li>
+            <li>Logo auf Bademantel</li>
+            <li>Social Media &amp; DAZN-Präsenz</li>
+            <li>Eigener Content</li>
+            <li>Meet &amp; Greet</li>
+            <li>VIP-Einladung</li>
+          </ul>
+          <button class="btn btn-gold" data-tab-link="kontakt">Anfragen</button>
+        </div>
+        <div class="paket reveal">
+          <div class="stufe">Platinum</div>
+          <div class="preis">20'000+ <small>CHF</small></div>
+          <ul>
+            <li>Hauptpartner</li>
+            <li>Premium-Logo (Shorts + Bademantel)</li>
+            <li>DAZN-Sichtbarkeit</li>
+            <li>Eigene Kampagnen</li>
+            <li>Erweiterte Marketingrechte</li>
+            <li>VIP-Hospitality</li>
+          </ul>
+          <button class="btn btn-rand" data-tab-link="kontakt">Anfragen</button>
+        </div>
       </div>
-      <!-- Netlify Forms: funktioniert automatisch nach dem Deploy auf Netlify -->
-      <form name="kontakt" method="POST" data-netlify="true">
-        <input type="hidden" name="form-name" value="kontakt">
-        <div class="feld"><input type="text" name="name" placeholder="Dein Name" required></div>
-        <div class="feld"><input type="email" name="email" placeholder="Deine E-Mail" required></div>
-        <div class="feld"><textarea name="nachricht" placeholder="Deine Nachricht" required></textarea></div>
-        <button type="submit" class="btn btn-gold">Nachricht senden</button>
-      </form>
+      <p style="color:var(--grau);font-size:.8rem;margin-top:22px">* Angebote individuell anpassbar – je nach Zielen Ihrer Marke.</p>
     </div>
-  </div>
-</section>
+  </section>
+</div>
+
+<!-- ==================================================== KONTAKT -->
+<div class="tab" id="tab-kontakt">
+  <section>
+    <div class="container">
+      <div class="ueberzeile">Management &amp; Sponsoring</div>
+      <h2 class="titel">Kontakt</h2>
+      <div class="kontakt-grid">
+        <div class="k-info reveal">
+          <p>Anfragen zu Sponsoring, Presse, Kämpfen oder Kooperationen? Schreiben Sie uns –
+             das Team meldet sich schnellstmöglich zurück.</p>
+          <ul class="k-kanaele">
+            <li>
+              <span class="sym">✉</span>
+              <span><span class="l">E-Mail</span>
+              <a href="mailto:festim.ademi@outlook.com">festim.ademi@outlook.com</a></span>
+            </li>
+            <li>
+              <span class="sym">☏</span>
+              <span><span class="l">Telefon</span>
+              <a href="tel:+41765700303">+41 76 570 03 03</a></span>
+            </li>
+            <!-- SOCIAL LINKS: bei Bedarf Handles/URLs anpassen -->
+            <li>
+              <span class="sym">◉</span>
+              <span><span class="l">Instagram</span>
+              <a href="https://www.instagram.com/festim.ademi/" target="_blank" rel="noopener">@festim.ademi</a></span>
+            </li>
+            <li>
+              <span class="sym">♪</span>
+              <span><span class="l">TikTok</span>
+              <a href="https://www.tiktok.com/@festim.ademi" target="_blank" rel="noopener">@festim.ademi</a></span>
+            </li>
+          </ul>
+          <div class="sozial-zahlen">
+            <div class="sz"><div class="z">41,2K</div><div class="l">Instagram</div></div>
+            <div class="sz"><div class="z">78K+</div><div class="l">TikTok</div></div>
+            <div class="sz"><div class="z">8,2K+</div><div class="l">YouTube</div></div>
+            <div class="sz"><div class="z">5,5K+</div><div class="l">Facebook</div></div>
+          </div>
+        </div>
+
+        <form name="kontakt" method="POST" data-netlify="true" class="reveal">
+          <input type="hidden" name="form-name" value="kontakt">
+          <div class="feld"><input type="text" name="name" placeholder="Ihr Name" required></div>
+          <div class="feld"><input type="email" name="email" placeholder="Ihre E-Mail" required></div>
+          <div class="feld">
+            <select name="betreff">
+              <option>Sponsoring-Anfrage</option>
+              <option>Presse / Medien</option>
+              <option>Kampf-Anfrage</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="feld"><textarea name="nachricht" placeholder="Ihre Nachricht" required></textarea></div>
+          <button type="submit" class="btn btn-gold">Nachricht senden →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
 
 <footer>
   <div class="container footer-innen">
-    <div class="copy">© <span id="jahr"></span> Festim Ademi · Alle Rechte vorbehalten</div>
-    <div class="footer-social">
-      <a href="https://www.instagram.com/ademi_festim/" target="_blank" rel="noopener">Instagram</a>
-      <a href="#start">Nach oben ↑</a>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span class="fa-logo" style="width:38px;height:38px;font-size:1rem">FA</span>
+      <span class="copy">© <span id="jahr"></span> Festim Ademi · Alle Rechte vorbehalten</span>
+    </div>
+    <div class="footer-links">
+      <button data-tab-link="geschichte">Geschichte</button>
+      <button data-tab-link="kampf">Kampf</button>
+      <button data-tab-link="sponsoring">Sponsoring</button>
+      <a href="https://www.instagram.com/festim.ademi/" target="_blank" rel="noopener">Instagram</a>
     </div>
   </div>
 </footer>
@@ -528,36 +860,78 @@ footer .copy{color:var(--grau);font-size:.85rem}
 <script>
 document.getElementById('jahr').textContent = new Date().getFullYear();
 
-// Mobiles Menü
-const burger = document.getElementById('burger');
-const navLinks = document.getElementById('navLinks');
-burger.addEventListener('click', () => navLinks.classList.toggle('offen'));
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('offen')));
+/* ---------- Tab-Navigation ---------- */
+const tabs = document.querySelectorAll('.tab');
+const tabButtons = document.querySelectorAll('.nav-tabs button');
+const navTabs = document.getElementById('navTabs');
 
-// Zähler-Animation für die Statistik
-const zahlen = document.querySelectorAll('.stat .zahl');
-const beobachter = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    const ziel = parseInt(el.dataset.ziel, 10) || 0;
-    const dauer = 1200, start = performance.now();
-    const tick = now => {
-      const p = Math.min((now - start) / dauer, 1);
-      el.textContent = Math.round(ziel * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-    beobachter.unobserve(el);
-  });
-}, {threshold:.5});
-zahlen.forEach(z => beobachter.observe(z));
+function zeigeTab(name, scrollen = true){
+  const ziel = document.getElementById('tab-' + name);
+  if(!ziel) return;
+  tabs.forEach(t => t.classList.remove('aktiv'));
+  // Reflow erzwingen, damit die Einblend-Animation bei jedem Wechsel neu startet
+  void ziel.offsetWidth;
+  ziel.classList.add('aktiv');
+  tabButtons.forEach(b => b.classList.toggle('aktiv', b.dataset.tab === name));
+  try{ history.replaceState(null, '', '#' + name); }catch(e){}
+  navTabs.classList.remove('offen');
+  if(scrollen) window.scrollTo({top:0, behavior:'instant'});
+  beobachteReveals();
+}
 
-// Falls das Hero-Bild fehlt, bleibt der dunkle Verlauf – kein kaputtes Bild
-const testBild = new Image();
-testBild.onload = () => document.querySelector('.hero-bild').style.opacity = '.35';
-testBild.onerror = () => document.querySelector('.hero-bild').style.display = 'none';
-testBild.src = 'bilder/hero.jpg';
+tabButtons.forEach(b => b.addEventListener('click', () => zeigeTab(b.dataset.tab)));
+document.querySelectorAll('[data-tab-link]').forEach(el =>
+  el.addEventListener('click', e => { e.preventDefault(); zeigeTab(el.dataset.tabLink); }));
+
+document.getElementById('burger').addEventListener('click', () => navTabs.classList.toggle('offen'));
+
+/* ---------- Countdown ----------
+   KAMPF_DATUM: Datum/Zeit des nächsten Kampfs hier eintragen.
+   Format: 'JJJJ-MM-TTThh:mm:ss'. Kein Kampf geplant? -> null setzen. */
+const KAMPF_DATUM = '2026-07-04T20:00:00';
+const KAMPF_ORT   = 'Deutschland';
+
+const datumAnzeige = document.getElementById('kampfDatumAnzeige');
+const ortAnzeige = document.getElementById('kampfOrtAnzeige');
+const countdownEl = document.getElementById('countdown');
+const hinweisEl = document.getElementById('kampfHinweis');
+
+function aktualisiereCountdown(){
+  const ziel = KAMPF_DATUM ? new Date(KAMPF_DATUM).getTime() : null;
+  const diff = ziel ? ziel - Date.now() : -1;
+  if(!ziel || diff <= 0){
+    countdownEl.style.display = 'none';
+    hinweisEl.style.display = 'block';
+    datumAnzeige.textContent = 'Bald';
+    ortAnzeige.textContent = 'Datum & Ort werden bekannt gegeben';
+    return;
+  }
+  const d = new Date(KAMPF_DATUM);
+  datumAnzeige.textContent = d.toLocaleDateString('de-CH', {day:'2-digit', month:'2-digit', year:'numeric'});
+  ortAnzeige.textContent = KAMPF_ORT;
+  const s = Math.floor(diff/1000);
+  document.getElementById('cdTage').textContent = Math.floor(s/86400);
+  document.getElementById('cdStunden').textContent = String(Math.floor(s%86400/3600)).padStart(2,'0');
+  document.getElementById('cdMinuten').textContent = String(Math.floor(s%3600/60)).padStart(2,'0');
+  document.getElementById('cdSekunden').textContent = String(s%60).padStart(2,'0');
+}
+aktualisiereCountdown();
+setInterval(aktualisiereCountdown, 1000);
+
+/* ---------- Scroll-Reveal ---------- */
+let revealObserver;
+function beobachteReveals(){
+  if(revealObserver) revealObserver.disconnect();
+  revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('sichtbar'); revealObserver.unobserve(e.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.tab.aktiv .reveal').forEach(el => revealObserver.observe(el));
+}
+beobachteReveals();
+
+// Direktaufruf per Hash (z.B. meineseite.ch/#sponsoring)
+const startHash = location.hash.replace('#','');
+if(startHash && document.getElementById('tab-' + startHash)) zeigeTab(startHash, false);
 </script>
 </body>
 </html>
