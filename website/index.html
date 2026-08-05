@@ -65,8 +65,7 @@ header{
 .nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
 .marke{display:flex;align-items:center;gap:14px}
 .fa-logo{
-  width:44px;height:44px;border:1.5px solid var(--gold);display:grid;place-items:center;
-  font-family:var(--font-d);font-weight:700;font-size:1.15rem;color:var(--gold);letter-spacing:.02em;
+  width:46px;height:46px;object-fit:cover;mix-blend-mode:screen;
 }
 .marke .name{font-family:var(--font-d);font-size:.95rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
 .marke .sub{font-family:var(--font-d);font-weight:300;font-size:.6rem;letter-spacing:.3em;color:var(--grau);text-transform:uppercase;display:block;margin-top:2px}
@@ -140,10 +139,10 @@ header{
 }
 .flaggen .x{color:var(--gold);font-size:.75rem}
 .hero-zitat{
-  font-family:var(--font-d);font-weight:300;text-transform:uppercase;letter-spacing:.14em;
-  font-size:1.05rem;color:#d8d2c6;margin:32px 0 40px;max-width:480px;line-height:1.8;
+  font-family:var(--font-d);font-weight:400;text-transform:uppercase;letter-spacing:.2em;
+  font-size:1.3rem;color:#d8d2c6;margin:32px 0 40px;max-width:520px;line-height:1.6;
 }
-.hero-zitat span{color:var(--gold)}
+.hero-zitat span{color:var(--gold);font-weight:600}
 .hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
 .hero-scroll{
   position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;
@@ -165,6 +164,9 @@ header{
 .stat:first-child{border-left:1px solid var(--linie)}
 .stat .z{font-family:var(--font-d);font-size:1.6rem;font-weight:600;color:var(--gold);line-height:1.2}
 .stat .l{font-family:var(--font-d);font-weight:300;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grau);margin-top:6px}
+.stat .medaille{width:30px;height:30px;color:var(--gold);vertical-align:middle}
+.stat-logo{height:32px;margin:0 auto;mix-blend-mode:screen;object-fit:contain}
+.stat-logo.breit{height:42px;max-width:160px}
 
 /* ---------- Intro (heller Block) ---------- */
 .intro{background:var(--creme);color:#161310}
@@ -186,9 +188,9 @@ header{
 }
 .geschichte-kopf .bg{
   position:absolute;inset:0;background:url('bilder/gang-portrait.jpg') center 22%/cover no-repeat;
-  filter:grayscale(30%) brightness(.42);
+  filter:grayscale(15%) brightness(.75);
 }
-.geschichte-kopf .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(10,10,10,.5), var(--schwarz))}
+.geschichte-kopf .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, rgba(10,10,10,.82) 35%, rgba(10,10,10,.35)), linear-gradient(rgba(10,10,10,.15) 70%, var(--schwarz))}
 .geschichte-kopf .container{position:relative;z-index:2}
 .story-grid{display:grid;grid-template-columns:1.35fr .8fr;gap:70px;align-items:start;margin-top:70px}
 .story p{color:#cfc9bd;margin-bottom:22px;font-size:1.05rem}
@@ -198,16 +200,29 @@ header{
   color:var(--gold);margin:36px 0 14px;font-weight:500;
 }
 .story-seite{position:sticky;top:110px;display:flex;flex-direction:column;gap:26px}
-.story-seite img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 15%}
-.story-fakt{border:1px solid var(--linie);padding:24px;background:var(--kohle)}
-.story-fakt .z{font-family:var(--font-d);font-size:2rem;color:var(--gold);font-weight:600}
-.story-fakt .l{font-family:var(--font-d);font-weight:300;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grau)}
-.zeitstrahl{margin-top:80px}
-.zs-liste{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--linie);border:1px solid var(--linie)}
-.zs{background:var(--kohle);padding:28px 22px;transition:background .3s}
-.zs:hover{background:var(--anthrazit)}
-.zs .jahr{font-family:var(--font-d);color:var(--gold);font-size:1.25rem;font-weight:600}
-.zs .txt{font-size:.88rem;color:var(--grau);margin-top:8px;line-height:1.55}
+.wechsel-bild{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:var(--anthrazit)}
+.wechsel-bild img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;
+  opacity:0;transition:opacity 1.4s ease;
+}
+.wechsel-bild img.aktiv{opacity:1}
+/* Zeitstrahl im "Le Parcours"-Stil: horizontale Linie mit Punkten */
+.zeitstrahl{margin-top:90px}
+.zs-liste{
+  display:grid;grid-template-columns:repeat(7,minmax(138px,1fr));gap:0 20px;
+  position:relative;padding-top:34px;overflow-x:auto;padding-bottom:6px;
+}
+.zs-liste::before{
+  content:"";position:absolute;top:8px;left:8px;right:8px;height:2px;
+  background:linear-gradient(90deg, var(--gold), rgba(201,165,95,.15));
+}
+.zs{position:relative;padding:0}
+.zs::before{
+  content:"";position:absolute;top:-31px;left:0;width:12px;height:12px;border-radius:50%;
+  background:var(--schwarz);border:2.5px solid var(--gold);
+}
+.zs .jahr{font-family:var(--font-d);color:var(--gold);font-size:1.3rem;font-weight:600}
+.zs .txt{font-size:.85rem;color:var(--grau);margin-top:8px;line-height:1.55}
 
 /* ---------- Galerie ---------- */
 .galerie-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:50px}
@@ -215,6 +230,27 @@ header{
 .g-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(25%);transition:transform .6s ease,filter .6s ease}
 .g-item:hover img{transform:scale(1.07);filter:grayscale(0)}
 .g-item.quer{grid-column:span 2;aspect-ratio:2.05/1}
+.g-item{cursor:zoom-in}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:500;background:rgba(5,5,5,.94);
+  align-items:center;justify-content:center;
+}
+.lightbox.offen{display:flex}
+.lightbox img{max-width:88vw;max-height:88vh;object-fit:contain;box-shadow:0 20px 80px rgba(0,0,0,.7)}
+.lb-schliessen{
+  position:absolute;top:22px;right:26px;background:none;border:1px solid var(--linie-gold);
+  color:var(--creme);font-size:1.1rem;width:44px;height:44px;transition:all .25s;
+}
+.lb-schliessen:hover{border-color:var(--gold);color:var(--gold)}
+.lb-pfeil{
+  position:absolute;top:50%;transform:translateY(-50%);background:none;border:none;
+  color:var(--creme);font-size:3rem;line-height:1;padding:10px 20px;opacity:.7;transition:opacity .25s;
+}
+.lb-pfeil:hover{opacity:1}
+.lb-pfeil.links{left:12px}
+.lb-pfeil.rechts{right:12px}
 
 /* ---------- Zitat-Band ---------- */
 .zitat-band{
@@ -303,28 +339,20 @@ header{
 .ms h3{font-size:1.05rem;margin:14px 0 10px;letter-spacing:.12em}
 .ms p{color:var(--grau);font-size:.92rem}
 
-/* ---------- Partner ---------- */
-.partner{background:var(--kohle);border-top:1px solid var(--linie)}
-.marquee{
-  overflow:hidden;border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);
-  background:var(--schwarz);padding:38px 0;position:relative;margin-top:60px;
+/* ---------- Partner (Logo-Grid wie Beispiel "Unsere Partner") ---------- */
+.partner{background:var(--schwarz);border-top:1px solid var(--linie)}
+.partner-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  max-width:900px;margin:60px auto 0;
 }
-.marquee::before,.marquee::after{
-  content:"";position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;
+.p-logo{
+  display:grid;place-items:center;padding:34px 26px;min-height:150px;
+  transition:transform .35s ease;
 }
-.marquee::before{left:0;background:linear-gradient(90deg,var(--schwarz),transparent)}
-.marquee::after{right:0;background:linear-gradient(270deg,var(--schwarz),transparent)}
-.marquee-spur{display:flex;width:max-content;animation:lauf 30s linear infinite}
-.marquee:hover .marquee-spur{animation-play-state:paused}
-@keyframes lauf{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.marquee-inhalt{display:flex;align-items:center;gap:74px;padding-right:74px}
-.logo-wort{
-  font-family:var(--font-d);font-weight:500;font-size:1.25rem;letter-spacing:.1em;
-  color:var(--grau);text-transform:uppercase;white-space:nowrap;transition:color .3s;
-  display:flex;align-items:center;gap:10px;
-}
-.logo-wort:hover{color:var(--creme)}
-.logo-wort .dazn{border:2px solid currentColor;padding:3px 8px;line-height:1.05;font-size:.95rem;font-weight:700}
+.p-logo:hover{transform:scale(1.06)}
+.p-logo img{max-height:96px;max-width:82%;object-fit:contain;mix-blend-mode:screen}
+.p-logo.hell{background:#fff;border-radius:6px}
+.p-logo.hell img{mix-blend-mode:normal;max-width:88%}
 .partner-cta{
   display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;
   border:1px solid var(--linie);background:var(--schwarz);padding:38px 42px;margin-top:60px;
@@ -395,12 +423,13 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <header>
   <div class="container nav">
     <a href="#start" class="marke">
-      <span class="fa-logo">FA</span>
+      <img class="fa-logo" src="bilder/logos/fa-logo.jpg" alt="FA – Festim Ademi">
       <span><span class="name">Festim Ademi</span><span class="sub">Professional Boxer</span></span>
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#start" class="aktiv">Start</a></li>
       <li><a href="#geschichte">Geschichte</a></li>
+      <li><a href="#impressionen">Impressionen</a></li>
       <li><a href="#kampf">Kampf</a></li>
       <li><a href="#karriere">Karriere</a></li>
       <li><a href="#partner">Partner</a></li>
@@ -424,42 +453,43 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
   <div class="container hero-inhalt">
     <h1>Festim<br>Ademi</h1>
     <div class="untertitel">Professional Boxer</div>
-    <div class="flaggen">Switzerland 🇨🇭 <span class="x">✕</span> Albania 🇦🇱</div>
-    <p class="hero-zitat">Discipline creates opportunities.<br><span>Character creates legacy.</span></p>
+    <p class="hero-zitat">Mission: <span>World Champion</span></p>
     <div class="hero-buttons">
       <a class="btn btn-gold" href="#kampf">Nächster Kampf →</a>
       <a class="btn btn-rand" href="#geschichte">Meine Geschichte</a>
     </div>
   </div>
-  <div class="hero-scroll">Scrollen</div>
 </section>
 
 <div class="stats-band">
   <div class="container">
-    <div class="stat"><div class="z">4×</div><div class="l">Schweizer Meister</div></div>
+    <div class="stat">
+      <div class="z"><svg class="medaille" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2h8l-2.5 6h-3L8 2z" fill="currentColor" stroke="none" opacity=".55"/><circle cx="12" cy="14.5" r="5.5"/><path d="m12 11.8.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3.9-1.8z" fill="currentColor" stroke="none"/></svg></div>
+      <div class="l">4× Schweizer Meister</div>
+    </div>
     <div class="stat"><div class="z">3-0</div><div class="l">Ungeschlagen Profi</div></div>
     <div class="stat"><div class="z">300'000+</div><div class="l">Monatliche Reichweite</div></div>
-    <div class="stat"><div class="z">LIVE</div><div class="l">Weltweit auf DAZN</div></div>
-    <div class="stat"><div class="z">BOXRAW</div><div class="l">Official Athlete</div></div>
-    <div class="stat"><div class="z">RUHE</div><div class="l">Boxing Stall</div></div>
+    <div class="stat"><img class="stat-logo" src="bilder/logos/dazn.jpg" alt="DAZN"><div class="l">Live &amp; weltweit</div></div>
+    <div class="stat"><img class="stat-logo breit" src="bilder/logos/boxraw.jpg" alt="BOXRAW"><div class="l">Official Athlete</div></div>
+    <div class="stat"><img class="stat-logo breit" src="bilder/logos/ruhe.jpg" alt="Ruhe Boxing"><div class="l">Boxing Stall</div></div>
   </div>
 </div>
 
 <section class="intro" id="ueber">
   <div class="container intro-grid">
     <div class="reveal links">
-      <div class="ueberzeile">Wer ist Festim?</div>
-      <h2 class="titel" style="color:#161310">Mehr als ein Boxer.<br>Eine Mentalität.</h2>
-      <p>In der Schweiz geboren, mit albanischen Wurzeln – Festim Ademi entdeckt das Boxen
-         bereits mit sechs Jahren. Aus einer Leidenschaft wird schnell eine Berufung.</p>
-      <p>Nach mehreren nationalen Titeln bei den Amateuren und Einsätzen für die Schweizer
-         Nationalmannschaft wagt er den Schritt ins Profilager – heute steht er bei
-         <strong>Ruhe Boxing</strong> unter Vertrag und boxt live auf <strong>DAZN</strong>.</p>
-      <p>Sein Ziel ist klar definiert: <strong>Weltmeister werden.</strong></p>
+      <div class="ueberzeile">Der Athlet</div>
+      <h2 class="titel" style="color:#161310">Gebaut aus Disziplin.<br>Getrieben von einem Ziel.</h2>
+      <p>Festim Ademi steht seit seinem sechsten Lebensjahr im Ring. Was in Biel als
+         Kindheitstraum begann, wurde durch tausende Trainingsstunden zu einer Profikarriere.</p>
+      <p>Sieben nationale Titel, Einsätze für die Schweizer Nationalmannschaft und der
+         Sprung ins Profilager bei <strong>Ruhe Boxing</strong> – heute werden seine Kämpfe
+         live auf <strong>DAZN</strong> in die ganze Welt übertragen.</p>
+      <p>Ungeschlagen. Fokussiert. Und erst am Anfang.</p>
       <a class="btn btn-gold" href="#geschichte" style="margin-top:14px">Meine Geschichte →</a>
     </div>
     <div class="intro-bild reveal rechts">
-      <img src="bilder/portrait-gym.jpg" alt="Festim Ademi im Training">
+      <img src="bilder/ring-portrait.jpg" alt="Festim Ademi im Ring" style="object-position:center 10%">
     </div>
   </div>
 </section>
@@ -524,27 +554,14 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     </div>
 
     <aside class="story-seite">
-      <img src="bilder/portrait-stand.jpg" alt="Festim Ademi – Porträt im Gym" class="reveal rechts">
-      <div class="story-fakt reveal rechts"><div class="z">7×</div><div class="l">Schweizer Meister (Amateur + Light-Contact)</div></div>
-      <div class="story-fakt reveal rechts v2"><div class="z">20+</div><div class="l">Amateurkämpfe · Nationalmannschaft</div></div>
-      <div class="story-fakt reveal rechts v3"><div class="z">Top 100</div><div class="l">„Werde der Pro“ – aus 400+ Kandidaten</div></div>
+      <!-- Wechselnde Fotos: blendet automatisch zwischen den Bildern um -->
+      <div class="wechsel-bild reveal rechts" id="wechselBild">
+        <img src="bilder/portrait-stand.jpg" alt="Festim Ademi – Porträt im Gym" class="aktiv">
+        <img src="bilder/portrait-gym.jpg" alt="Festim Ademi im Training">
+        <img src="bilder/training-wand.jpg" alt="Festim Ademi – Schattenboxen">
+        <img src="bilder/sieg-referee.jpg" alt="Festim Ademi – Sieg">
+      </div>
     </aside>
-  </div>
-
-  <div class="container reveal" style="margin-top:90px">
-    <div class="ueberzeile">Impressionen</div>
-    <h2 class="titel">Im Ring. Im Training. Auf dem Weg.</h2>
-    <div class="galerie-grid">
-      <div class="g-item quer"><img src="bilder/sieg-jubel.jpg" alt="Festim Ademi jubelt nach dem Sieg" style="object-position:center 18%"></div>
-      <div class="g-item"><img src="bilder/kampf-treffer.jpg" alt="Festim Ademi trifft im Kampf"></div>
-      <div class="g-item"><img src="bilder/gang-portrait.jpg" alt="Festim Ademi – Fokus vor dem Kampf" style="object-position:center 35%"></div>
-      <div class="g-item"><img src="bilder/kampf-guard.jpg" alt="Festim Ademi in der Auslage" style="object-position:center 30%"></div>
-      <div class="g-item"><img src="bilder/training-sack.jpg" alt="Training am Sandsack"></div>
-      <div class="g-item quer"><img src="bilder/presse-event.jpg" alt="Werde der Pro – Präsentation mit Ruhe Boxing" style="object-position:center 30%"></div>
-      <div class="g-item"><img src="bilder/kampf-hook.jpg" alt="Festim Ademi – Angriff"></div>
-      <div class="g-item"><img src="bilder/training-wraps.jpg" alt="Aufwärmen mit Bandagen" style="object-position:center 25%"></div>
-      <div class="g-item quer"><img src="bilder/kampf-action.jpg" alt="Festim Ademi im Ring" style="object-position:center 22%"></div>
-    </div>
   </div>
 
   <div class="container zeitstrahl reveal">
@@ -559,13 +576,40 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <div class="zs"><div class="jahr">2026</div><div class="txt">Ungeschlagen als Profi – 3 Siege, 0 Niederlagen</div></div>
     </div>
   </div>
+
+  <div class="container reveal" id="impressionen" style="margin-top:90px;scroll-margin-top:76px">
+    <div class="ueberzeile">Impressionen</div>
+    <h2 class="titel">Im Ring. Im Training. Auf dem Weg.</h2>
+    <!-- Klick auf ein Foto öffnet die Grossansicht (Lightbox) -->
+    <div class="galerie-grid">
+      <div class="g-item quer"><img src="bilder/sieg-jubel.jpg" alt="Festim Ademi jubelt nach dem Sieg" style="object-position:center 18%"></div>
+      <div class="g-item"><img src="bilder/kampf-treffer.jpg" alt="Festim Ademi trifft im Kampf"></div>
+      <div class="g-item"><img src="bilder/gang-portrait.jpg" alt="Festim Ademi – Fokus vor dem Kampf" style="object-position:center 35%"></div>
+      <div class="g-item"><img src="bilder/kampf-guard.jpg" alt="Festim Ademi in der Auslage" style="object-position:center 30%"></div>
+      <div class="g-item"><img src="bilder/training-sack.jpg" alt="Training am Sandsack"></div>
+      <div class="g-item quer"><img src="bilder/presse-event.jpg" alt="Werde der Pro – Präsentation mit Ruhe Boxing" style="object-position:center 30%"></div>
+      <div class="g-item"><img src="bilder/kampf-hook.jpg" alt="Festim Ademi – Angriff"></div>
+      <div class="g-item"><img src="bilder/training-wraps.jpg" alt="Aufwärmen mit Bandagen" style="object-position:center 25%"></div>
+      <div class="g-item quer"><img src="bilder/kampf-action.jpg" alt="Festim Ademi im Ring" style="object-position:center 22%"></div>
+      <div class="g-item"><img src="bilder/kampf-dazn.jpg" alt="Festim Ademi – Fight Night auf DAZN" style="object-position:center 20%"></div>
+      <div class="g-item"><img src="bilder/presse-ruhe.jpg" alt="Festim Ademi bei Ruhe Boxing" style="object-position:center 25%"></div>
+    </div>
+  </div>
 </section>
+
+<!-- Lightbox für die Galerie -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-schliessen" id="lbSchliessen" aria-label="Schliessen">✕</button>
+  <button class="lb-pfeil links" id="lbZurueck" aria-label="Zurück">‹</button>
+  <img src="" alt="" id="lbBild">
+  <button class="lb-pfeil rechts" id="lbWeiter" aria-label="Weiter">›</button>
+</div>
 
 <div class="zitat-band">
   <div class="container">
     <blockquote class="reveal">„Ich kämpfe für meine Familie, meine Herkunft und alle, die an mich glauben –
       <span>um zu zeigen, dass man mit Disziplin, Arbeit und Glauben das Unmögliche erreichen kann.“</span></blockquote>
-    <cite class="reveal v2">Warum ich kämpfe</cite>
+    <cite class="reveal v2">Festim Ademi</cite>
   </div>
 </div>
 
@@ -616,6 +660,9 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
         <div><span class="resultat">Sieg</span><span class="methode">Einstimmig n. Punkten</span></div>
       </div>
     </div>
+    <div style="margin-top:34px">
+      <a class="btn btn-rand" href="https://boxrec.com/en/box-pro/1373025" target="_blank" rel="noopener">Offizieller Rekord auf BoxRec ↗</a>
+    </div>
   </div>
 </section>
 
@@ -641,36 +688,6 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     </div>
   </div>
 
-  <div class="container" style="margin-top:90px">
-    <div class="ueberzeile">Meilensteine</div>
-    <h2 class="titel">Vom Talent zum Profi</h2>
-    <div class="ms-grid">
-      <div class="ms reveal">
-        <div class="nr">01</div>
-        <h3>7× Schweizer Meister</h3>
-        <p>3 Titel im Light-Contact, 4 Titel im olympischen Boxen – aufgebaut über eine
-           Amateurkarriere mit mehr als 20 Kämpfen.</p>
-      </div>
-      <div class="ms reveal v2">
-        <div class="nr">02</div>
-        <h3>Schweizer Nationalmannschaft</h3>
-        <p>Internationale Einsätze in Irland, Deutschland, Frankreich, Belgien und Italien –
-           Erfahrungen, die Ehrgeiz und Charakter geformt haben.</p>
-      </div>
-      <div class="ms reveal">
-        <div class="nr">03</div>
-        <h3>„Werde der Pro“ – Top 100</h3>
-        <p>Aus über 400 Kandidaten ausgewählt. WBA-Gold-Champion Piergiulio Ruhe bezeichnete
-           Festim als zukünftigen Weltmeister.</p>
-      </div>
-      <div class="ms reveal v2">
-        <div class="nr">04</div>
-        <h3>Profivertrag bei Ruhe Boxing</h3>
-        <p>Seit 2025 Profi im Stall von Ruhe Boxing – jeder Kampf live und weltweit
-           auf DAZN übertragen.</p>
-      </div>
-    </div>
-  </div>
 </section>
 
 <div class="zitat-band">
@@ -682,44 +699,23 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 
 <!-- ==================================================== PARTNER -->
 <section class="partner" id="partner">
-  <div class="container">
-    <div class="ueberzeile">Partner</div>
-    <h2 class="titel reveal">Starke Marken.<br>Eine gemeinsame Mission.</h2>
-    <p style="max-width:600px;color:var(--grau)" class="reveal v2">Marken, die den Weg von Festim Ademi
-       begleiten – verbunden durch Disziplin, Werte und internationale Sichtbarkeit live auf DAZN.</p>
-  </div>
+  <div class="container" style="text-align:center">
+    <h2 class="titel reveal" style="margin-bottom:12px">Unsere Partner</h2>
+    <p style="max-width:560px;margin:0 auto;color:var(--grau)" class="reveal v2">Sie machen den Weg
+       von Festim Ademi mit – im Gym, am Kampfabend und weltweit auf Sendung.</p>
 
-  <!-- PARTNER-KARUSSELL (läuft endlos von rechts nach links) -->
-  <div class="marquee reveal">
-    <div class="marquee-spur">
-      <div class="marquee-inhalt">
-        <span class="logo-wort">⟩ Boxraw</span>
-        <span class="logo-wort"><span class="dazn">DA<br>ZN</span></span>
-        <span class="logo-wort">Ruhe Boxing</span>
-        <span class="logo-wort">Everlast</span>
-        <span class="logo-wort">Leone 1947</span>
-        <span class="logo-wort">WowHydrate</span>
-        <span class="logo-wort">Goldenco</span>
-        <span class="logo-wort">AB Group</span>
-        <span class="logo-wort">Swiss Boxing 🇨🇭</span>
-      </div>
-      <div class="marquee-inhalt" aria-hidden="true">
-        <span class="logo-wort">⟩ Boxraw</span>
-        <span class="logo-wort"><span class="dazn">DA<br>ZN</span></span>
-        <span class="logo-wort">Ruhe Boxing</span>
-        <span class="logo-wort">Everlast</span>
-        <span class="logo-wort">Leone 1947</span>
-        <span class="logo-wort">WowHydrate</span>
-        <span class="logo-wort">Goldenco</span>
-        <span class="logo-wort">AB Group</span>
-        <span class="logo-wort">Swiss Boxing 🇨🇭</span>
-      </div>
+    <!-- PARTNER-LOGOS: eigene Logo-Dateien liegen in bilder/logos/ -->
+    <div class="partner-grid reveal">
+      <div class="p-logo"><img src="bilder/logos/aka.png" alt="AKA – Aarburg Kampfsport Akademie"></div>
+      <div class="p-logo"><img src="bilder/logos/ruhe.jpg" alt="Ruhe Boxing"></div>
+      <div class="p-logo"><img src="bilder/logos/dazn.jpg" alt="DAZN"></div>
+      <div class="p-logo"><img src="bilder/logos/boxraw.jpg" alt="BOXRAW"></div>
+      <div class="p-logo hell"><img src="bilder/logos/solarpan.jpg" alt="SOLARPAN"></div>
+      <div class="p-logo"><img src="bilder/logos/werde-der-pro.jpg" alt="Werde der Pro by Ruhe Boxing"></div>
     </div>
-  </div>
 
-  <div class="container">
     <div class="partner-cta reveal">
-      <div>
+      <div style="text-align:left">
         <div class="t">Interesse an einer Partnerschaft?</div>
         <div class="s">Verbinden Sie Ihre Marke mit dem Weg eines ambitionierten Profi-Athleten.</div>
       </div>
@@ -760,12 +756,6 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
             <a href="https://www.tiktok.com/@ademi_festim" target="_blank" rel="noopener">@ademi_festim</a></span>
           </li>
         </ul>
-        <div class="sozial-zahlen">
-          <div class="sz"><div class="z">41,2K</div><div class="l">Instagram</div></div>
-          <div class="sz"><div class="z">78K+</div><div class="l">TikTok</div></div>
-          <div class="sz"><div class="z">8,2K+</div><div class="l">YouTube</div></div>
-          <div class="sz"><div class="z">5,5K+</div><div class="l">Facebook</div></div>
-        </div>
       </div>
 
       <form name="kontakt" method="POST" data-netlify="true" class="reveal rechts">
@@ -776,7 +766,6 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
           <select name="betreff">
             <option>Partnerschaft / Sponsoring</option>
             <option>Presse / Medien</option>
-            <option>Kampf-Anfrage</option>
             <option>Sonstiges</option>
           </select>
         </div>
@@ -792,7 +781,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <footer>
   <div class="container footer-innen">
     <div style="display:flex;align-items:center;gap:14px">
-      <span class="fa-logo" style="width:38px;height:38px;font-size:1rem">FA</span>
+      <img class="fa-logo" style="width:38px;height:38px" src="bilder/logos/fa-logo.jpg" alt="FA">
       <span class="copy">© <span id="jahr"></span> Festim Ademi · Alle Rechte vorbehalten</span>
     </div>
     <div class="footer-links">
@@ -813,7 +802,7 @@ document.getElementById('burger').addEventListener('click', () => navLinks.class
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('offen')));
 
 /* ---------- Scrollspy: aktiven Nav-Punkt markieren ---------- */
-const spyZiele = ['start','geschichte','kampf','karriere','partner','kontakt']
+const spyZiele = ['start','geschichte','impressionen','kampf','karriere','partner','kontakt']
   .map(id => document.getElementById(id)).filter(Boolean);
 const spy = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -866,6 +855,43 @@ function aktualisiereCountdown(){
 }
 aktualisiereCountdown();
 setInterval(aktualisiereCountdown, 1000);
+
+/* ---------- Wechselnde Fotos (Geschichte) ---------- */
+const wechselBild = document.getElementById('wechselBild');
+if(wechselBild){
+  const bilder = wechselBild.querySelectorAll('img');
+  let aktuell = 0;
+  setInterval(() => {
+    bilder[aktuell].classList.remove('aktiv');
+    aktuell = (aktuell + 1) % bilder.length;
+    bilder[aktuell].classList.add('aktiv');
+  }, 4200);
+}
+
+/* ---------- Galerie-Lightbox ---------- */
+const galerieBilder = [...document.querySelectorAll('.galerie-grid img')];
+const lightbox = document.getElementById('lightbox');
+const lbBild = document.getElementById('lbBild');
+let lbIndex = 0;
+
+function zeigeLightbox(i){
+  lbIndex = (i + galerieBilder.length) % galerieBilder.length;
+  lbBild.src = galerieBilder[lbIndex].src;
+  lbBild.alt = galerieBilder[lbIndex].alt;
+  lightbox.classList.add('offen');
+}
+galerieBilder.forEach((img, i) =>
+  img.closest('.g-item').addEventListener('click', () => zeigeLightbox(i)));
+document.getElementById('lbSchliessen').addEventListener('click', () => lightbox.classList.remove('offen'));
+document.getElementById('lbZurueck').addEventListener('click', e => { e.stopPropagation(); zeigeLightbox(lbIndex - 1); });
+document.getElementById('lbWeiter').addEventListener('click', e => { e.stopPropagation(); zeigeLightbox(lbIndex + 1); });
+lightbox.addEventListener('click', e => { if(e.target === lightbox) lightbox.classList.remove('offen'); });
+document.addEventListener('keydown', e => {
+  if(!lightbox.classList.contains('offen')) return;
+  if(e.key === 'Escape') lightbox.classList.remove('offen');
+  if(e.key === 'ArrowLeft') zeigeLightbox(lbIndex - 1);
+  if(e.key === 'ArrowRight') zeigeLightbox(lbIndex + 1);
+});
 
 /* ---------- Scroll-Reveal ---------- */
 const revealObserver = new IntersectionObserver(entries => {
