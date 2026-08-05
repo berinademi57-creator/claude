@@ -223,6 +223,23 @@ header{
 }
 .zs .jahr{font-family:var(--font-d);color:var(--gold);font-size:1.3rem;font-weight:600}
 .zs .txt{font-size:.85rem;color:var(--grau);margin-top:8px;line-height:1.55}
+.weg-fotos{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:44px;
+}
+.weg-fotos figure{margin:0}
+.weg-fotos img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;border:1px solid var(--linie);
+  filter:grayscale(65%);transition:filter .5s ease,transform .5s ease;
+}
+.weg-fotos figure:hover img{filter:grayscale(0);transform:scale(1.03)}
+.weg-fotos figcaption{
+  font-family:var(--font-d);font-weight:300;font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grau);margin-top:10px;
+}
+@media (max-width:860px){
+  .weg-fotos{grid-template-columns:repeat(2,1fr)}
+  .weg-fotos figure:last-child{grid-column:span 2}
+}
 
 /* ---------- Galerie ---------- */
 .galerie-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:50px}
@@ -423,7 +440,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <header>
   <div class="container nav">
     <a href="#start" class="marke">
-      <img class="fa-logo" src="bilder/logos/fa-logo.jpg" alt="FA – Festim Ademi">
+      <img class="fa-logo" src="bilder/logos/fa-logo.png" alt="FA – Festim Ademi">
       <span><span class="name">Festim Ademi</span><span class="sub">Professional Boxer</span></span>
     </a>
     <ul class="nav-links" id="navLinks">
@@ -467,11 +484,11 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <div class="z"><svg class="medaille" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2h8l-2.5 6h-3L8 2z" fill="currentColor" stroke="none" opacity=".55"/><circle cx="12" cy="14.5" r="5.5"/><path d="m12 11.8.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3.9-1.8z" fill="currentColor" stroke="none"/></svg></div>
       <div class="l">4× Schweizer Meister</div>
     </div>
-    <div class="stat"><div class="z">3-0</div><div class="l">Ungeschlagen Profi</div></div>
+    <div class="stat"><div class="z">2-0</div><div class="l">Ungeschlagen Profi</div></div>
     <div class="stat"><div class="z">300'000+</div><div class="l">Monatliche Reichweite</div></div>
-    <div class="stat"><img class="stat-logo" src="bilder/logos/dazn.jpg" alt="DAZN"><div class="l">Live &amp; weltweit</div></div>
-    <div class="stat"><img class="stat-logo breit" src="bilder/logos/boxraw.jpg" alt="BOXRAW"><div class="l">Official Athlete</div></div>
-    <div class="stat"><img class="stat-logo breit" src="bilder/logos/ruhe.jpg" alt="Ruhe Boxing"><div class="l">Boxing Stall</div></div>
+    <div class="stat"><img class="stat-logo" src="bilder/logos/dazn.png" alt="DAZN"><div class="l">Live &amp; weltweit</div></div>
+    <div class="stat"><img class="stat-logo breit" src="bilder/logos/boxraw.png" alt="BOXRAW"><div class="l">Official Athlete</div></div>
+    <div class="stat"><img class="stat-logo breit" src="bilder/logos/ruhe.png" alt="Ruhe Boxing"><div class="l">Boxing Stall</div></div>
   </div>
 </div>
 
@@ -573,7 +590,15 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <div class="zs"><div class="jahr">2014</div><div class="txt">Erste Schweizer Meisterschaften – in der Heimatstadt Biel</div></div>
       <div class="zs"><div class="jahr">2015–24</div><div class="txt">4× Schweizer Meister · Nationalmannschaft · Einsätze in 5 Ländern</div></div>
       <div class="zs"><div class="jahr">2025</div><div class="txt">„Werde der Pro“ Top 100 · Profivertrag bei Ruhe Boxing · live auf DAZN</div></div>
-      <div class="zs"><div class="jahr">2026</div><div class="txt">Ungeschlagen als Profi – 3 Siege, 0 Niederlagen</div></div>
+      <div class="zs"><div class="jahr">2026</div><div class="txt">Ungeschlagen als Profi – 2 Siege, 0 Niederlagen</div></div>
+    </div>
+    <!-- Der Weg in Bildern: von den ersten Schritten bis zum Profi -->
+    <div class="weg-fotos">
+      <figure><img src="bilder/weg-2009.jpg" alt="Festim als Kind im Box-Club Biel" style="object-position:center 30%"><figcaption>Die ersten Schritte – Box-Club Biel</figcaption></figure>
+      <figure><img src="bilder/weg-2014.jpg" alt="Festim am Box Cup 2014 in Dublin" style="object-position:center 25%"><figcaption>Box Cup Dublin · 2014</figcaption></figure>
+      <figure><img src="bilder/weg-amateur.jpg" alt="Festim in den Amateur-Jahren" style="object-position:center 15%"><figcaption>Die Amateur-Jahre</figcaption></figure>
+      <figure><img src="bilder/weg-wdp.jpg" alt="Festim bei Werde der Pro" style="object-position:center 20%"><figcaption>„Werde der Pro“ · 2025</figcaption></figure>
+      <figure><img src="bilder/weg-profi.jpg" alt="Festim Ademi als Profi im Ring" style="object-position:center 25%"><figcaption>Profi – live auf DAZN</figcaption></figure>
     </div>
   </div>
 
@@ -642,22 +667,22 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     <h2 class="titel">Meine Profikämpfe</h2>
     <div class="kampf-karten">
       <div class="kk reveal">
-        <div class="datum">12.12.2025</div>
-        <div class="gegner">vs G. Nikolic</div>
-        <div class="ort">Zürich, Schweiz</div>
-        <div><span class="resultat">Sieg</span><span class="methode">Einstimmig n. Punkten</span></div>
+        <div class="datum">06.12.2025 · Kampf 2</div>
+        <div class="gegner">vs Gergo Lakatos</div>
+        <div class="ort">Göppingen, Deutschland</div>
+        <div><span class="resultat">Sieg</span><span class="methode">Live auf DAZN</span></div>
       </div>
       <div class="kk reveal v2">
-        <div class="datum">03.10.2025</div>
-        <div class="gegner">vs M. Petrov</div>
-        <div class="ort">München, Deutschland</div>
-        <div><span class="resultat">Sieg</span><span class="methode">K.o. · Runde 2</span></div>
+        <div class="datum">13.09.2025 · Profidebüt</div>
+        <div class="gegner">vs Behrouz Kakhrou</div>
+        <div class="ort">Rattenfängerhalle, Hameln, Deutschland</div>
+        <div><span class="resultat">Sieg</span><span class="methode">Live auf DAZN</span></div>
       </div>
-      <div class="kk reveal v3">
-        <div class="datum">05.09.2025</div>
-        <div class="gegner">vs O. Shevchenko</div>
-        <div class="ort">München, Deutschland</div>
-        <div><span class="resultat">Sieg</span><span class="methode">Einstimmig n. Punkten</span></div>
+      <div class="kk kk-bald reveal v3">
+        <div class="datum">Kampf 3</div>
+        <div class="gegner">Ankündigung folgt</div>
+        <div class="ort">Die Reise geht weiter</div>
+        <div><span class="resultat" style="color:var(--grau);border-color:var(--linie)">Bald</span></div>
       </div>
     </div>
     <div style="margin-top:34px">
@@ -671,10 +696,10 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
   <div class="container bilanz-grid">
     <div class="reveal links">
       <div class="ueberzeile">Bilanz</div>
-      <div class="bilanz-zahl">3-0-0</div>
+      <div class="bilanz-zahl">2-0-0</div>
       <div class="bilanz-sub">Ungeschlagen als Profi</div>
       <ul class="bilanz-detail">
-        <li><span class="k">Siege</span><span class="w">3 (davon 1 K.o.)</span></li>
+        <li><span class="k">Siege</span><span class="w">2</span></li>
         <li><span class="k">Niederlagen</span><span class="w">0</span></li>
         <li><span class="k">Unentschieden</span><span class="w">0</span></li>
         <li><span class="k">Nationalität</span><span class="w">Schweiz 🇨🇭 / Albanien 🇦🇱</span></li>
@@ -707,11 +732,11 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     <!-- PARTNER-LOGOS: eigene Logo-Dateien liegen in bilder/logos/ -->
     <div class="partner-grid reveal">
       <div class="p-logo"><img src="bilder/logos/aka.png" alt="AKA – Aarburg Kampfsport Akademie"></div>
-      <div class="p-logo"><img src="bilder/logos/ruhe.jpg" alt="Ruhe Boxing"></div>
-      <div class="p-logo"><img src="bilder/logos/dazn.jpg" alt="DAZN"></div>
-      <div class="p-logo"><img src="bilder/logos/boxraw.jpg" alt="BOXRAW"></div>
-      <div class="p-logo hell"><img src="bilder/logos/solarpan.jpg" alt="SOLARPAN"></div>
-      <div class="p-logo"><img src="bilder/logos/werde-der-pro.jpg" alt="Werde der Pro by Ruhe Boxing"></div>
+      <div class="p-logo"><img src="bilder/logos/ruhe.png" alt="Ruhe Boxing"></div>
+      <div class="p-logo"><img src="bilder/logos/dazn.png" alt="DAZN"></div>
+      <div class="p-logo"><img src="bilder/logos/boxraw.png" alt="BOXRAW"></div>
+      <div class="p-logo"><img src="bilder/logos/solarpan.png" alt="SOLARPAN"></div>
+      <div class="p-logo"><img src="bilder/logos/werde-der-pro.png" alt="Werde der Pro by Ruhe Boxing"></div>
     </div>
 
     <div class="partner-cta reveal">
@@ -781,7 +806,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <footer>
   <div class="container footer-innen">
     <div style="display:flex;align-items:center;gap:14px">
-      <img class="fa-logo" style="width:38px;height:38px" src="bilder/logos/fa-logo.jpg" alt="FA">
+      <img class="fa-logo" style="width:38px;height:38px" src="bilder/logos/fa-logo.png" alt="FA">
       <span class="copy">© <span id="jahr"></span> Festim Ademi · Alle Rechte vorbehalten</span>
     </div>
     <div class="footer-links">
