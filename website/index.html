@@ -124,7 +124,11 @@ header{
   background:linear-gradient(100deg, rgba(10,10,10,.97) 30%, rgba(10,10,10,.7) 58%, rgba(10,10,10,.42)),
              linear-gradient(rgba(10,10,10,0) 75%, var(--schwarz));
 }
-.hero-inhalt{position:relative;z-index:2;max-width:680px}
+/* Hero-Inhalt sitzt linksbündig im Seitenraster (wie das Logo oben links).
+   width:100% ist nötig, weil der Block ein Flex-Item ist und sonst
+   auf Inhaltsbreite schrumpft und dadurch zentriert wird. */
+.hero-inhalt{position:relative;z-index:2;width:100%}
+.hero-inhalt > *{max-width:660px}
 .hero h1{
   font-size:clamp(3.4rem,9vw,6.6rem);font-weight:700;line-height:.95;
   text-transform:uppercase;letter-spacing:.01em;
@@ -154,19 +158,6 @@ header{
   animation:scrollPuls 2s ease-in-out infinite;
 }
 @keyframes scrollPuls{0%,100%{opacity:.35}50%{opacity:1}}
-
-/* ---------- Stats-Band ---------- */
-.stats-band{
-  background:var(--kohle);border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);
-}
-.stats-band .container{display:grid;grid-template-columns:repeat(6,1fr)}
-.stat{text-align:center;padding:34px 12px;border-right:1px solid var(--linie)}
-.stat:first-child{border-left:1px solid var(--linie)}
-.stat .z{font-family:var(--font-d);font-size:1.6rem;font-weight:600;color:var(--gold);line-height:1.2}
-.stat .l{font-family:var(--font-d);font-weight:300;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grau);margin-top:6px}
-.stat .medaille{width:30px;height:30px;color:var(--gold);vertical-align:middle}
-.stat-logo{height:32px;margin:0 auto;mix-blend-mode:screen;object-fit:contain}
-.stat-logo.breit{height:42px;max-width:160px}
 
 /* ---------- Intro (heller Block) ---------- */
 .intro{background:var(--creme);color:#161310}
@@ -414,8 +405,6 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 
 /* ---------- Responsiv ---------- */
 @media (max-width:1000px){
-  .stats-band .container{grid-template-columns:repeat(3,1fr)}
-  .stat{border-bottom:1px solid var(--linie)}
   .kampf-karten{grid-template-columns:repeat(2,1fr)}
   .ms-grid{grid-template-columns:1fr}
 }
@@ -430,7 +419,6 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
   .intro-grid,.story-grid,.bilanz-grid,.kontakt-grid{grid-template-columns:1fr;gap:46px}
   .story-seite{position:static}
   .kampf-karten{grid-template-columns:1fr}
-  .stats-band .container{grid-template-columns:repeat(2,1fr)}
   .galerie-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
@@ -478,31 +466,19 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
   </div>
 </section>
 
-<div class="stats-band">
-  <div class="container">
-    <div class="stat">
-      <div class="z"><svg class="medaille" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2h8l-2.5 6h-3L8 2z" fill="currentColor" stroke="none" opacity=".55"/><circle cx="12" cy="14.5" r="5.5"/><path d="m12 11.8.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2-1.45-1.4 2-.3.9-1.8z" fill="currentColor" stroke="none"/></svg></div>
-      <div class="l">4× Schweizer Meister</div>
-    </div>
-    <div class="stat"><div class="z">2-0</div><div class="l">Ungeschlagen Profi</div></div>
-    <div class="stat"><div class="z">300'000+</div><div class="l">Monatliche Reichweite</div></div>
-    <div class="stat"><img class="stat-logo" src="bilder/logos/dazn.png" alt="DAZN"><div class="l">Live &amp; weltweit</div></div>
-    <div class="stat"><img class="stat-logo breit" src="bilder/logos/boxraw.png" alt="BOXRAW"><div class="l">Official Athlete</div></div>
-    <div class="stat"><img class="stat-logo breit" src="bilder/logos/ruhe.png" alt="Ruhe Boxing"><div class="l">Boxing Stall</div></div>
-  </div>
-</div>
-
 <section class="intro" id="ueber">
   <div class="container intro-grid">
     <div class="reveal links">
       <div class="ueberzeile">Der Athlet</div>
       <h2 class="titel" style="color:#161310">Gebaut aus Disziplin.<br>Getrieben von einem Ziel.</h2>
       <p>Festim Ademi steht seit seinem sechsten Lebensjahr im Ring. Was in Biel als
-         Kindheitstraum begann, wurde durch tausende Trainingsstunden zu einer Profikarriere.</p>
+         Kindheitstraum begann, wurde durch jahrelange Disziplin, Einsatz und harte Arbeit
+         zur Profikarriere.</p>
       <p>Sieben nationale Titel, Einsätze für die Schweizer Nationalmannschaft und der
-         Sprung ins Profilager bei <strong>Ruhe Boxing</strong> – heute werden seine Kämpfe
-         live auf <strong>DAZN</strong> in die ganze Welt übertragen.</p>
-      <p>Ungeschlagen. Fokussiert. Und erst am Anfang.</p>
+         Wechsel ins Profilager bei <strong>Ruhe Boxing Promotion</strong> prägen seinen
+         bisherigen Weg. Heute werden seine Kämpfe live auf <strong>DAZN</strong> weltweit
+         übertragen.</p>
+      <p>Ungeschlagen. Fokussiert. Bereit für die nächsten.</p>
       <a class="btn btn-gold" href="#geschichte" style="margin-top:14px">Meine Geschichte →</a>
     </div>
     <div class="intro-bild reveal rechts">
