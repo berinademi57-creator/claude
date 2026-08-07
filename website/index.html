@@ -368,8 +368,8 @@ header{
 }
 .p-logo:hover{transform:scale(1.06)}
 .p-logo img{max-height:96px;max-width:82%;object-fit:contain;mix-blend-mode:screen}
-.p-logo.hell{background:#fff;border-radius:6px}
-.p-logo.hell img{mix-blend-mode:normal;max-width:88%}
+/* Freigestellte Logos (transparenter Hintergrund) brauchen keinen Blendmodus */
+.p-logo.frei img{mix-blend-mode:normal;max-width:88%}
 .partner-cta{
   display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;
   border:1px solid var(--linie);background:var(--schwarz);padding:38px 42px;margin-top:60px;
@@ -731,11 +731,11 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 
     <!-- PARTNER-LOGOS: eigene Logo-Dateien liegen in bilder/logos/ -->
     <div class="partner-grid reveal">
-      <div class="p-logo"><img src="bilder/logos/aka.png" alt="AKA – Aarburg Kampfsport Akademie"></div>
+      <div class="p-logo frei"><img src="bilder/logos/aka.png" alt="AKA – Aarburg Kampfsport Akademie"></div>
       <div class="p-logo"><img src="bilder/logos/ruhe.png" alt="Ruhe Boxing"></div>
       <div class="p-logo"><img src="bilder/logos/dazn.png" alt="DAZN"></div>
       <div class="p-logo"><img src="bilder/logos/boxraw.png" alt="BOXRAW"></div>
-      <div class="p-logo"><img src="bilder/logos/solarpan.png" alt="SOLARPAN"></div>
+      <div class="p-logo frei"><img src="bilder/logos/solarpan.png" alt="SOLARPAN"></div>
       <div class="p-logo"><img src="bilder/logos/werde-der-pro.png" alt="Werde der Pro by Ruhe Boxing"></div>
     </div>
 
