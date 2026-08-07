@@ -316,7 +316,10 @@ header{
 .kk{
   border:1px solid var(--linie);background:var(--kohle);padding:30px 26px;
   transition:border-color .3s, transform .3s;
+  display:flex;flex-direction:column;
 }
+/* Ergebnis-Feld immer bündig am unteren Rand, egal wie lang der Ort ist */
+.kk > div:last-child{margin-top:auto}
 .kk:hover{border-color:var(--linie-gold);transform:translateY(-4px)}
 .kk .datum{font-family:var(--font-d);font-weight:300;font-size:.72rem;letter-spacing:.2em;color:var(--grau);text-transform:uppercase}
 .kk .gegner{font-family:var(--font-d);font-size:1.3rem;text-transform:uppercase;margin:10px 0 4px;font-weight:500}
@@ -566,7 +569,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <div class="zs"><div class="jahr">2014</div><div class="txt">Erste Schweizer Meisterschaften – in der Heimatstadt Biel</div></div>
       <div class="zs"><div class="jahr">2015–24</div><div class="txt">4× Schweizer Meister · Nationalmannschaft · Einsätze in 5 Ländern</div></div>
       <div class="zs"><div class="jahr">2025</div><div class="txt">„Werde der Pro“ Top 100 · Profivertrag bei Ruhe Boxing · live auf DAZN</div></div>
-      <div class="zs"><div class="jahr">2026</div><div class="txt">Ungeschlagen als Profi – 2 Siege, 0 Niederlagen</div></div>
+      <div class="zs"><div class="jahr">2026</div><div class="txt">Ungeschlagen als Profi – 3 Siege, 0 Niederlagen</div></div>
     </div>
     <!-- Der Weg in Bildern: von den ersten Schritten bis zum Profi -->
     <div class="weg-fotos">
@@ -643,22 +646,22 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     <h2 class="titel">Meine Profikämpfe</h2>
     <div class="kampf-karten">
       <div class="kk reveal">
-        <div class="datum">06.12.2025 · Kampf 2</div>
-        <div class="gegner">vs Gergo Lakatos</div>
-        <div class="ort">Göppingen, Deutschland</div>
+        <div class="datum">Juli 2026 · Kampf 3</div>
+        <div class="gegner">vs Sven Constantin</div>
+        <div class="ort">Eissporthalle Essen, Essen, Deutschland</div>
         <div><span class="resultat">Sieg</span><span class="methode">Live auf DAZN</span></div>
       </div>
       <div class="kk reveal v2">
-        <div class="datum">13.09.2025 · Profidebüt</div>
-        <div class="gegner">vs Behrouz Kakhrou</div>
-        <div class="ort">Rattenfängerhalle, Hameln, Deutschland</div>
+        <div class="datum">06.12.2025 · Kampf 2</div>
+        <div class="gegner">vs Gergo Lakatos</div>
+        <div class="ort">Lambert Arena im Weberpark, Göppingen, Deutschland</div>
         <div><span class="resultat">Sieg</span><span class="methode">Live auf DAZN</span></div>
       </div>
-      <div class="kk kk-bald reveal v3">
-        <div class="datum">Kampf 3</div>
-        <div class="gegner">Ankündigung folgt</div>
-        <div class="ort">Die Reise geht weiter</div>
-        <div><span class="resultat" style="color:var(--grau);border-color:var(--linie)">Bald</span></div>
+      <div class="kk reveal v3">
+        <div class="datum">13.09.2025 · Profidebüt</div>
+        <div class="gegner">vs Behrouz Khakrou</div>
+        <div class="ort">Rattenfängerhalle, Hameln, Deutschland</div>
+        <div><span class="resultat">Sieg</span><span class="methode">Live auf DAZN</span></div>
       </div>
     </div>
     <div style="margin-top:34px">
@@ -672,12 +675,13 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
   <div class="container bilanz-grid">
     <div class="reveal links">
       <div class="ueberzeile">Bilanz</div>
-      <div class="bilanz-zahl">2-0-0</div>
+      <div class="bilanz-zahl">3-0-0</div>
       <div class="bilanz-sub">Ungeschlagen als Profi</div>
       <ul class="bilanz-detail">
-        <li><span class="k">Siege</span><span class="w">2</span></li>
+        <li><span class="k">Siege</span><span class="w">3 (davon 1 durch K.o.)</span></li>
         <li><span class="k">Niederlagen</span><span class="w">0</span></li>
         <li><span class="k">Unentschieden</span><span class="w">0</span></li>
+        <li><span class="k">Gewichtsklasse</span><span class="w">Superweltergewicht</span></li>
         <li><span class="k">Nationalität</span><span class="w">Schweiz 🇨🇭 / Albanien 🇦🇱</span></li>
         <li><span class="k">Heimatstadt</span><span class="w">Biel/Bienne</span></li>
         <li><span class="k">Boxstall</span><span class="w">Ruhe Boxing</span></li>
