@@ -12,7 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0a0a'/%3E%3Ctext x='32' y='44' font-family='Arial Black' font-size='30' font-weight='900' fill='%23c9a55f' text-anchor='middle'%3EFA%3C/text%3E%3C/svg%3E">
+<!-- Tab-Logo (Favicon): FA-Logo auf Schwarz. Liegt neben der index.html. -->
+<link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <!-- ============================================================
      FESTIM ADEMI – OFFIZIELLE WEBSITE (One-Page, scrollend)
@@ -64,9 +66,7 @@ header{
 }
 .nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
 .marke{display:flex;align-items:center;gap:14px}
-.fa-logo{
-  width:46px;height:46px;object-fit:cover;mix-blend-mode:screen;
-}
+.fa-logo{height:56px;width:auto;object-fit:contain}
 .marke .name{font-family:var(--font-d);font-size:.95rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
 .marke .sub{font-family:var(--font-d);font-weight:300;font-size:.6rem;letter-spacing:.3em;color:var(--grau);text-transform:uppercase;display:block;margin-top:2px}
 .nav-links{display:flex;gap:6px;list-style:none}
@@ -361,9 +361,8 @@ header{
   transition:transform .35s ease;
 }
 .p-logo:hover{transform:scale(1.06)}
-.p-logo img{max-height:96px;max-width:82%;object-fit:contain;mix-blend-mode:screen}
-/* Freigestellte Logos (transparenter Hintergrund) brauchen keinen Blendmodus */
-.p-logo.frei img{mix-blend-mode:normal;max-width:88%}
+/* Alle Partner-Logos sind freigestellt (transparenter Hintergrund) */
+.p-logo img{max-height:96px;max-width:86%;object-fit:contain}
 .partner-cta{
   display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;
   border:1px solid var(--linie);background:var(--schwarz);padding:38px 42px;margin-top:60px;
@@ -711,11 +710,11 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 
     <!-- PARTNER-LOGOS: eigene Logo-Dateien liegen in bilder/logos/ -->
     <div class="partner-grid reveal">
-      <div class="p-logo frei"><img src="bilder/logos/aka.png" alt="AKA – Aarburg Kampfsport Akademie"></div>
+      <div class="p-logo"><img src="bilder/logos/aka.png" alt="AKA – Aarburg Kampfsport Akademie"></div>
       <div class="p-logo"><img src="bilder/logos/ruhe.png" alt="Ruhe Boxing"></div>
       <div class="p-logo"><img src="bilder/logos/dazn.png" alt="DAZN"></div>
       <div class="p-logo"><img src="bilder/logos/boxraw.png" alt="BOXRAW"></div>
-      <div class="p-logo frei"><img src="bilder/logos/solarpan.png" alt="SOLARPAN"></div>
+      <div class="p-logo"><img src="bilder/logos/solarpan.png" alt="SOLARPAN"></div>
       <div class="p-logo"><img src="bilder/logos/werde-der-pro.png" alt="Werde der Pro by Ruhe Boxing"></div>
     </div>
 
@@ -786,7 +785,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <footer>
   <div class="container footer-innen">
     <div style="display:flex;align-items:center;gap:14px">
-      <img class="fa-logo" style="width:38px;height:38px" src="bilder/logos/fa-logo.png" alt="FA">
+      <img class="fa-logo" style="height:44px" src="bilder/logos/fa-logo.png" alt="FA">
       <span class="copy">© <span id="jahr"></span> Festim Ademi · Alle Rechte vorbehalten</span>
     </div>
     <div class="footer-links">
