@@ -32,15 +32,19 @@
 <style>
 :root{
   --schwarz:#0a0a0a;
-  --kohle:#111110;
-  --anthrazit:#191817;
-  --linie:#262421;
-  --linie-gold:rgba(201,165,95,.35);
-  --gold:#c9a55f;
-  --gold-hell:#e8c988;
-  --gold-dunkel:#8a6d3b;
-  --creme:#f3efe7;
-  --grau:#a09a8e;
+  --kohle:#111111;
+  --anthrazit:#1a1a1a;
+  --linie:#2b2b2b;
+  --linie-rot:rgba(216,31,42,.45);
+  --rot:#d81f2a;
+  --rot-hell:#ff3b47;
+  --rot-dunkel:#a8121c;
+  --creme:#ffffff;
+  /* BoxRec-Farben für die Bilanz */
+  --sieg:#1eb04b;
+  --niederlage:#d32f2f;
+  --unentschieden:#7fb2e5;
+  --grau:#b3b3b3;
   --font-d:'Oswald',sans-serif;
   --font-t:'Barlow',sans-serif;
 }
@@ -56,49 +60,53 @@ a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer}
 h1,h2,h3,h4{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.05em;line-height:1.12;font-weight:600}
 .container{max-width:1180px;margin:0 auto;padding:0 26px}
-section{padding:100px 0;scroll-margin-top:76px}
+section{padding:100px 0;scroll-margin-top:96px}
 
 /* ---------- Header / Navigation ---------- */
 header{
   position:fixed;inset:0 0 auto 0;z-index:200;
-  background:rgba(10,10,10,.92);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--linie);
+  background:rgba(28,28,28,.94);backdrop-filter:blur(16px);
+  border-bottom:1px solid #3a3a3a;
 }
-.nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
+.nav{display:flex;align-items:center;justify-content:space-between;height:96px;gap:28px;
+     max-width:1560px;padding:0 clamp(20px,3vw,44px)}
+.marke{white-space:nowrap}
 .marke{display:flex;align-items:center;gap:14px}
-.fa-logo{height:56px;width:auto;object-fit:contain}
-.marke .name{font-family:var(--font-d);font-size:.95rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
-.marke .sub{font-family:var(--font-d);font-weight:300;font-size:.6rem;letter-spacing:.3em;color:var(--grau);text-transform:uppercase;display:block;margin-top:2px}
-.nav-links{display:flex;gap:6px;list-style:none}
+.fa-logo{height:46px;width:auto;object-fit:contain}
+.marke .name{font-family:var(--font-d);font-size:1rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+.marke .sub{font-family:var(--font-d);font-weight:300;font-size:.66rem;letter-spacing:.3em;color:#cfcfcf;text-transform:uppercase;display:block;margin-top:3px}
+.nav-links{display:flex;gap:2px;list-style:none;white-space:nowrap}
 .nav-links a{
-  display:block;color:var(--grau);
-  font-family:var(--font-d);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;
-  padding:10px 14px;position:relative;transition:color .3s;
+  display:block;color:#f2f2f2;
+  font-family:var(--font-d);font-weight:500;font-size:.94rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:12px 12px;position:relative;transition:color .3s;
 }
 .nav-links a::after{
-  content:"";position:absolute;left:14px;right:14px;bottom:4px;height:1.5px;
-  background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s;
+  content:"";position:absolute;left:12px;right:12px;bottom:6px;height:2px;
+  background:var(--rot);transform:scaleX(0);transform-origin:left;transition:transform .35s;
 }
-.nav-links a:hover{color:var(--creme)}
-.nav-links a.aktiv{color:var(--gold)}
+.nav-links a:hover{color:var(--rot-hell)}
+.nav-links a.aktiv{color:var(--rot)}
+.nav-links a.nav-boxraw{color:var(--rot-hell);font-weight:600}
+.nav-links a.nav-boxraw:hover{color:#fff}
 .nav-links a.aktiv::after{transform:scaleX(1)}
-.burger{display:none;background:none;border:1px solid var(--linie);color:var(--creme);font-size:1.35rem;padding:6px 13px}
+.burger{display:none;background:none;border:1px solid #4a4a4a;color:#fff;font-size:1.5rem;padding:8px 15px}
 
 /* ---------- Gemeinsame Elemente ---------- */
 .ueberzeile{
   font-family:var(--font-d);font-weight:400;font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;
-  color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:16px;
+  color:var(--rot);display:flex;align-items:center;gap:14px;margin-bottom:16px;
 }
-.ueberzeile::before{content:"";width:38px;height:1px;background:var(--gold)}
+.ueberzeile::before{content:"";width:38px;height:1px;background:var(--rot)}
 .titel{font-size:clamp(2rem,4.6vw,3.1rem);margin-bottom:26px}
 .btn{
   font-family:var(--font-d);text-transform:uppercase;letter-spacing:.16em;font-size:.8rem;
   padding:15px 34px;display:inline-flex;align-items:center;gap:10px;border:none;transition:all .3s;
 }
-.btn-gold{background:var(--gold);color:var(--schwarz);font-weight:600}
-.btn-gold:hover{background:var(--gold-hell);transform:translateY(-2px)}
-.btn-rand{border:1px solid var(--linie-gold);color:var(--creme);background:transparent}
-.btn-rand:hover{border-color:var(--gold);color:var(--gold)}
+.btn-rot{background:var(--rot);color:var(--schwarz);font-weight:600}
+.btn-rot:hover{background:var(--rot-hell);transform:translateY(-2px)}
+.btn-rand{border:1px solid var(--linie-rot);color:var(--creme);background:transparent}
+.btn-rand:hover{border-color:var(--rot);color:var(--rot)}
 
 /* ---------- Scroll-Reveal (Transitions beim Scrollen) ---------- */
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.22,.7,.3,1),transform .9s cubic-bezier(.22,.7,.3,1)}
@@ -116,37 +124,38 @@ header{
 .hero-bg{
   position:absolute;inset:0;
   background:url('bilder/hero.jpg') center 30%/cover no-repeat;
-  filter:grayscale(20%) contrast(1.06) brightness(.9);
+  filter:contrast(1.04) brightness(1.02);
 }
 .hero-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-bg::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(100deg, rgba(10,10,10,.97) 30%, rgba(10,10,10,.7) 58%, rgba(10,10,10,.42)),
-             linear-gradient(rgba(10,10,10,0) 75%, var(--schwarz));
+  background:linear-gradient(100deg, rgba(10,10,10,.86) 0%, rgba(10,10,10,.55) 34%, rgba(10,10,10,.12) 62%, rgba(10,10,10,.05)),
+             linear-gradient(rgba(10,10,10,0) 72%, rgba(10,10,10,.92));
 }
 /* Hero-Inhalt sitzt linksbündig im Seitenraster (wie das Logo oben links).
    width:100% ist nötig, weil der Block ein Flex-Item ist und sonst
    auf Inhaltsbreite schrumpft und dadurch zentriert wird. */
-.hero-inhalt{position:relative;z-index:2;width:100%}
-.hero-inhalt > *{max-width:660px}
+.hero-inhalt{position:relative;z-index:2;width:100%;max-width:1500px;padding-left:clamp(26px,5vw,80px)}
+.hero-inhalt > *{max-width:640px}
+.hero h1{text-shadow:0 4px 30px rgba(0,0,0,.75)}
 .hero h1{
   font-size:clamp(3.4rem,9vw,6.6rem);font-weight:700;line-height:.95;
   text-transform:uppercase;letter-spacing:.01em;
 }
 .hero .untertitel{
-  font-family:var(--font-d);font-weight:400;color:var(--gold);letter-spacing:.42em;text-transform:uppercase;
+  font-family:var(--font-d);font-weight:400;color:var(--rot);letter-spacing:.42em;text-transform:uppercase;
   font-size:clamp(.8rem,1.6vw,1rem);margin:22px 0 12px;
 }
 .flaggen{
   display:flex;align-items:center;gap:12px;font-family:var(--font-d);font-weight:300;
   font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;
 }
-.flaggen .x{color:var(--gold);font-size:.75rem}
+.flaggen .x{color:var(--rot);font-size:.75rem}
 .hero-zitat{
   font-family:var(--font-d);font-weight:400;text-transform:uppercase;letter-spacing:.2em;
   font-size:1.3rem;color:#d8d2c6;margin:32px 0 40px;max-width:520px;line-height:1.6;
 }
-.hero-zitat span{color:var(--gold);font-weight:600}
+.hero-zitat span{color:var(--rot);font-weight:600}
 .hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
 .hero-scroll{
   position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;
@@ -154,7 +163,7 @@ header{
   display:flex;flex-direction:column;align-items:center;gap:10px;
 }
 .hero-scroll::after{
-  content:"";width:1px;height:42px;background:linear-gradient(var(--gold),transparent);
+  content:"";width:1px;height:42px;background:linear-gradient(var(--rot),transparent);
   animation:scrollPuls 2s ease-in-out infinite;
 }
 @keyframes scrollPuls{0%,100%{opacity:.35}50%{opacity:1}}
@@ -162,15 +171,15 @@ header{
 /* ---------- Intro (heller Block) ---------- */
 .intro{background:var(--creme);color:#161310}
 .intro-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:center}
-.intro .ueberzeile{color:var(--gold-dunkel)}
-.intro .ueberzeile::before{background:var(--gold-dunkel)}
+.intro .ueberzeile{color:var(--rot-dunkel)}
+.intro .ueberzeile::before{background:var(--rot-dunkel)}
 .intro h2{color:#161310}
 .intro p{color:#49443c;margin-bottom:18px;font-size:1.04rem;font-weight:400}
 .intro-bild{position:relative}
 .intro-bild img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 15%}
 .intro-bild::after{
   content:"";position:absolute;top:18px;left:18px;right:-18px;bottom:-18px;
-  border:1px solid var(--gold-dunkel);opacity:.5;pointer-events:none;
+  border:1px solid var(--rot-dunkel);opacity:.5;pointer-events:none;
 }
 
 /* ---------- Geschichte ---------- */
@@ -179,16 +188,19 @@ header{
 }
 .geschichte-kopf .bg{
   position:absolute;inset:0;background:url('bilder/gang-portrait.jpg') center 22%/cover no-repeat;
-  filter:grayscale(15%) brightness(.75);
+  filter:brightness(1.25) contrast(1.02);
 }
-.geschichte-kopf .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, rgba(10,10,10,.82) 35%, rgba(10,10,10,.35)), linear-gradient(rgba(10,10,10,.15) 70%, var(--schwarz))}
+.geschichte-kopf .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.42) 40%, rgba(10,10,10,.08) 70%), linear-gradient(rgba(10,10,10,0) 74%, var(--schwarz))}
 .geschichte-kopf .container{position:relative;z-index:2}
+.gk-inhalt{max-width:1500px;padding-left:clamp(26px,5vw,80px)}
+.gk-inhalt > *{max-width:660px}
+.gk-inhalt h2{text-shadow:0 4px 26px rgba(0,0,0,.7)}
 .story-grid{display:grid;grid-template-columns:1.35fr .8fr;gap:70px;align-items:start;margin-top:70px}
 .story p{color:#cfc9bd;margin-bottom:22px;font-size:1.05rem}
 .story p strong{color:var(--creme);font-weight:500}
 .story .absatz-titel{
   font-family:var(--font-d);text-transform:uppercase;letter-spacing:.14em;font-size:1.05rem;
-  color:var(--gold);margin:36px 0 14px;font-weight:500;
+  color:var(--rot);margin:36px 0 14px;font-weight:500;
 }
 .story-seite{position:sticky;top:110px;display:flex;flex-direction:column;gap:26px}
 .wechsel-bild{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:var(--anthrazit)}
@@ -200,19 +212,19 @@ header{
 /* Zeitstrahl im "Le Parcours"-Stil: horizontale Linie mit Punkten */
 .zeitstrahl{margin-top:90px}
 .zs-liste{
-  display:grid;grid-template-columns:repeat(7,minmax(138px,1fr));gap:0 20px;
+  display:grid;grid-template-columns:repeat(6,minmax(140px,1fr));gap:0 20px;
   position:relative;padding-top:34px;overflow-x:auto;padding-bottom:6px;
 }
 .zs-liste::before{
   content:"";position:absolute;top:8px;left:8px;right:8px;height:2px;
-  background:linear-gradient(90deg, var(--gold), rgba(201,165,95,.15));
+  background:linear-gradient(90deg, var(--rot), rgba(216,31,42,.15));
 }
 .zs{position:relative;padding:0}
 .zs::before{
   content:"";position:absolute;top:-31px;left:0;width:12px;height:12px;border-radius:50%;
-  background:var(--schwarz);border:2.5px solid var(--gold);
+  background:var(--schwarz);border:2.5px solid var(--rot);
 }
-.zs .jahr{font-family:var(--font-d);color:var(--gold);font-size:1.3rem;font-weight:600}
+.zs .jahr{font-family:var(--font-d);color:var(--rot);font-size:1.3rem;font-weight:600}
 .zs .txt{font-size:.85rem;color:var(--grau);margin-top:8px;line-height:1.55}
 .weg-fotos{
   display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:44px;
@@ -248,10 +260,10 @@ header{
 .lightbox.offen{display:flex}
 .lightbox img{max-width:88vw;max-height:88vh;object-fit:contain;box-shadow:0 20px 80px rgba(0,0,0,.7)}
 .lb-schliessen{
-  position:absolute;top:22px;right:26px;background:none;border:1px solid var(--linie-gold);
+  position:absolute;top:22px;right:26px;background:none;border:1px solid var(--linie-rot);
   color:var(--creme);font-size:1.1rem;width:44px;height:44px;transition:all .25s;
 }
-.lb-schliessen:hover{border-color:var(--gold);color:var(--gold)}
+.lb-schliessen:hover{border-color:var(--rot);color:var(--rot)}
 .lb-pfeil{
   position:absolute;top:50%;transform:translateY(-50%);background:none;border:none;
   color:var(--creme);font-size:3rem;line-height:1;padding:10px 20px;opacity:.7;transition:opacity .25s;
@@ -263,7 +275,7 @@ header{
 /* ---------- Zitat-Band ---------- */
 .zitat-band{
   border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);
-  background:radial-gradient(ellipse at 50% -20%, rgba(201,165,95,.1), transparent 60%), var(--kohle);
+  background:radial-gradient(ellipse at 50% -20%, rgba(216,31,42,.12), transparent 60%), var(--kohle);
   text-align:center;padding:84px 0;
 }
 .zitat-band blockquote{
@@ -271,10 +283,10 @@ header{
   font-size:clamp(1.25rem,3vw,1.9rem);letter-spacing:.06em;
   max-width:860px;margin:0 auto;line-height:1.5;color:var(--creme);
 }
-.zitat-band blockquote span{color:var(--gold)}
+.zitat-band blockquote span{color:var(--rot)}
 .zitat-band cite{
   display:block;margin-top:24px;font-style:normal;font-family:var(--font-d);font-weight:300;
-  letter-spacing:.3em;text-transform:uppercase;font-size:.75rem;color:var(--gold);
+  letter-spacing:.3em;text-transform:uppercase;font-size:.75rem;color:var(--rot);
 }
 
 /* ---------- Kampf ---------- */
@@ -288,30 +300,27 @@ header{
 .kampf-kopf .ueberzeile{justify-content:center}
 .kampf-kopf .ueberzeile::before{display:none}
 .countdown{
-  display:flex;justify-content:center;gap:1px;background:var(--linie-gold);
-  border:1px solid var(--linie-gold);max-width:640px;margin:44px auto 0;
+  display:flex;justify-content:center;gap:1px;background:var(--linie-rot);
+  border:1px solid var(--linie-rot);max-width:640px;margin:44px auto 0;
 }
 .cd{background:rgba(10,10,10,.88);flex:1;padding:26px 10px}
 .cd .z{font-family:var(--font-d);font-size:clamp(2rem,5vw,3.2rem);font-weight:600;line-height:1}
-.cd .l{font-family:var(--font-d);font-weight:300;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-top:8px}
+.cd .l{font-family:var(--font-d);font-weight:300;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--rot);margin-top:8px}
 .kampf-datum{
   font-family:var(--font-d);font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;
   letter-spacing:.04em;margin-top:10px;
 }
 .kampf-ort{font-family:var(--font-d);font-weight:300;color:var(--grau);letter-spacing:.24em;text-transform:uppercase;font-size:.8rem;margin-top:10px}
 .kampf-hinweis{
-  display:none;margin:40px auto 0;max-width:520px;border:1px solid var(--linie-gold);
+  display:none;margin:40px auto 0;max-width:520px;border:1px solid var(--linie-rot);
   padding:22px 30px;font-family:var(--font-d);font-weight:300;letter-spacing:.16em;text-transform:uppercase;
-  font-size:.85rem;color:var(--gold);background:rgba(10,10,10,.85);
+  font-size:.85rem;color:var(--rot);background:rgba(10,10,10,.85);
 }
 .dazn-zeile{
   display:flex;align-items:center;justify-content:center;gap:16px;margin-top:44px;color:var(--grau);
   font-family:var(--font-d);font-weight:300;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;
 }
-.dazn-box{
-  border:2px solid var(--creme);font-family:var(--font-d);font-weight:700;font-size:1rem;
-  padding:5px 10px;line-height:1.05;color:var(--creme);letter-spacing:.05em;
-}
+.dazn-logo{height:52px;width:auto}
 .kampf-karten{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
 .kk{
   border:1px solid var(--linie);background:var(--kohle);padding:30px 26px;
@@ -320,23 +329,35 @@ header{
 }
 /* Ergebnis-Feld immer bündig am unteren Rand, egal wie lang der Ort ist */
 .kk > div:last-child{margin-top:auto}
-.kk:hover{border-color:var(--linie-gold);transform:translateY(-4px)}
+.kk:hover{border-color:var(--linie-rot);transform:translateY(-4px)}
 .kk .datum{font-family:var(--font-d);font-weight:300;font-size:.72rem;letter-spacing:.2em;color:var(--grau);text-transform:uppercase}
 .kk .gegner{font-family:var(--font-d);font-size:1.3rem;text-transform:uppercase;margin:10px 0 4px;font-weight:500}
 .kk .ort{color:var(--grau);font-size:.85rem}
 .kk .resultat{
   margin-top:18px;display:inline-block;font-family:var(--font-d);font-weight:600;
-  letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;color:var(--gold);
-  border:1px solid var(--linie-gold);padding:7px 16px;
+  letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;color:var(--rot);
+  border:1px solid var(--linie-rot);padding:7px 16px;
 }
 .kk .methode{font-size:.75rem;color:var(--grau);margin-left:10px;letter-spacing:.1em}
 
 /* ---------- Karriere ---------- */
 .bilanz-grid{display:grid;grid-template-columns:.9fr 1.3fr;gap:64px;align-items:center}
-.bilanz-zahl{
-  font-family:var(--font-d);font-size:clamp(4.5rem,10vw,7.5rem);font-weight:700;color:var(--gold);
-  line-height:1;letter-spacing:.02em;
+/* Bilanz-Kästen im BoxRec-Stil */
+.bilanz-kasten{display:flex;gap:6px;max-width:420px}
+.bk{flex:1;text-align:center}
+.bk .z{
+  display:block;font-family:var(--font-d);font-weight:700;
+  font-size:clamp(2.8rem,6vw,4.2rem);line-height:1.15;color:#fff;padding:6px 0;
 }
+.bk .ko{
+  display:block;font-family:var(--font-d);font-weight:500;font-size:.85rem;
+  letter-spacing:.1em;margin-top:8px;
+}
+.bk.w .z{background:var(--sieg)}
+.bk.w .ko{color:var(--sieg)}
+.bk.l .z{background:var(--niederlage)}
+.bk.l .ko{color:var(--niederlage)}
+.bk.d .z{background:var(--unentschieden)}
 .bilanz-sub{font-family:var(--font-d);font-weight:300;color:var(--grau);letter-spacing:.24em;text-transform:uppercase;font-size:.8rem;margin-top:10px}
 .bilanz-detail{list-style:none;margin-top:30px;border-top:1px solid var(--linie)}
 .bilanz-detail li{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--linie);font-size:.95rem}
@@ -345,8 +366,8 @@ header{
 .karriere-bild img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:center 25%}
 .ms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:50px}
 .ms{border:1px solid var(--linie);padding:30px;background:var(--kohle);transition:border-color .3s}
-.ms:hover{border-color:var(--linie-gold)}
-.ms .nr{font-family:var(--font-d);color:var(--gold);font-size:.8rem;letter-spacing:.24em}
+.ms:hover{border-color:var(--linie-rot)}
+.ms .nr{font-family:var(--font-d);color:var(--rot);font-size:.8rem;letter-spacing:.24em}
 .ms h3{font-size:1.05rem;margin:14px 0 10px;letter-spacing:.12em}
 .ms p{color:var(--grau);font-size:.92rem}
 
@@ -376,21 +397,21 @@ header{
 .k-kanaele{list-style:none}
 .k-kanaele li{display:flex;align-items:center;gap:16px;padding:15px 0;border-bottom:1px solid var(--linie)}
 .k-kanaele .sym{
-  width:44px;height:44px;border:1px solid var(--linie-gold);display:grid;place-items:center;
-  color:var(--gold);flex-shrink:0;font-size:1rem;
+  width:44px;height:44px;border:1px solid var(--linie-rot);display:grid;place-items:center;
+  color:var(--rot);flex-shrink:0;font-size:1rem;font-family:var(--font-d);font-weight:600;
 }
-.k-kanaele a:hover{color:var(--gold-hell)}
+.k-kanaele a:hover{color:var(--rot-hell)}
 .k-kanaele .l{font-family:var(--font-d);font-weight:300;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--grau);display:block}
 .sozial-zahlen{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--linie);border:1px solid var(--linie);margin-top:36px}
 .sz{background:var(--kohle);text-align:center;padding:20px 8px}
-.sz .z{font-family:var(--font-d);color:var(--gold);font-weight:600;font-size:1.2rem}
+.sz .z{font-family:var(--font-d);color:var(--rot);font-weight:600;font-size:1.2rem}
 .sz .l{font-family:var(--font-d);font-weight:300;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--grau);margin-top:4px}
 form .feld{margin-bottom:16px}
 input,textarea,select{
   width:100%;background:var(--anthrazit);border:1px solid var(--linie);color:var(--creme);
   padding:15px 16px;font-family:var(--font-t);font-size:.95rem;transition:border-color .3s;
 }
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--rot)}
 textarea{min-height:150px;resize:vertical}
 ::placeholder{color:#6b6558}
 
@@ -403,7 +424,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
   color:var(--grau);font-family:var(--font-d);font-weight:300;font-size:.75rem;
   letter-spacing:.18em;text-transform:uppercase;transition:color .3s;
 }
-.footer-links a:hover{color:var(--gold)}
+.footer-links a:hover{color:var(--rot)}
 
 /* ---------- Responsiv ---------- */
 @media (max-width:1000px){
@@ -413,7 +434,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 @media (max-width:860px){
   section{padding:70px 0}
   .nav-links{
-    display:none;position:absolute;top:76px;left:0;right:0;flex-direction:column;
+    display:none;position:absolute;top:96px;left:0;right:0;flex-direction:column;
     background:var(--schwarz);border-bottom:1px solid var(--linie);padding:20px 26px;gap:4px;
   }
   .nav-links.offen{display:flex}
@@ -441,6 +462,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <li><a href="#karriere">Karriere</a></li>
       <li><a href="#partner">Partner</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
+      <li><a class="nav-boxraw" href="https://www.boxraw.com/ademi" target="_blank" rel="noopener">BOXRAW ↗</a></li>
     </ul>
     <button class="burger" id="burger" aria-label="Menü">☰</button>
   </div>
@@ -462,7 +484,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     <div class="untertitel">Professional Boxer</div>
     <p class="hero-zitat">Mission: <span>World Champion</span></p>
     <div class="hero-buttons">
-      <a class="btn btn-gold" href="#kampf">Nächster Kampf →</a>
+      <a class="btn btn-rot" href="#kampf">Nächster Kampf →</a>
       <a class="btn btn-rand" href="#geschichte">Meine Geschichte</a>
     </div>
   </div>
@@ -471,20 +493,20 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <section class="intro" id="ueber">
   <div class="container intro-grid">
     <div class="reveal links">
-      <div class="ueberzeile">Der Athlet</div>
-      <h2 class="titel" style="color:#161310">Gebaut aus Disziplin.<br>Getrieben von einem Ziel.</h2>
-      <p>Festim Ademi steht seit seinem sechsten Lebensjahr im Ring. Was in Biel als
-         Kindheitstraum begann, wurde durch jahrelange Disziplin, Einsatz und harte Arbeit
-         zur Profikarriere.</p>
+      <div class="ueberzeile">Über mich</div>
+      <h2 class="titel" style="color:#111">Gebaut aus Disziplin.<br>Getrieben von einem Ziel.</h2>
+      <p>Ich stehe seit meinem sechsten Lebensjahr im Ring. Was in Biel als Kindheitstraum
+         begann, wurde durch jahrelange Disziplin, Einsatz und harte Arbeit zu meiner
+         Profikarriere.</p>
       <p>Sieben nationale Titel, Einsätze für die Schweizer Nationalmannschaft und der
-         Wechsel ins Profilager bei <strong>Ruhe Boxing Promotion</strong> prägen seinen
-         bisherigen Weg. Heute werden seine Kämpfe live auf <strong>DAZN</strong> weltweit
+         Wechsel ins Profilager bei <strong>Ruhe Boxing Promotion</strong> prägen meinen
+         bisherigen Weg. Heute werden meine Kämpfe live auf <strong>DAZN</strong> weltweit
          übertragen.</p>
       <p>Ungeschlagen. Fokussiert. Bereit für die nächsten.</p>
-      <a class="btn btn-gold" href="#geschichte" style="margin-top:14px">Meine Geschichte →</a>
+      <a class="btn btn-rot" href="#geschichte" style="margin-top:14px">Meine Geschichte →</a>
     </div>
     <div class="intro-bild reveal rechts">
-      <img src="bilder/ring-portrait.jpg" alt="Festim Ademi im Ring" style="object-position:center 10%">
+      <img src="bilder/portrait-wand.jpg" alt="Festim Ademi – Fokus vor dem Kampf" style="object-position:center 38%">
     </div>
   </div>
 </section>
@@ -497,10 +519,10 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 </div>
 
 <!-- ==================================================== GESCHICHTE -->
-<div class="geschichte-kopf" id="geschichte" style="scroll-margin-top:76px">
+<div class="geschichte-kopf" id="geschichte" style="scroll-margin-top:96px">
   <div class="bg"></div>
-  <div class="container">
-    <div class="ueberzeile">Über mich</div>
+  <div class="container gk-inhalt">
+    <div class="ueberzeile">Geschichte</div>
     <h2 class="titel reveal">Die Geschichte eines Traums,<br>der zur Mission wurde</h2>
     <p style="max-width:560px;color:#cfc9bd" class="reveal v2">Jeder Champion hat eine Geschichte.
        Meine beginnt lange vor meinem ersten Profikampf.</p>
@@ -562,13 +584,12 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
   <div class="container zeitstrahl reveal">
     <div class="ueberzeile">Der Weg</div>
     <div class="zs-liste">
-      <div class="zs"><div class="jahr">2009</div><div class="txt">Mit 6 Jahren: erste Schritte im Boxsport</div></div>
+      <div class="zs"><div class="jahr">2009</div><div class="txt">Mit 6 Jahren · erste Schritte im Boxsport</div></div>
       <div class="zs"><div class="jahr">2010</div><div class="txt">Erste Light-Contact-Wettkämpfe · 3× Schweizer Meister</div></div>
-      <div class="zs"><div class="jahr">2013</div><div class="txt">Wechsel ins olympische Boxen mit 10 Jahren</div></div>
-      <div class="zs"><div class="jahr">2014</div><div class="txt">Erste Schweizer Meisterschaften – in der Heimatstadt Biel</div></div>
+      <div class="zs"><div class="jahr">2014</div><div class="txt">Erste Schweizer Meisterschaften · in meiner Heimatstadt Biel</div></div>
       <div class="zs"><div class="jahr">2015–24</div><div class="txt">4× Schweizer Meister · Nationalmannschaft · Einsätze in 5 Ländern</div></div>
-      <div class="zs"><div class="jahr">2025</div><div class="txt">„Werde der Pro“ Top 100 · Profivertrag bei Ruhe Boxing · live auf DAZN</div></div>
-      <div class="zs"><div class="jahr">2026</div><div class="txt">Ungeschlagen als Profi – 3 Siege, 0 Niederlagen</div></div>
+      <div class="zs"><div class="jahr">2025</div><div class="txt">„Werde der Pro" Top 100 · Profivertrag bei Ruhe Boxing · live auf DAZN</div></div>
+      <div class="zs"><div class="jahr">2026</div><div class="txt">Ungeschlagen als Profi · 3 Siege · 0 Niederlagen</div></div>
     </div>
     <!-- Der Weg in Bildern: von den ersten Schritten bis zum Profi -->
     <div class="weg-fotos">
@@ -580,22 +601,21 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     </div>
   </div>
 
-  <div class="container reveal" id="impressionen" style="margin-top:90px;scroll-margin-top:76px">
+  <div class="container reveal" id="impressionen" style="margin-top:90px;scroll-margin-top:96px">
     <div class="ueberzeile">Impressionen</div>
     <h2 class="titel">Im Ring. Im Training. Auf dem Weg.</h2>
     <!-- Klick auf ein Foto öffnet die Grossansicht (Lightbox) -->
     <div class="galerie-grid">
-      <div class="g-item quer"><img src="bilder/sieg-jubel.jpg" alt="Festim Ademi jubelt nach dem Sieg" style="object-position:center 18%"></div>
-      <div class="g-item"><img src="bilder/kampf-treffer.jpg" alt="Festim Ademi trifft im Kampf"></div>
-      <div class="g-item"><img src="bilder/gang-portrait.jpg" alt="Festim Ademi – Fokus vor dem Kampf" style="object-position:center 35%"></div>
-      <div class="g-item"><img src="bilder/kampf-guard.jpg" alt="Festim Ademi in der Auslage" style="object-position:center 30%"></div>
+      <div class="g-item quer"><img src="bilder/sieg-jubel.jpg" alt="Jubel nach dem Sieg" style="object-position:center 18%"></div>
+      <div class="g-item"><img src="bilder/kampf-treffer.jpg" alt="Treffer im Kampf"></div>
+      <div class="g-item"><img src="bilder/ring-portrait.jpg" alt="Im Ring" style="object-position:center 12%"></div>
+      <div class="g-item"><img src="bilder/kampf-guard.jpg" alt="In der Auslage" style="object-position:center 30%"></div>
       <div class="g-item"><img src="bilder/training-sack.jpg" alt="Training am Sandsack"></div>
       <div class="g-item quer"><img src="bilder/presse-event.jpg" alt="Werde der Pro – Präsentation mit Ruhe Boxing" style="object-position:center 30%"></div>
-      <div class="g-item"><img src="bilder/kampf-hook.jpg" alt="Festim Ademi – Angriff"></div>
-      <div class="g-item"><img src="bilder/training-wraps.jpg" alt="Aufwärmen mit Bandagen" style="object-position:center 25%"></div>
-      <div class="g-item quer"><img src="bilder/kampf-action.jpg" alt="Festim Ademi im Ring" style="object-position:center 22%"></div>
-      <div class="g-item"><img src="bilder/kampf-dazn.jpg" alt="Festim Ademi – Fight Night auf DAZN" style="object-position:center 20%"></div>
-      <div class="g-item"><img src="bilder/presse-ruhe.jpg" alt="Festim Ademi bei Ruhe Boxing" style="object-position:center 25%"></div>
+      <div class="g-item"><img src="bilder/kampf-hook.jpg" alt="Angriff"></div>
+      <div class="g-item"><img src="bilder/presse-interview.jpg" alt="Interview am Kampfabend" style="object-position:center 25%"></div>
+      <div class="g-item"><img src="bilder/gang-portrait.jpg" alt="Auf dem Weg in die Halle" style="object-position:center 35%"></div>
+      <div class="g-item"><img src="bilder/kampf-dazn.jpg" alt="Fight Night auf DAZN" style="object-position:center 20%"></div>
     </div>
   </div>
 </section>
@@ -617,11 +637,11 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 </div>
 
 <!-- ==================================================== KAMPF -->
-<div class="kampf-kopf" id="kampf" style="scroll-margin-top:76px">
+<div class="kampf-kopf" id="kampf" style="scroll-margin-top:96px">
   <div class="bg"></div>
   <div class="container">
     <div class="ueberzeile">Fight Night</div>
-    <h2 class="titel reveal" style="margin-bottom:6px">Nächster Kampf</h2>
+    <h2 class="titel reveal" style="margin-bottom:6px">Mein nächster Kampf</h2>
     <div class="kampf-datum" id="kampfDatumAnzeige">–</div>
     <div class="kampf-ort" id="kampfOrtAnzeige">Ankündigung folgt</div>
 
@@ -634,7 +654,8 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     <div class="kampf-hinweis" id="kampfHinweis">Die Ankündigung folgt hier &amp; auf Instagram</div>
 
     <div class="dazn-zeile">
-      <span>Live &amp; weltweit auf</span><span class="dazn-box">DA<br>ZN</span>
+      <span>Live &amp; weltweit auf</span>
+      <img class="dazn-logo" src="bilder/logos/dazn.png" alt="DAZN">
     </div>
   </div>
 </div>
@@ -674,8 +695,13 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
   <div class="container bilanz-grid">
     <div class="reveal links">
       <div class="ueberzeile">Bilanz</div>
-      <div class="bilanz-zahl">3-0-0</div>
-      <div class="bilanz-sub">Ungeschlagen als Profi</div>
+      <!-- Bilanz-Kästen im BoxRec-Stil: Siege grün, Niederlagen rot, Unentschieden hellblau -->
+      <div class="bilanz-kasten">
+        <div class="bk w"><span class="z">3</span><span class="ko">1 KO</span></div>
+        <div class="bk l"><span class="z">0</span><span class="ko">0 KOs</span></div>
+        <div class="bk d"><span class="z">0</span><span class="ko">&nbsp;</span></div>
+      </div>
+      <div class="bilanz-sub" style="margin-top:18px">Ungeschlagen als Profi</div>
       <ul class="bilanz-detail">
         <li><span class="k">Siege</span><span class="w">3 (davon 1 durch K.o.)</span></li>
         <li><span class="k">Niederlagen</span><span class="w">0</span></li>
@@ -705,8 +731,8 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <section class="partner" id="partner">
   <div class="container" style="text-align:center">
     <h2 class="titel reveal" style="margin-bottom:12px">Unsere Partner</h2>
-    <p style="max-width:560px;margin:0 auto;color:var(--grau)" class="reveal v2">Sie machen den Weg
-       von Festim Ademi mit – im Gym, am Kampfabend und weltweit auf Sendung.</p>
+    <p style="max-width:560px;margin:0 auto;color:var(--grau)" class="reveal v2">Sie gehen den Weg
+       mit mir mit – im Gym, am Kampfabend und weltweit auf Sendung.</p>
 
     <!-- PARTNER-LOGOS: eigene Logo-Dateien liegen in bilder/logos/ -->
     <div class="partner-grid reveal">
@@ -716,14 +742,19 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <div class="p-logo"><img src="bilder/logos/boxraw.png" alt="BOXRAW"></div>
       <div class="p-logo"><img src="bilder/logos/solarpan.png" alt="SOLARPAN"></div>
       <div class="p-logo"><img src="bilder/logos/werde-der-pro.png" alt="Werde der Pro by Ruhe Boxing"></div>
+      <div class="p-logo"><img src="bilder/logos/soi.png" alt="S.O.I. AG"></div>
+      <div class="p-logo"><img src="bilder/logos/hometeam.png" alt="Hometeam Group"></div>
+      <div class="p-logo"><img src="bilder/logos/adams.png" alt="Adam's Döner"></div>
+      <div class="p-logo"><img src="bilder/logos/automobiel.png" alt="automobiel.ch"></div>
+      <div class="p-logo"><img src="bilder/logos/datteln.png" alt="Datteln-Schweiz.ch"></div>
     </div>
 
     <div class="partner-cta reveal">
       <div style="text-align:left">
         <div class="t">Interesse an einer Partnerschaft?</div>
-        <div class="s">Verbinden Sie Ihre Marke mit dem Weg eines ambitionierten Profi-Athleten.</div>
+        <div class="s">Verbinden Sie Ihre Marke mit meinem Weg als Profi-Athlet.</div>
       </div>
-      <a class="btn btn-gold" href="#kontakt">Kontakt aufnehmen →</a>
+      <a class="btn btn-rot" href="#kontakt">Kontakt aufnehmen →</a>
     </div>
   </div>
 </section>
@@ -735,20 +766,20 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     <h2 class="titel">Kontakt</h2>
     <div class="kontakt-grid">
       <div class="k-info reveal links">
-        <p>Anfragen zu Partnerschaften, Presse, Kämpfen oder Kooperationen? Schreiben Sie uns –
-           das Team meldet sich schnellstmöglich zurück.</p>
+        <p>Anfragen zu Partnerschaften, Presse, Kämpfen oder Kooperationen? Schreiben Sie mir –
+           ich melde mich schnellstmöglich zurück.</p>
         <ul class="k-kanaele">
           <li>
             <span class="sym">✉</span>
             <span><span class="l">E-Mail</span>
-            <a href="mailto:festim.ademi@outlook.com">festim.ademi@outlook.com</a></span>
+            <a href="mailto:fa@festimademi.com">fa@festimademi.com</a></span>
           </li>
+          <!-- SOCIAL LINKS: Titel steht sichtbar, die Adresse liegt dahinter im Link -->
           <li>
-            <span class="sym">☏</span>
-            <span><span class="l">Telefon</span>
-            <a href="tel:+41765700303">+41 76 570 03 03</a></span>
+            <span class="sym">in</span>
+            <span><span class="l">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/festim-ademi-97594818a" target="_blank" rel="noopener">Festim Ademi</a></span>
           </li>
-          <!-- SOCIAL LINKS: bei Bedarf Handles/URLs anpassen -->
           <li>
             <span class="sym">◉</span>
             <span><span class="l">Instagram</span>
@@ -759,11 +790,21 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
             <span><span class="l">TikTok</span>
             <a href="https://www.tiktok.com/@ademi_festim" target="_blank" rel="noopener">@ademi_festim</a></span>
           </li>
+          <li>
+            <span class="sym">⟩</span>
+            <span><span class="l">BOXRAW</span>
+            <a href="https://www.boxraw.com/ademi" target="_blank" rel="noopener">boxraw.com/ademi</a></span>
+          </li>
         </ul>
       </div>
 
-      <form name="kontakt" method="POST" data-netlify="true" class="reveal rechts">
+      <!-- Netlify Forms: Nachrichten landen im Netlify-Dashboard unter "Forms".
+           Damit sie zusätzlich per Mail an fa@festimademi.com gehen, dort einmalig setzen:
+           Site configuration -> Forms -> Form notifications -> Add notification -> Email. -->
+      <form name="kontakt" method="POST" data-netlify="true" netlify-honeypot="firma" class="reveal rechts">
         <input type="hidden" name="form-name" value="kontakt">
+        <input type="hidden" name="empfaenger" value="fa@festimademi.com">
+        <p hidden><label>Bitte leer lassen: <input name="firma"></label></p>
         <div class="feld"><input type="text" name="name" placeholder="Ihr Name" required></div>
         <div class="feld"><input type="email" name="email" placeholder="Ihre E-Mail" required></div>
         <div class="feld">
@@ -774,7 +815,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
           </select>
         </div>
         <div class="feld"><textarea name="nachricht" placeholder="Ihre Nachricht" required></textarea></div>
-        <button type="submit" class="btn btn-gold">Nachricht senden →</button>
+        <button type="submit" class="btn btn-rot">Senden</button>
       </form>
     </div>
   </div>
