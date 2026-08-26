@@ -363,6 +363,10 @@ header{
 .bilanz-detail li{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--linie);font-size:.95rem}
 .bilanz-detail .k{font-family:var(--font-d);font-weight:300;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grau)}
 .bilanz-detail .w{font-weight:500}
+/* Flaggen als saubere SVG-Grafiken statt Emoji */
+.flaggen-zeile{display:inline-flex;align-items:center;gap:8px}
+.flaggen-zeile .flagge{width:29px;height:19px;display:block;flex-shrink:0}
+.flaggen-zeile .trenner{color:#6a6a6a;margin:0 2px}
 .karriere-bild img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:center 25%}
 .ms-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:50px}
 .ms{border:1px solid var(--linie);padding:30px;background:var(--kohle);transition:border-color .3s}
@@ -707,10 +711,21 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
         <li><span class="k">Niederlagen</span><span class="w">0</span></li>
         <li><span class="k">Unentschieden</span><span class="w">0</span></li>
         <li><span class="k">Gewichtsklasse</span><span class="w">Superweltergewicht</span></li>
-        <li><span class="k">Nationalität</span><span class="w">Schweiz 🇨🇭 / Albanien 🇦🇱</span></li>
-        <li><span class="k">Heimatstadt</span><span class="w">Biel/Bienne</span></li>
-        <li><span class="k">Boxstall</span><span class="w">Ruhe Boxing</span></li>
-        <li><span class="k">Übertragung</span><span class="w">Live auf DAZN</span></li>
+        <li><span class="k">Nationalität</span><span class="w flaggen-zeile">Schweiz
+          <svg class="flagge" viewBox="0 0 24 16" role="img" aria-label="Schweiz">
+            <rect width="24" height="16" rx="2" fill="#D52B1E"/>
+            <path fill="#fff" d="M10.4 4h3.2v2.4H16v3.2h-2.4V12h-3.2V9.6H8V6.4h2.4z"/>
+          </svg>
+          <span class="trenner">/</span> Albanien
+          <svg class="flagge" viewBox="0 0 24 16" role="img" aria-label="Albanien">
+            <rect width="24" height="16" rx="2" fill="#E41E20"/>
+            <g fill="#000">
+              <path d="M12 5.6 9.9 3.9 6.4 3.2l1.4 2-1.4.5 2.2 1.1-3.1.5 2.4 1.3-1.5 1 2.6.2-.9 1.5 2.5-.5.3 1.7L12 11l1.1 1.5.3-1.7 2.5.5-.9-1.5 2.6-.2-1.5-1L18.5 7.3l-3.1-.5 2.2-1.1-1.4-.5 1.4-2-3.5.7z"/>
+              <path d="M11.2 11.4h1.6v1.9h-1.6z"/>
+            </g>
+          </svg>
+        </span></li>
+        <li><span class="k">Promotion</span><span class="w">Ruhe Boxing</span></li>
       </ul>
     </div>
     <div class="karriere-bild reveal rechts">
