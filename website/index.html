@@ -618,7 +618,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     </div>
     <!-- Der Weg in Bildern: von den ersten Schritten bis zum Profi -->
     <div class="weg-fotos">
-      <figure><img src="bilder/weg-2009.jpg" alt="Festim als Kind im Box-Club Biel" style="object-position:center 30%"><figcaption data-i18n="way.c1">Die ersten Schritte – Box-Club Biel</figcaption></figure>
+      <figure><img src="bilder/weg-2009.jpg" alt="Festim als Kind im Box-Club Biel" style="object-position:center 30%"><figcaption data-i18n="way.c1">Die ersten Schritte</figcaption></figure>
       <figure><img src="bilder/weg-2014.jpg" alt="Festim am Box Cup 2014 in Dublin" style="object-position:center 25%"><figcaption data-i18n="way.c2">Box Cup Dublin · 2014</figcaption></figure>
       <figure><img src="bilder/weg-amateur.jpg" alt="Festim in den Amateur-Jahren" style="object-position:center 15%"><figcaption data-i18n="way.c3">Die Amateur-Jahre</figcaption></figure>
       <figure><img src="bilder/weg-wdp.jpg" alt="Festim bei Werde der Pro" style="object-position:center 20%"><figcaption data-i18n="way.c4">„Werde der Pro“ · 2025</figcaption></figure>
@@ -937,7 +937,7 @@ TEXTE.en = {
 'way.t4':'4× Swiss champion · national team · appearances in 5 countries',
 'way.t5':'“Werde der Pro” Top 100 · pro contract with Ruhe Boxing · live on DAZN',
 'way.t6':'Undefeated as a pro · 3 wins · 0 losses',
-'way.c1':'The first steps – Box-Club Biel','way.c2':'Box Cup Dublin · 2014','way.c3':'The amateur years',
+'way.c1':'The first steps','way.c2':'Box Cup Dublin · 2014','way.c3':'The amateur years',
 'way.c4':'“Werde der Pro” · 2025','way.c5':'Pro – live on DAZN',
 'gal.eyebrow':'Gallery','gal.title':'In the ring. In training. On the way.',
 'fight.eyebrow':'Fight Night','fight.title':'My next fight','fight.soon':'Announcement to follow',
@@ -990,7 +990,7 @@ TEXTE.fr = {
 'way.t4':'4× Champion de Suisse · équipe nationale · compétitions dans 5 pays',
 'way.t5':'« Werde der Pro » Top 100 · contrat pro chez Ruhe Boxing · en direct sur DAZN',
 'way.t6':'Invaincu chez les pros · 3 victoires · 0 défaite',
-'way.c1':'Les premiers pas – Box-Club Bienne','way.c2':'Box Cup Dublin · 2014','way.c3':'Les années amateur',
+'way.c1':'Les premiers pas','way.c2':'Box Cup Dublin · 2014','way.c3':'Les années amateur',
 'way.c4':'« Werde der Pro » · 2025','way.c5':'Pro – en direct sur DAZN',
 'gal.eyebrow':'Impressions','gal.title':'Sur le ring. À l’entraînement. En chemin.',
 'fight.eyebrow':'Fight Night','fight.title':'Mon prochain combat','fight.soon':'Annonce à venir',
@@ -1156,11 +1156,19 @@ document.addEventListener('keydown', e => {
 
 
 /* ---------- Kontaktformular ----------
-   Wird ohne Seitenwechsel abgeschickt, damit keine fremde Fehlerseite
-   erscheint. Die Nachricht liegt danach im Netlify-Dashboard unter
-   "Forms". Damit sie zusätzlich per Mail an fa@festimademi.com geht,
-   dort einmalig eintragen:
-   Site configuration -> Forms -> Form notifications -> Email notification. */
+   Eine reine HTML-Seite kann selbst keine E-Mails verschicken, dafür
+   braucht es immer einen Dienst dazwischen. Hier wird FormSubmit
+   verwendet: der Versand geht direkt an EMPFAENGER, ohne Konto und
+   ohne Einstellungen im Netlify-Dashboard.
+
+   WICHTIG – EINMALIG BESTÄTIGEN:
+   Bei der allerersten abgeschickten Nachricht kommt eine Mail von
+   FormSubmit an fa@festimademi.com mit einem Bestätigungslink
+   ("Activate Form"). Einmal darauf klicken – danach kommen alle
+   weiteren Nachrichten ganz normal an.
+
+   Zusätzlich wird jede Nachricht still an Netlify geschickt, damit sie
+   im Dashboard unter "Forms" als Sicherungskopie liegt. */
 const EMPFAENGER = 'fa@festimademi.com';
 const kontaktForm = document.querySelector('form[name="kontakt"]');
 if(kontaktForm){
@@ -1170,24 +1178,46 @@ if(kontaktForm){
     const t = TEXTE[sprache] || {};
     const knopf = kontaktForm.querySelector('button[type="submit"]');
     const beschriftung = knopf.textContent;
+    const d = new FormData(kontaktForm);
+    const name = d.get('name') || '', mail = d.get('email') || '';
+    const betreff = d.get('betreff') || '', nachricht = d.get('nachricht') || '';
+
+    if(d.get('firma')) return;            // Falle für automatische Spam-Eintragungen
+
     knopf.disabled = true;
     knopf.textContent = t['form.sending'] || 'Wird gesendet …';
     status.className = 'form-status';
+
+    // Sicherungskopie im Netlify-Dashboard, Fehler hier stören den Versand nicht
+    fetch('/', {
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:new URLSearchParams(d).toString()
+    }).catch(()=>{});
+
     try{
-      await fetch('/', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: new URLSearchParams(new FormData(kontaktForm)).toString()
+      const antwort = await fetch('https://formsubmit.co/ajax/' + EMPFAENGER, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify({
+          _subject: 'Website-Anfrage: ' + betreff,
+          _template: 'table',
+          _captcha: 'false',
+          Name: name,
+          'E-Mail': mail,
+          Betreff: betreff,
+          Nachricht: nachricht
+        })
       });
+      if(!antwort.ok) throw new Error('Versand fehlgeschlagen');
       status.textContent = (t['form.ok'] || 'Nachricht erfolgreich gesendet an') + ' ' + EMPFAENGER;
       status.className = 'form-status ok';
       kontaktForm.reset();
     }catch(err){
-      // Falls der Versand scheitert: direkt als E-Mail öffnen, damit nichts verloren geht
-      const d = new FormData(kontaktForm);
-      const text = 'Name: ' + (d.get('name')||'') + '\nE-Mail: ' + (d.get('email')||'') + '\n\n' + (d.get('nachricht')||'');
+      // Notfall: E-Mail-Programm mit fertiger Nachricht öffnen, damit nichts verloren geht
+      const text = 'Name: ' + name + '\nE-Mail: ' + mail + '\n\n' + nachricht;
       window.location.href = 'mailto:' + EMPFAENGER +
-        '?subject=' + encodeURIComponent(d.get('betreff')||'Anfrage über die Website') +
+        '?subject=' + encodeURIComponent(betreff || 'Anfrage über die Website') +
         '&body=' + encodeURIComponent(text);
       status.textContent = t['form.mail'] || 'Ihr E-Mail-Programm wurde geöffnet.';
       status.className = 'form-status ok';

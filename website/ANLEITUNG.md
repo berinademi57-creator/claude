@@ -1,45 +1,68 @@
-# Website: Festim Ademi – Profi-Boxer 🥊
+# Website Festim Ademi
 
-Professionelle One-Page-Website im dunklen Design (Schwarz / Anthrazit / Gold).
-Alles in **einer Datei** (`index.html`) – keine Installation nötig.
+Die ganze Seite steckt in **einer Datei**: `index.html`. Bilder liegen in `bilder/`,
+Logos in `bilder/logos/`.
 
-## 🚀 Auf Netlify veröffentlichen (2 Minuten)
+## Veröffentlichen
 
-1. Gehe auf **https://app.netlify.com/drop**
-2. Ziehe den kompletten Ordner **`website/`** per Drag & Drop in das Fenster
-3. Fertig – du bekommst sofort eine Live-URL (z.B. `festim-ademi.netlify.app`)
+Ordner (oder die ZIP) auf **https://app.netlify.com/drop** ziehen. Bei einer
+bestehenden Seite: *Deploys → Drag & Drop* – dann bleibt die Adresse gleich.
 
-> Alternativ: Netlify mit diesem GitHub-Repo verbinden und als
-> "Publish directory" den Ordner `website` angeben (siehe `netlify.toml`).
+---
 
-## 📸 Bilder von Instagram einfügen
+## ⚠️ Kontaktformular – einmalig bestätigen
 
-Die Seite ist so gebaut, dass sie **auch ohne Bilder** gut aussieht
-(elegante Platzhalter). Instagram erlaubt kein automatisches Herunterladen,
-deshalb so:
+Beim **allerersten** Absenden über die Website kommt eine Mail von *FormSubmit*
+an **fa@festimademi.com** mit einem Bestätigungslink (Betreff sinngemäss
+„Activate your form"). **Diesen Link einmal anklicken.**
 
-1. Fotos vom eigenen Profil [@ademi_festim](https://www.instagram.com/ademi_festim/)
-   herunterladen (eigene Beiträge: **„…" → Herunterladen** in der App)
-2. In den Ordner `website/bilder/` legen
-3. Genau so benennen:
+Danach kommt jede weitere Nachricht automatisch an. Ohne diesen einen Klick
+kommt **keine** Mail an – das ist der Spamschutz des Dienstes.
 
-| Datei | Verwendung |
-|---|---|
-| `bilder/hero.jpg` | Großes Hintergrundbild oben (Kampf-/Posingfoto, quer) |
-| `bilder/portrait.jpg` | Porträt im Bereich „Über mich" (hochkant) |
-| `bilder/foto-1.jpg` … `foto-6.jpg` | Galerie (am besten quadratisch) |
+> Auch im Spam-Ordner nachsehen, falls die Bestätigungsmail nicht auftaucht.
 
-## ✏️ Inhalte anpassen (in `index.html`)
+Zusätzlich wird jede Nachricht als Sicherungskopie im Netlify-Dashboard unter
+**Forms** abgelegt.
 
-- **Kampfrekord**: Suche nach `REKORD ANPASSEN` – die Zahlen (Siege, K.o.,
-  Niederlagen, Jahre) sind **Beispielwerte** und müssen mit den echten Daten
-  (z.B. von [BoxRec](https://boxrec.com/en/box-pro/1373025)) ersetzt werden.
-- **Steckbrief**: Gewichtsklasse und Auslage im Bereich „Über mich" eintragen.
-- **Kämpfe**: Suche nach `KÄMPFE ANPASSEN` – Kampfblöcke kopieren/ändern.
-- **E-Mail**: Suche nach `E-MAIL ANPASSEN` und die echte Adresse eintragen.
+Andere Empfängeradresse? In `index.html` nach `EMPFAENGER` suchen und die
+Adresse ersetzen – die neue Adresse muss dann wieder einmal bestätigt werden.
 
-## 📬 Kontaktformular
+---
 
-Das Formular nutzt **Netlify Forms** und funktioniert automatisch nach dem
-Deploy auf Netlify. Eingehende Nachrichten findest du im Netlify-Dashboard
-unter **Forms** (dort auch E-Mail-Benachrichtigung aktivierbar).
+## Bilanz und Kämpfe pflegen
+
+In `index.html` ganz oben im `<script>` nach **`const BILANZ`** suchen:
+
+```js
+const BILANZ = { siege: 3, niederlagen: 0, unentschieden: 0, koSiege: 1, koNiederlagen: 0 };
+const KAEMPFE = [
+  { datum:'Juli 2026', label:'Kampf 3', gegner:'Sven Constantin', ort:'…', ergebnis:'sieg' },
+  …
+];
+```
+
+Nur hier ändern – die farbigen Kästen, die Liste darunter und die Kampfkarten
+aktualisieren sich automatisch, in allen drei Sprachen.
+
+> BoxRec lässt sich nicht automatisch auslesen: es gibt keine öffentliche
+> Schnittstelle, automatische Zugriffe werden blockiert und laut
+> Nutzungsbedingungen ist das Auslesen nicht erlaubt.
+
+## Nächster Kampf / Countdown
+
+Nach **`KAMPF_DATUM`** suchen:
+
+```js
+const KAMPF_DATUM = '2026-11-21T20:00:00';   // null = "Ankündigung folgt"
+const KAMPF_ORT   = 'Zürich, Schweiz';
+```
+
+## Sprachen
+
+Deutsch steht direkt im HTML. Englisch und Französisch stehen im `<script>`
+unter **`TEXTE.en`** und **`TEXTE.fr`**. Neuer Text: im HTML
+`data-i18n="schluessel"` setzen und den Schlüssel in beiden Listen ergänzen.
+
+## Bilder tauschen
+
+Datei in `bilder/` mit gleichem Namen ersetzen – fertig.
