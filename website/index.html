@@ -557,6 +557,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <section style="padding-top:80px">
   <div class="container story-grid">
     <div class="story reveal">
+      <div class="absatz-titel" data-i18n="st.h0" style="margin-top:0">Die Anfänge</div>
       <p data-i18n-html="st.p1"><strong>2009, mit sechs Jahren,</strong> habe ich das Boxen für mich entdeckt. Nur ein Jahr
          später stand ich bereits bei meinen ersten Light-Contact-Wettkämpfen im Ring – oft gegen
          ältere, erfahrenere und körperlich weiter entwickelte Gegner. Sehr früh habe ich verstanden:
@@ -612,9 +613,9 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <div class="zs"><div class="jahr">2009</div><div class="txt" data-i18n="way.t1">Mit 6 Jahren · erste Schritte im Boxsport</div></div>
       <div class="zs"><div class="jahr">2010</div><div class="txt" data-i18n="way.t2">Erste Light-Contact-Wettkämpfe · 3× Schweizer Meister</div></div>
       <div class="zs"><div class="jahr">2014</div><div class="txt" data-i18n="way.t3">Erste Schweizer Meisterschaften · in meiner Heimatstadt Biel</div></div>
-      <div class="zs"><div class="jahr">2015–24</div><div class="txt" data-i18n="way.t4">4× Schweizer Meister · Nationalmannschaft · Einsätze in 5 Ländern</div></div>
+      <div class="zs"><div class="jahr">2015–24</div><div class="txt" data-i18n="way.t4">4× Schweizer Meister · Nationalmannschaft · internationale Wettkämpfe für die Schweiz</div></div>
       <div class="zs"><div class="jahr">2025</div><div class="txt" data-i18n="way.t5">„Werde der Pro" Top 100 · Profivertrag bei Ruhe Boxing · live auf DAZN</div></div>
-      <div class="zs"><div class="jahr">2026</div><div class="txt" data-i18n="way.t6">Ungeschlagen als Profi · 3 Siege · 0 Niederlagen</div></div>
+      <div class="zs"><div class="jahr">2026</div><div class="txt" data-i18n="way.t6">Ungeschlagen als Profi</div></div>
     </div>
     <!-- Der Weg in Bildern: von den ersten Schritten bis zum Profi -->
     <div class="weg-fotos">
@@ -744,8 +745,9 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 <section class="partner" id="partner">
   <div class="container" style="text-align:center">
     <h2 class="titel reveal" style="margin-bottom:12px" data-i18n="pt.title">Unsere Partner</h2>
-    <p style="max-width:560px;margin:0 auto;color:var(--grau)" class="reveal v2" data-i18n="pt.lead">Sie gehen den Weg
-       mit mir mit – im Gym, am Kampfabend und weltweit auf Sendung.</p>
+    <p style="max-width:560px;margin:0 auto;color:var(--grau)" class="reveal v2" data-i18n="pt.lead">Ihre Unterstützung trägt jeden Schritt
+       meines Weges – von der täglichen Arbeit im Gym bis zu den Kämpfen, die weltweit
+       übertragen werden.</p>
 
     <!-- PARTNER-LOGOS: eigene Logo-Dateien liegen in bilder/logos/ -->
     <div class="partner-grid reveal">
@@ -865,9 +867,18 @@ document.getElementById('jahr').textContent = new Date().getFullYear();
 const BOXREC_URL = 'https://boxrec.com/en/box-pro/1373025';
 const BILANZ = { siege: 3, niederlagen: 0, unentschieden: 0, koSiege: 1, koNiederlagen: 0 };
 const KAEMPFE = [
-  { datum:'Juli 2026',  label:'Kampf 3',    gegner:'Sven Constantin',  ort:'Eissporthalle Essen, Essen, Deutschland',            ergebnis:'sieg' },
-  { datum:'06.12.2025', label:'Kampf 2',    gegner:'Gergo Lakatos',    ort:'Lambert Arena im Weberpark, Göppingen, Deutschland', ergebnis:'sieg' },
-  { datum:'13.09.2025', label:'Profidebüt', gegner:'Behrouz Khakrou',  ort:'Rattenfängerhalle, Hameln, Deutschland',             ergebnis:'sieg' }
+  { datum:{de:'Juli 2026',  en:'July 2026',  fr:'Juillet 2026'}, nr:3, gegner:'Sven Constantin',
+    ort:{de:'Eissporthalle Essen, Essen, Deutschland',
+         en:'Eissporthalle Essen, Essen, Germany',
+         fr:'Eissporthalle Essen, Essen, Allemagne'}, ergebnis:'sieg' },
+  { datum:{de:'06.12.2025', en:'06/12/2025', fr:'06.12.2025'}, nr:2, gegner:'Gergo Lakatos',
+    ort:{de:'Lambert Arena im Weberpark, Göppingen, Deutschland',
+         en:'Lambert Arena im Weberpark, Göppingen, Germany',
+         fr:'Lambert Arena im Weberpark, Göppingen, Allemagne'}, ergebnis:'sieg' },
+  { datum:{de:'13.09.2025', en:'13/09/2025', fr:'13.09.2025'}, nr:1, debuet:true, gegner:'Behrouz Khakrou',
+    ort:{de:'Rattenfängerhalle, Hameln, Deutschland',
+         en:'Rattenfängerhalle, Hameln, Germany',
+         fr:'Rattenfängerhalle, Hameln, Allemagne'}, ergebnis:'sieg' }
 ];
 
 function bilanzZeichnen(){
@@ -887,11 +898,14 @@ function bilanzZeichnen(){
   const sieg = t['rec.win'] || 'Sieg', live = t['rec.live'] || 'Live auf DAZN';
   document.getElementById('kampfKarten').innerHTML = KAEMPFE.map(function(k, i){
     const stufe = i === 0 ? '' : (i === 1 ? ' v2' : ' v3');
-    const bez = k.label === 'Profidebüt' ? (t['rec.debut'] || 'Profidebüt') : k.label;
+    const bez = k.debuet ? (t['rec.debut'] || 'Profidebüt')
+                         : (t['rec.fight'] || 'Kampf') + ' ' + k.nr;
+    const datum = k.datum[sprache] || k.datum.de;
+    const ort = k.ort[sprache] || k.ort.de;
     return '<div class="kk reveal' + stufe + '">' +
-      '<div class="datum">' + k.datum + ' · ' + bez + '</div>' +
+      '<div class="datum">' + datum + ' · ' + bez + '</div>' +
       '<div class="gegner">vs ' + k.gegner + '</div>' +
-      '<div class="ort">' + k.ort + '</div>' +
+      '<div class="ort">' + ort + '</div>' +
       '<div><span class="resultat">' + sieg + '</span><span class="methode">' + live + '</span></div>' +
     '</div>';
   }).join('');
@@ -914,18 +928,18 @@ TEXTE.en = {
 'hero.sub':'Professional Boxer','hero.mission':'Mission: <span>World Champion</span>',
 'hero.btn1':'Next fight →','hero.btn2':'My story',
 'intro.eyebrow':'About me','intro.title':'Built on discipline.<br>Driven by one goal.',
-'intro.p1':'I have been in the ring since the age of six. What began in Biel as a childhood dream turned into my professional career through years of discipline, commitment and hard work.',
-'intro.p2':'Seven national titles, appearances for the Swiss national team and the step into the professional ranks with <strong>Ruhe Boxing Promotion</strong> have shaped my path so far. Today my fights are broadcast live worldwide on <strong>DAZN</strong>.',
-'intro.p3':'Undefeated. Focused. Ready for what comes next.','intro.btn':'My story →',
-'q1':'“Fights are won in the ring.<br><span>The confidence for it – long before.”</span>',
-'q2':'“I fight for my family, my roots and everyone who believes in me – <span>to show that discipline, work and faith can achieve the impossible.”</span>',
+'intro.p1':'I have been in the ring since the age of six. What started as a childhood dream in Biel has evolved into a professional boxing career built on years of discipline, dedication, and hard work.',
+'intro.p2':'Winning seven national titles, representing Switzerland on the national team, and progressing into the professional ranks with <strong>Ruhe Boxing Promotion</strong> have all played a defining role in my journey. Today, my fights are broadcast live to audiences around the world on <strong>DAZN</strong>.',
+'intro.p3':'Undefeated. Focused. Ready for the next challenge.','intro.btn':'My story →',
+'q1':'“Fights are won in the ring.<br><span>Confidence is built long before.”</span>',
+'q2':'“I fight for my family, my roots and everyone who believes in me. <span>Because discipline, work and faith make the seemingly impossible possible.”</span>',
 'q3':'“Talent gets you into the ring – <span>discipline lets you win there.”</span>',
-'story.eyebrow':'Story','story.title':'The story of a dream<br>that became a mission',
+'story.eyebrow':'Story','story.title':'From a childhood dream<br>to a professional mission',
 'story.lead':'Every champion has a story. Mine began long before my first professional fight.',
-'st.p1':'<strong>In 2009, at the age of six,</strong> I discovered boxing. Just one year later I was already competing in my first light-contact bouts – often against older, more experienced and physically stronger opponents. I understood very early on that talent alone is not enough. Only work, discipline and perseverance take you further in the long run.',
-'st.p2':'In those first years I won <strong>three Swiss champion titles in light-contact</strong> before turning my career fully towards Olympic boxing at the age of ten.',
-'st.p3':'In <strong>2014</strong> I took part in my first major competition: the Swiss Championships – held in my home town of <strong>Biel</strong>. Representing the colours of my city in front of my own crowd remains one of the defining moments of my journey.',
-'st.p4':'Over the years I built a solid amateur career – with more than <strong>twenty fights</strong> (around 15 wins and 5 losses) and <strong>four Swiss champion titles</strong>. Those results opened the door to the <strong>Swiss national team</strong>, which I was able to represent at international competitions in Ireland, Germany, France, Belgium and Italy. Each of these experiences strengthened my ambition and shaped my character.',
+'st.p1':'In <strong>2009, at the age of six,</strong> I discovered boxing. Just one year later, I was already competing in my first light-contact bouts, often against older, more experienced, and physically stronger opponents. From an early age, I learned that talent alone is not enough. In the long run, only hard work, discipline, and perseverance lead to success.',
+'st.p2':'During those early years, I won <strong>three Swiss light-contact championship titles</strong> before transitioning to Olympic boxing at the age of ten.',
+'st.p3':'In <strong>2014</strong>, I took part in my first major competition: the Swiss Championships, held in my hometown of <strong>Biel</strong>. Representing my city in front of a home crowd remains one of the defining moments of my journey.',
+'st.p4':'Over the years, I built a strong amateur career, competing in more than <strong>twenty bouts</strong> and winning <strong>four Swiss championship titles</strong>. These achievements earned me a place on the <strong>Swiss national team</strong>, which I represented at international competitions in Ireland, Germany, France, Belgium, and Italy. Each experience strengthened my ambition and shaped my character.',
 'st.p5':'Out of more than <strong>400 candidates</strong> I was selected for the German format <strong>“Werde der Pro”</strong> and made it into the <strong>Top 100</strong>. At the end of the programme <strong>Piergiulio Ruhe</strong> – reigning WBA Gold champion and founder of Ruhe Boxing – described me as a <strong>future world champion</strong>.',
 'st.p6':'That recognition led to signing my first <strong>professional contract with Ruhe Boxing</strong>. Since then all my fights have been broadcast live on <strong>DAZN</strong> – with international visibility worldwide.',
 'st.p7':'I pursue my professional career with a single ambition: to reach the biggest stages in world boxing and to win the most prestigious titles in this sport. Every session, every sacrifice and every fight brings me closer to that goal.',
@@ -934,12 +948,12 @@ TEXTE.en = {
 'way.eyebrow':'The path',
 'way.t1':'At the age of 6 · first steps in boxing','way.t2':'First light-contact bouts · 3× Swiss champion',
 'way.t3':'First Swiss Championships · in my home town of Biel',
-'way.t4':'4× Swiss champion · national team · appearances in 5 countries',
+'way.t4':'4× Swiss champion · national team · representing Switzerland at international competitions',
 'way.t5':'“Werde der Pro” Top 100 · pro contract with Ruhe Boxing · live on DAZN',
-'way.t6':'Undefeated as a pro · 3 wins · 0 losses',
+'way.t6':'Undefeated as a pro',
 'way.c1':'The first steps','way.c2':'Box Cup Dublin · 2014','way.c3':'The amateur years',
 'way.c4':'“Werde der Pro” · 2025','way.c5':'Pro – live on DAZN',
-'gal.eyebrow':'Gallery','gal.title':'In the ring. In training. On the way.',
+'gal.eyebrow':'Gallery','gal.title':'In the Ring. In Training. Every Step of the Journey.',
 'fight.eyebrow':'Fight Night','fight.title':'My next fight','fight.soon':'Announcement to follow',
 'fight.days':'Days','fight.hours':'Hours','fight.min':'Minutes','fight.sec':'Seconds',
 'fight.note':'The announcement will follow here &amp; on Instagram','fight.dazn':'Live &amp; worldwide on',
@@ -949,16 +963,17 @@ TEXTE.en = {
 'rec.wins':'Wins','rec.losses':'Losses','rec.draws':'Draws','rec.div':'Division','rec.divv':'Super welterweight',
 'rec.nat':'Nationality','rec.ch':'Switzerland','rec.al':'Albania','rec.promo':'Promotion',
 'rec.ko':'KO','rec.kos':'KOs','rec.of':'incl.','rec.byko':'by KO','rec.win':'Win',
-'rec.live':'Live on DAZN','rec.debut':'Pro debut',
-'pt.title':'Our partners','pt.lead':'They walk this path with me – in the gym, on fight night and on air worldwide.',
+'rec.live':'Live on DAZN','rec.debut':'Pro debut','rec.fight':'Fight',
+'pt.title':'Our partners','pt.lead':'Their support carries every step of my journey, from the daily work in the gym to fights broadcast around the world.',
 'pt.cta':'Interested in a partnership?','pt.sub':'Connect your brand with my journey as a professional athlete.',
 'pt.btn':'Get in touch →',
 'ct.eyebrow':'Management &amp; partners','ct.title':'Contact',
-'ct.lead':'Enquiries about partnerships, press, fights or collaborations? Write to me – I will get back to you as soon as possible.',
+'ct.lead':'Enquiries regarding partnerships, media requests, fights, or collaborations? Feel free to get in touch. I will get back to you as soon as possible.',
 'ct.mail':'Email','ct.ph1':'Your name','ct.ph2':'Your email','ct.ph3':'Your message',
 'ct.o1':'Partnership / sponsoring','ct.o2':'Press / media','ct.o3':'Other',
 'form.send':'Send','form.sending':'Sending …','form.ok':'Message successfully sent to',
-'form.mail':'Your email programme has been opened.','ft.rights':'All rights reserved'
+'form.mail':'Your email programme has been opened.','ft.rights':'All rights reserved',
+'st.h0':'The beginning'
 };
 
 TEXTE.fr = {
@@ -967,32 +982,32 @@ TEXTE.fr = {
 'hero.sub':'Boxeur professionnel','hero.mission':'Mission : <span>Champion du monde</span>',
 'hero.btn1':'Prochain combat →','hero.btn2':'Mon histoire',
 'intro.eyebrow':'À propos de moi','intro.title':'Bâti sur la discipline.<br>Guidé par un seul objectif.',
-'intro.p1':'Je suis sur le ring depuis l’âge de six ans. Ce qui a commencé à Bienne comme un rêve d’enfant est devenu ma carrière professionnelle grâce à des années de discipline, d’engagement et de travail acharné.',
-'intro.p2':'Sept titres nationaux, des sélections en équipe nationale suisse et le passage chez les professionnels avec <strong>Ruhe Boxing Promotion</strong> ont façonné mon parcours jusqu’ici. Aujourd’hui, mes combats sont diffusés en direct dans le monde entier sur <strong>DAZN</strong>.',
-'intro.p3':'Invaincu. Concentré. Prêt pour la suite.','intro.btn':'Mon histoire →',
-'q1':'« Les combats se gagnent sur le ring.<br><span>La confiance pour cela – bien avant. »</span>',
-'q2':'« Je me bats pour ma famille, mes origines et tous ceux qui croient en moi – <span>pour montrer qu’avec de la discipline, du travail et de la foi, on peut atteindre l’impossible. »</span>',
+'intro.p1':'Je suis sur le ring depuis l’âge de six ans. Ce qui a commencé à Bienne comme un rêve d’enfant s’est transformé en une carrière professionnelle construite grâce à des années de discipline, de détermination et de travail acharné.',
+'intro.p2':'Sept titres nationaux, plusieurs sélections en équipe nationale suisse et mon passage dans les rangs professionnels avec <strong>Ruhe Boxing Promotion</strong> ont façonné mon parcours jusqu’à aujourd’hui. Désormais, mes combats sont diffusés en direct dans le monde entier sur <strong>DAZN</strong>.',
+'intro.p3':'Invaincu. Déterminé. Prêt à relever le prochain défi.','intro.btn':'Mon histoire →',
+'q1':'« Les combats se gagnent sur le ring.<br><span>La confiance se forge bien avant. »</span>',
+'q2':'« Je me bats pour ma famille, mes origines et tous ceux qui croient en moi. <span>Parce que la discipline, le travail et la foi permettent d’accomplir ce qui semble impossible. »</span>',
 'q3':'« Le talent t’amène sur le ring – <span>la discipline te fait gagner. »</span>',
 'story.eyebrow':'Histoire','story.title':'L’histoire d’un rêve<br>devenu une mission',
 'story.lead':'Chaque champion possède une histoire. La mienne a commencé bien avant mon premier combat professionnel.',
-'st.p1':'<strong>En 2009, à l’âge de six ans,</strong> j’ai découvert la boxe. Un an plus tard seulement, je disputais déjà mes premières confrontations en light-contact, face à des adversaires souvent plus âgés, plus expérimentés et physiquement plus développés. Très tôt, j’ai compris que le talent ne suffisait pas : seuls le travail, la discipline et la persévérance permettent de progresser durablement.',
-'st.p2':'Ces premières années m’ont permis de décrocher <strong>trois titres de Champion de Suisse en light-contact</strong>, avant d’orienter définitivement ma carrière vers la boxe olympique à l’âge de dix ans.',
-'st.p3':'En <strong>2014</strong>, je participais à ma première grande compétition : les Championnats suisses, organisés dans ma ville natale de <strong>Bienne</strong>. Défendre les couleurs de ma ville devant mon public reste l’un des moments fondateurs de mon parcours.',
-'st.p4':'Au fil des années, j’ai construit une carrière amateur solide, avec plus de <strong>vingt combats</strong> (environ 15 victoires pour 5 défaites) et <strong>quatre titres de Champion de Suisse</strong>. Ces résultats m’ont ouvert les portes de l’<strong>Équipe nationale suisse</strong>, que j’ai eu l’honneur de représenter lors de compétitions internationales en Irlande, en Allemagne, en France, en Belgique et en Italie. Chacune de ces expériences a renforcé mon ambition et forgé mon caractère.',
-'st.p5':'Sélectionné parmi plus de <strong>400 candidats</strong> pour participer au format allemand <strong>« Werde der Pro »</strong>, j’ai intégré le <strong>Top 100</strong>. À l’issue du programme, <strong>Piergiulio Ruhe</strong> – champion WBA Gold en titre et fondateur de Ruhe Boxing – m’a désigné comme un <strong>futur champion du monde</strong>.',
-'st.p6':'Cette reconnaissance s’est concrétisée par la signature de mon premier <strong>contrat professionnel au sein de Ruhe Boxing</strong>. Depuis, tous mes combats sont diffusés en direct sur <strong>DAZN</strong>, offrant une visibilité internationale dans le monde entier.',
-'st.p7':'Je poursuis ma carrière professionnelle avec une seule ambition : atteindre les plus grandes scènes de la boxe mondiale et conquérir les titres les plus prestigieux de ce sport. Chaque entraînement, chaque sacrifice et chaque combat me rapprochent de cet objectif.',
-'st.p8':'<strong>Je suis invaincu, et je compte le rester.<br>Car mon histoire ne fait que commencer.</strong>',
+'st.p1':'En <strong>2009, à l’âge de six ans,</strong> j’ai découvert la boxe. Un an plus tard seulement, je disputais déjà mes premiers combats en light-contact, face à des adversaires souvent plus âgés, plus expérimentés et physiquement plus développés. Très tôt, j’ai compris que le talent seul ne suffisait pas. Seuls le travail, la discipline et la persévérance permettent de progresser et de réussir sur le long terme.',
+'st.p2':'Ces premières années m’ont permis de remporter <strong>trois titres de Champion de Suisse en light-contact</strong> avant de me consacrer pleinement à la boxe olympique dès l’âge de dix ans.',
+'st.p3':'En <strong>2014</strong>, j’ai participé à ma première grande compétition : les Championnats de Suisse, organisés dans ma ville natale, <strong>Bienne</strong>. Représenter les couleurs de ma ville devant mon public reste l’un des moments les plus marquants de mon parcours.',
+'st.p4':'Au fil des années, j’ai construit une solide carrière amateur avec plus de <strong>vingt combats</strong> à mon actif (environ quinze victoires pour cinq défaites) et <strong>quatre titres de Champion de Suisse</strong>. Ces résultats m’ont ouvert les portes de l’<strong>Équipe nationale suisse</strong>, que j’ai eu l’honneur de représenter lors de compétitions internationales en Irlande, en Allemagne, en France, en Belgique et en Italie. Chacune de ces expériences a renforcé mon ambition et contribué à forger mon caractère.',
+'st.p5':'Sélectionné parmi plus de <strong>400 candidats</strong> pour participer au programme <strong>Werde der Pro</strong>, j’ai intégré le <strong>Top 100</strong>. À l’issue de l’aventure, <strong>Piergiulio Ruhe</strong>, champion WBA Gold et fondateur de Ruhe Boxing Promotion, m’a décrit comme un <strong>futur champion du monde</strong>.',
+'st.p6':'Cette reconnaissance s’est concrétisée par la signature de mon premier <strong>contrat professionnel avec Ruhe Boxing Promotion</strong>. Depuis, tous mes combats sont diffusés en direct sur <strong>DAZN</strong>, me permettant de bénéficier d’une visibilité internationale.',
+'st.p7':'Je poursuis ma carrière professionnelle avec une ambition claire : évoluer sur les plus grandes scènes de la boxe mondiale et conquérir les titres les plus prestigieux de ce sport. Chaque entraînement, chaque sacrifice et chaque combat me rapprochent un peu plus de cet objectif.',
+'st.p8':'<strong>Je suis invaincu et je compte bien le rester.<br>Car mon histoire ne fait que commencer.</strong>',
 'st.h1':'Les années amateur','st.h2':'2025 – Le tournant','st.h3':'Aujourd’hui',
 'way.eyebrow':'Le parcours',
 'way.t1':'À 6 ans · premiers pas dans la boxe','way.t2':'Premiers combats light-contact · 3× Champion de Suisse',
 'way.t3':'Premiers Championnats suisses · dans ma ville natale de Bienne',
-'way.t4':'4× Champion de Suisse · équipe nationale · compétitions dans 5 pays',
+'way.t4':'4× Champion de Suisse · équipe nationale · compétitions internationales',
 'way.t5':'« Werde der Pro » Top 100 · contrat pro chez Ruhe Boxing · en direct sur DAZN',
-'way.t6':'Invaincu chez les pros · 3 victoires · 0 défaite',
+'way.t6':'Invaincu chez les pros',
 'way.c1':'Les premiers pas','way.c2':'Box Cup Dublin · 2014','way.c3':'Les années amateur',
 'way.c4':'« Werde der Pro » · 2025','way.c5':'Pro – en direct sur DAZN',
-'gal.eyebrow':'Impressions','gal.title':'Sur le ring. À l’entraînement. En chemin.',
+'gal.eyebrow':'Impressions','gal.title':'Sur le ring, à l’entraînement, le parcours.',
 'fight.eyebrow':'Fight Night','fight.title':'Mon prochain combat','fight.soon':'Annonce à venir',
 'fight.days':'Jours','fight.hours':'Heures','fight.min':'Minutes','fight.sec':'Secondes',
 'fight.note':'L’annonce suivra ici &amp; sur Instagram','fight.dazn':'En direct et partout sur',
@@ -1002,16 +1017,17 @@ TEXTE.fr = {
 'rec.wins':'Victoires','rec.losses':'Défaites','rec.draws':'Nuls','rec.div':'Catégorie','rec.divv':'Super-welters',
 'rec.nat':'Nationalité','rec.ch':'Suisse','rec.al':'Albanie','rec.promo':'Promotion',
 'rec.ko':'KO','rec.kos':'KO','rec.of':'dont','rec.byko':'par KO','rec.win':'Victoire',
-'rec.live':'En direct sur DAZN','rec.debut':'Début pro',
-'pt.title':'Nos partenaires','pt.lead':'Ils font ce chemin avec moi – à la salle, les soirs de combat et à l’antenne partout dans le monde.',
+'rec.live':'En direct sur DAZN','rec.debut':'Début pro','rec.fight':'Combat',
+'pt.title':'Nos partenaires','pt.lead':'Leur soutien contribue à chaque étape de mon parcours, du travail quotidien à la salle jusqu’aux combats diffusés dans le monde entier.',
 'pt.cta':'Intéressé par un partenariat ?','pt.sub':'Associez votre marque à mon parcours d’athlète professionnel.',
 'pt.btn':'Nous contacter →',
 'ct.eyebrow':'Management &amp; partenaires','ct.title':'Contact',
-'ct.lead':'Une demande de partenariat, de presse, de combat ou de collaboration ? Écrivez-moi – je vous réponds dans les meilleurs délais.',
+'ct.lead':'Partenariats, médias ou collaborations : pour toute demande professionnelle, merci de me contacter par e-mail. Je vous répondrai dans les meilleurs délais.',
 'ct.mail':'E-mail','ct.ph1':'Votre nom','ct.ph2':'Votre e-mail','ct.ph3':'Votre message',
 'ct.o1':'Partenariat / sponsoring','ct.o2':'Presse / médias','ct.o3':'Autre',
 'form.send':'Envoyer','form.sending':'Envoi en cours …','form.ok':'Message envoyé avec succès à',
-'form.mail':'Votre messagerie a été ouverte.','ft.rights':'Tous droits réservés'
+'form.mail':'Votre messagerie a été ouverte.','ft.rights':'Tous droits réservés',
+'st.h0':'Les débuts'
 };
 
 /* Deutsch einmalig aus dem HTML einlesen, damit es nur an einer Stelle steht */
@@ -1025,7 +1041,10 @@ TEXTE.de['form.mail'] = 'Ihr E-Mail-Programm wurde geöffnet.';
 TEXTE.de['rec.ko'] = 'KO'; TEXTE.de['rec.kos'] = 'KOs'; TEXTE.de['rec.of'] = 'davon';
 TEXTE.de['rec.byko'] = 'durch K.o.'; TEXTE.de['rec.win'] = 'Sieg';
 TEXTE.de['rec.live'] = 'Live auf DAZN'; TEXTE.de['rec.debut'] = 'Profidebüt';
+TEXTE.de['rec.fight'] = 'Kampf';
 
+// wird true, sobald der Countdown-Abschnitt weiter unten geladen ist
+var countdownBereit = false;
 let sprache = 'de';
 function spracheSetzen(neu){
   sprache = TEXTE[neu] ? neu : 'de';
@@ -1043,6 +1062,7 @@ function spracheSetzen(neu){
   document.querySelectorAll('.sprachwahl button').forEach(b =>
     b.classList.toggle('aktiv', b.dataset.sprache === sprache));
   bilanzZeichnen();
+  if(countdownBereit) aktualisiereCountdown();
   neuBeobachten();
   try{ localStorage.setItem('sprache', sprache); }catch(e){}
 }
@@ -1102,7 +1122,7 @@ function aktualisiereCountdown(){
     countdownEl.style.display = 'none';
     datumAnzeige.style.display = 'none';
     hinweisEl.style.display = 'block';
-    ortAnzeige.textContent = 'Ankündigung folgt';
+    ortAnzeige.textContent = (TEXTE[sprache] || {})['fight.soon'] || 'Ankündigung folgt';
     return;
   }
   const d = new Date(KAMPF_DATUM);
@@ -1114,6 +1134,7 @@ function aktualisiereCountdown(){
   document.getElementById('cdMinuten').textContent = String(Math.floor(s%3600/60)).padStart(2,'0');
   document.getElementById('cdSekunden').textContent = String(s%60).padStart(2,'0');
 }
+countdownBereit = true;
 aktualisiereCountdown();
 setInterval(aktualisiereCountdown, 1000);
 
