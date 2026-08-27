@@ -1161,15 +1161,18 @@ document.addEventListener('keydown', e => {
    verwendet: der Versand geht direkt an EMPFAENGER, ohne Konto und
    ohne Einstellungen im Netlify-Dashboard.
 
-   WICHTIG – EINMALIG BESTÄTIGEN:
-   Bei der allerersten abgeschickten Nachricht kommt eine Mail von
-   FormSubmit an fa@festimademi.com mit einem Bestätigungslink
-   ("Activate Form"). Einmal darauf klicken – danach kommen alle
-   weiteren Nachrichten ganz normal an.
+   Die Adresse ist einmalig bestätigt worden ("Activate Form"), der
+   Versand läuft über die Kennung unten. Falls die Seite später auf eine
+   eigene Domain umzieht, kann FormSubmit erneut eine Bestätigungsmail
+   schicken – dann dort einmal auf den Link klicken.
 
    Zusätzlich wird jede Nachricht still an Netlify geschickt, damit sie
    im Dashboard unter "Forms" als Sicherungskopie liegt. */
 const EMPFAENGER = 'fa@festimademi.com';
+// Kennung von FormSubmit für genau diese Adresse. Dadurch steht die
+// E-Mail-Adresse nicht mehr im Quelltext und wird nicht von Spam-Robotern
+// eingesammelt. Neue Adresse -> neue Kennung von FormSubmit anfordern.
+const FORM_KENNUNG = '3e96963dda53c29a08787bdbc1348d17';
 const kontaktForm = document.querySelector('form[name="kontakt"]');
 if(kontaktForm){
   const status = document.getElementById('formStatus');
@@ -1196,7 +1199,7 @@ if(kontaktForm){
     }).catch(()=>{});
 
     try{
-      const antwort = await fetch('https://formsubmit.co/ajax/' + EMPFAENGER, {
+      const antwort = await fetch('https://formsubmit.co/ajax/' + FORM_KENNUNG, {
         method:'POST',
         headers:{'Content-Type':'application/json','Accept':'application/json'},
         body: JSON.stringify({

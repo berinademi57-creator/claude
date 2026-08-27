@@ -10,22 +10,27 @@ bestehenden Seite: *Deploys → Drag & Drop* – dann bleibt die Adresse gleich.
 
 ---
 
-## ⚠️ Kontaktformular – einmalig bestätigen
+## Kontaktformular
 
-Beim **allerersten** Absenden über die Website kommt eine Mail von *FormSubmit*
-an **fa@festimademi.com** mit einem Bestätigungslink (Betreff sinngemäss
-„Activate your form"). **Diesen Link einmal anklicken.**
+Nachrichten gehen über den Dienst *FormSubmit* direkt an **fa@festimademi.com**.
+Die Adresse ist bereits einmalig bestätigt worden.
 
-Danach kommt jede weitere Nachricht automatisch an. Ohne diesen einen Klick
-kommt **keine** Mail an – das ist der Spamschutz des Dienstes.
-
-> Auch im Spam-Ordner nachsehen, falls die Bestätigungsmail nicht auftaucht.
+Im Code steht statt der Adresse nur noch eine Kennung (`FORM_KENNUNG`), damit die
+E-Mail-Adresse nicht im Quelltext der Seite steht und nicht von Spam-Robotern
+eingesammelt wird.
 
 Zusätzlich wird jede Nachricht als Sicherungskopie im Netlify-Dashboard unter
 **Forms** abgelegt.
 
-Andere Empfängeradresse? In `index.html` nach `EMPFAENGER` suchen und die
-Adresse ersetzen – die neue Adresse muss dann wieder einmal bestätigt werden.
+**Falls doch einmal nichts ankommt:** FormSubmit verlangt eine Bestätigung pro
+Web-Adresse. Zieht die Seite später auf eine eigene Domain um (z. B.
+`festimademi.com`), kommt erneut eine Mail „Activate FormSubmit" – dort einmal
+auf **Activate Form** klicken, dann läuft es weiter. Auch im Spam-Ordner
+nachsehen.
+
+Andere Empfängeradresse? In `index.html` nach `EMPFAENGER` suchen, Adresse
+ersetzen und `FORM_KENNUNG` auf die Adresse selbst setzen – FormSubmit schickt
+dann eine neue Bestätigungsmail mit einer neuen Kennung.
 
 ---
 
