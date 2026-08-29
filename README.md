@@ -10,9 +10,12 @@ netlify.toml            Netlify-Konfiguration
 assets/
   logo.png              Logo freigestellt, transparenter Hintergrund
   logo-weiss.png        gleiche Marke für dunklen Untergrund (Footer)
-  projekte/             die sechs Bilder der Oberflächen-Galerie
+  projekte/             die sechs Bilder der Galerie
 FOTOS.md                wie eigene Fotos eingesetzt werden
 ```
+
+Aufbau der Seite: Kopfzeile, Titelbild, Leistungen, Arbeiten, Über uns,
+Kontakt, Fusszeile.
 
 ---
 
@@ -59,17 +62,15 @@ netlify deploy --prod
 Diese Punkte müssen stimmen, bevor die Seite öffentlich ist:
 
 1. **Eigene Fotos einsetzen.** Die sechs Bilder in `assets/projekte/` sind
-   erzeugte Materialaufnahmen, keine Fotos echter Aufträge. Siehe `FOTOS.md`.
+   gezeichnete Motive, keine Fotos echter Aufträge. Siehe `FOTOS.md`.
 2. **Angaben prüfen.** Telefon, E-Mail, Adresse und Erreichbarkeit stehen im
-   Abschnitt „Kontakt" sowie in der Kopf- und Fusszeile.
-3. **Einsatzgebiet prüfen.** Aktuell genannt: Biel-Bienne, Nidau, Brügg, Lyss,
-   Region Seeland. Anpassen, falls das nicht passt.
-4. **Sprachen prüfen.** Im Abschnitt „Über uns" stehen Deutsch, Albanisch und
-   Französisch.
-5. **`canonical`-Adresse setzen.** In `index.html` ganz oben steht
+   Abschnitt „Kontakt" und in der Fusszeile.
+3. **Einsatzgebiet prüfen.** Aktuell genannt: Biel, Nidau, Brügg, Lyss,
+   Seeland. Anpassen, falls das nicht passt.
+4. **`canonical`-Adresse setzen.** In `index.html` ganz oben steht
    `https://ademi-maler-gipser.ch/` als Platzhalter. Auf die echte Adresse
    ändern, sobald die Domain feststeht.
-6. **Impressum ergänzen.** Für einen Schweizer Geschäftsauftritt gehört ein
+5. **Impressum ergänzen.** Für einen Schweizer Geschäftsauftritt gehört ein
    Impressum mit Firmenname, Adresse und Kontakt dazu. Bei Bedarf eine
    `impressum.html` anlegen und in der Fusszeile verlinken.
 
@@ -115,6 +116,6 @@ Wird eine Farbe dort geändert, zieht die ganze Seite mit.
 
 ## Getestet
 
-Geprüft mit Chromium bei 1440 px und 390 px Breite: alle Bilder laden, kein
-seitliches Scrollen, das Mobilmenü öffnet und schliesst, Schrift auf farbigen
-Flächen erfüllt die Kontrastvorgaben (WCAG AA).
+Geprüft mit Chromium bei 1440 px und 390 px Breite: alle 13 Bilder laden, kein
+seitliches Scrollen, keine Konsolenfehler, das Mobilmenü öffnet und schliesst,
+Schrift auf farbigen Flächen erfüllt die Kontrastvorgaben (WCAG AA).

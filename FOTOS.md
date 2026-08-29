@@ -1,114 +1,89 @@
 # Eigene Fotos einsetzen
 
-## Warum die Bilder ersetzt werden müssen
+## Was aktuell drin ist
 
-Die sechs Dateien in `assets/projekte/` sind erzeugte Materialaufnahmen —
-Oberflächen, die aussehen wie Anstrich und Putz, aber keine Fotos echter
-Aufträge sind. Sie halten das Layout, bis eigene Bilder da sind.
+Die sechs Bilder in `assets/projekte/` sind **gezeichnete Motive**, keine Fotos.
+Sie zeigen die Gewerke erkennbar (Raum mit Farbroller, Fassade mit Gerüst, Kelle
+im Verputz, Farbdose, Fensterabzieher) und halten das Layout, bis eigene Fotos
+da sind.
 
-**Keine Bilder aus der Google-Bildersuche verwenden.** Fast alles dort ist
-urheberrechtlich geschützt. Auf einer Firmenwebsite ist das kein Kavaliersdelikt:
-Rechteinhaber und darauf spezialisierte Kanzleien suchen gezielt nach solchen
-Verwendungen, und eine Forderung liegt schnell im vierstelligen Bereich. Dass ein
-Bild frei auffindbar ist, heisst nicht, dass es frei verwendbar ist.
+**Keine Bilder aus der Google-Bildersuche nehmen.** Fast alles dort ist
+geschützt. Auf einer Firmenwebsite ist das ein echtes Risiko — Forderungen
+liegen schnell im vierstelligen Bereich. Frei auffindbar heisst nicht frei
+verwendbar.
 
-Drei saubere Wege:
+Saubere Quellen:
 
-1. **Eigene Fotos.** Für einen Handwerksbetrieb mit Abstand am besten — echte
-   Arbeit verkauft besser als jedes Stockfoto.
-2. **Lizenzfreie Bilder** von [unsplash.com](https://unsplash.com),
+1. **Eigene Fotos** — für einen Handwerksbetrieb mit Abstand am besten.
+2. **Lizenzfrei** von [unsplash.com](https://unsplash.com),
    [pexels.com](https://pexels.com) oder [pixabay.com](https://pixabay.com).
-   Kostenlos, auch geschäftlich nutzbar. Suchbegriffe: `painter wall`,
-   `plastering`, `house painting`, `renovation`.
-3. **Fotograf beauftragen.** Ein halber Tag auf einer laufenden Baustelle
-   liefert genug Material für Jahre.
+   Suchbegriffe: `painter wall`, `plastering`, `house painting`, `renovation`.
 
 ---
 
-## So werden die Bilder ersetzt
+## Austauschen
 
-Die Dateinamen sind im HTML fest verdrahtet. Wer die gleichen Namen verwendet,
-muss am Code nichts ändern:
+Die Dateinamen stehen fest im HTML. Gleicher Name = nichts weiter zu ändern.
 
-| Datei | Zeigt | Steht wo |
+| Datei | Motiv | Wird verwendet |
 | --- | --- | --- |
-| `01-innenanstrich.jpg` | Innenanstrich, fertige Wand | Hintergrund oben, Karte „Malerarbeiten", Galerie |
-| `02-fassade.jpg` | Fassade aussen | Galerie |
-| `03-gipserarbeiten.jpg` | Verputzte Wand | Karte „Gipserarbeiten", Galerie |
-| `04-feinputz.jpg` | Feine, glatte Oberfläche | Galerie, Bild bei „Über uns" |
-| `05-farbberatung.jpg` | Farbfläche oder Farbmuster | Galerie |
-| `06-reinigung.jpg` | Gereinigte Fläche | Karte „Reinigung", Galerie |
+| `01-innenanstrich.jpg` | Innenanstrich | Hintergrund oben, Karte Malerarbeiten, Galerie |
+| `02-fassade.jpg` | Fassade | Galerie |
+| `03-gipserarbeiten.jpg` | Verputz | Karte Gipserarbeiten, Galerie |
+| `04-feinputz.jpg` | Feine Oberfläche | Galerie, Bild bei „Über uns" |
+| `05-farbberatung.jpg` | Farbe, Muster | Galerie |
+| `06-reinigung.jpg` | Reinigung | Karte Reinigung, Galerie |
 
-Vorgehen: eigenes Foto auf den passenden Namen umbenennen, die Datei in
-`assets/projekte/` überschreiben, Seite neu laden. Fertig.
+Foto umbenennen, Datei in `assets/projekte/` überschreiben, Seite neu laden.
 
 `01-innenanstrich.jpg` und `04-feinputz.jpg` werden gross dargestellt — dafür
 die besten Aufnahmen nehmen.
 
----
-
-## Bildanforderungen
-
-- **Format:** JPG
-- **Grösse:** mindestens 1600 × 1200 Pixel, quer
-- **Dateigrösse:** höchstens etwa 300 KB pro Bild
-
-Zu grosse Dateien machen die Seite auf dem Handy langsam. Verkleinern lassen
-sie sich kostenlos auf [squoosh.app](https://squoosh.app) oder
-[tinyjpg.com](https://tinyjpg.com) — dort ist ein Bild in wenigen Sekunden von
-4 MB auf 200 KB gebracht, ohne sichtbaren Qualitätsverlust.
+**Anforderungen:** JPG, quer, mindestens 1600 × 1200 Pixel, höchstens etwa
+300 KB. Verkleinern kostenlos auf [squoosh.app](https://squoosh.app) oder
+[tinyjpg.com](https://tinyjpg.com).
 
 ---
 
-## Fotografieren auf der Baustelle
+## Gut fotografieren
 
-- **Tageslicht nutzen.** Kein Blitz. Am besten am Vormittag, wenn Licht durchs
-  Fenster kommt.
-- **Vorher und nachher.** Der Vergleich wirkt stärker als jedes fertige Bild
-  allein. Für das Nachher-Foto von derselben Stelle aus fotografieren.
-- **Aufräumen vor dem Auslösen.** Farbeimer, Kabel und Abdeckfolie aus dem Bild.
-- **Quer halten.** Hochkant-Fotos werden im Layout beschnitten.
-- **Gerade stehen.** Kanten parallel zum Bildrand, sonst kippt die Wand.
-- **Auch Details.** Eine saubere Kante oder ein Übergang Wand-Decke zeigt
-  Handwerk oft besser als ein ganzer Raum.
+- Tageslicht, kein Blitz.
+- Vorher und nachher von derselben Stelle aus.
+- Vor dem Auslösen aufräumen: Eimer, Kabel, Folie aus dem Bild.
+- Quer halten. Hochkant wird beschnitten.
+- Kanten parallel zum Bildrand, sonst kippt die Wand.
+- Auch Details: eine saubere Kante zeigt Handwerk oft besser als ein ganzer Raum.
 
-Wichtig: Wo Personen erkennbar sind oder fremde Wohnungen zu sehen sind, vorher
-die Erlaubnis der Kundschaft einholen.
+Wo Personen erkennbar sind oder fremde Wohnungen zu sehen sind: vorher die
+Erlaubnis der Kundschaft einholen.
 
 ---
 
 ## Beschriftungen anpassen
 
-Sobald echte Aufträge abgebildet sind, kann die Galerie auch echte Angaben
-tragen. In `index.html` im Abschnitt `id="referenzen"`:
+Sobald echte Aufträge abgebildet sind, kann die Galerie konkreter werden. In
+`index.html` im Abschnitt `id="arbeiten"`:
 
 ```html
-<figcaption>Innenanstrich<small>Matte Dispersion, Wand und Decke</small></figcaption>
+<figcaption>Innenanstrich</figcaption>
 ```
 
-wird dann zum Beispiel zu:
+wird zum Beispiel zu:
 
 ```html
-<figcaption>Innenanstrich<small>3-Zimmer-Wohnung, Biel</small></figcaption>
+<figcaption>Innenanstrich, 3-Zimmer-Wohnung Biel</figcaption>
 ```
 
-Dann passen auch die Überschrift „Was wir ausführen." und der Menüpunkt
-„Oberflächen" nicht mehr — beides darf zu „Referenzen" werden. Solange dort
-Platzhalter stehen, sollte das Wort „Referenzen" nicht verwendet werden: es
-verspricht abgeschlossene Kundenaufträge.
+Dann darf die Rubrik auch „Referenzen" heissen. Solange dort Platzhalter
+stehen, sollte dieses Wort nicht verwendet werden — es verspricht
+abgeschlossene Kundenaufträge.
 
 Ebenfalls anpassen: der `alt`-Text jedes Bildes. Er beschreibt das Bild für
 Suchmaschinen und für Menschen, die die Seite vorlesen lassen.
 
-```html
-<img src="assets/projekte/01-innenanstrich.jpg" alt="Frisch gestrichene Wohnzimmerwand in Biel">
-```
-
 ---
 
-## Nach dem Austausch veröffentlichen
-
-Bei Netlify-Anbindung an GitHub:
+## Danach veröffentlichen
 
 ```bash
 git add assets/projekte/
@@ -116,5 +91,5 @@ git commit -m "Eigene Projektfotos eingesetzt"
 git push
 ```
 
-Netlify baut die Seite von selbst neu. Ohne GitHub: den Ordner erneut auf
+Netlify baut von selbst neu. Ohne GitHub: Ordner erneut auf
 [app.netlify.com/drop](https://app.netlify.com/drop) ziehen.
