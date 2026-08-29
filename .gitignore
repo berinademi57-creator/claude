@@ -1,27 +1,28 @@
-# Secrets
+# Environment variables
 .env
 .env.local
+.env.*.local
 
-# Dependencies
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build & Deploy
 node_modules/
-
-# Expo
-.expo/
 dist/
-web-build/
-*.orig.*
+build/
+.cache/
+.netlify/
 
-# Native
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-
-# macOS
+# OS
 .DS_Store
+Thumbs.db
 
 # Logs
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+*.log
