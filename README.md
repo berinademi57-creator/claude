@@ -1,112 +1,120 @@
-# ADEMI - Malerei, Gipserei & Reinigung Website
+# ADEMI – Website
 
-Professionelle statische Website für ADEMI, ein Handwerksunternehmen in Biel-Bienne, Schweiz.
+Website für ADEMI, Maler-, Gipser- und Reinigungsbetrieb in Biel-Bienne.
+Statische Seite ohne Framework und ohne Build-Schritt: HTML und CSS in einer
+Datei, dazu ein Ordner mit Bildern.
 
-Die Website zeigt Dienstleistungen, Kontaktinformationen und ein Kontaktformular.
-
----
-
-## Features
-
-- **Responsive Design** – Optimiert für Desktop, Tablet und Mobilgeräte
-- **Moderne Ästhetik** – Rote und schwarze Farbschema basierend auf Logo
-- **Kontaktformular** – Mit Netlify Forms integriert
-- **SEO-optimiert** – Meta-Tags und strukturierte Navigation
-- **Schnelle Ladezeiten** – Reine HTML/CSS, keine großen Dependencies
-
----
-
-## Dateien
-
-- `index.html` – Vollständige Website (HTML + CSS + JS)
-- `netlify.toml` – Netlify-Konfiguration
-- `package.json` – Projektmetadaten
-
----
-
-## Lokale Entwicklung
-
-### Server starten
-
-```bash
-npm run serve
+```
+index.html              die komplette Seite (Struktur, Gestaltung, Formular)
+netlify.toml            Netlify-Konfiguration
+assets/
+  logo.png              Logo freigestellt, transparenter Hintergrund
+  logo-weiss.png        gleiche Marke für dunklen Untergrund (Footer)
+  projekte/             die sechs Bilder der Oberflächen-Galerie
+FOTOS.md                wie eigene Fotos eingesetzt werden
 ```
 
-Öffne dann `http://localhost:8000` im Browser.
+---
+
+## Lokal ansehen
+
+`index.html` doppelklicken. Für ein Verhalten wie im Netz:
+
+```bash
+npx http-server . -p 8000
+```
+
+Dann `http://localhost:8000` öffnen.
 
 ---
 
-## Auf Netlify deployen
+## Veröffentlichen (Netlify)
 
-### Variante 1: Via Netlify CLI (schnell)
+Netlify hostet die Seite kostenlos, inklusive HTTPS.
+
+**Variante 1 – Ordner hochladen.** Auf [app.netlify.com/drop](https://app.netlify.com/drop)
+den Projektordner ins Browserfenster ziehen. Die Seite ist sofort erreichbar.
+
+**Variante 2 – mit GitHub verbinden** (empfohlen, weil jede Änderung automatisch
+live geht). In Netlify „Add new site" → „Import an existing project" → dieses
+Repository wählen. Einstellungen:
+
+| Feld | Wert |
+| --- | --- |
+| Build command | leer lassen |
+| Publish directory | `.` |
+
+**Variante 3 – Kommandozeile.**
 
 ```bash
-# Netlify CLI installieren
 npm install -g netlify-cli
-
-# Einloggen
 netlify login
-
-# Deploy
 netlify deploy --prod
 ```
 
-### Variante 2: Via GitHub (empfohlen für Dauerhostung)
+---
 
-1. Push dieses Repo zu GitHub
-2. Gehe auf [netlify.com](https://netlify.com)
-3. Klicke „Add new site” → „Import an existing project”
-4. Verbinde dein GitHub-Konto
-5. Wähle das Repository
-6. Deploy wird automatisch gestartet
+## Vor dem Live-Gang zu erledigen
 
-### Variante 3: Drag & Drop auf Netlify
+Diese Punkte müssen stimmen, bevor die Seite öffentlich ist:
 
-1. Öffne [netlify.com](https://netlify.com)
-2. Ziehe den gesamten Projektordner in die Ablage
-3. Fertig – Website ist live!
+1. **Eigene Fotos einsetzen.** Die sechs Bilder in `assets/projekte/` sind
+   erzeugte Materialaufnahmen, keine Fotos echter Aufträge. Siehe `FOTOS.md`.
+2. **Angaben prüfen.** Telefon, E-Mail, Adresse und Erreichbarkeit stehen im
+   Abschnitt „Kontakt" sowie in der Kopf- und Fusszeile.
+3. **Einsatzgebiet prüfen.** Aktuell genannt: Biel-Bienne, Nidau, Brügg, Lyss,
+   Region Seeland. Anpassen, falls das nicht passt.
+4. **Sprachen prüfen.** Im Abschnitt „Über uns" stehen Deutsch, Albanisch und
+   Französisch.
+5. **`canonical`-Adresse setzen.** In `index.html` ganz oben steht
+   `https://ademi-maler-gipser.ch/` als Platzhalter. Auf die echte Adresse
+   ändern, sobald die Domain feststeht.
+6. **Impressum ergänzen.** Für einen Schweizer Geschäftsauftritt gehört ein
+   Impressum mit Firmenname, Adresse und Kontakt dazu. Bei Bedarf eine
+   `impressum.html` anlegen und in der Fusszeile verlinken.
 
 ---
 
-## Kontaktformular konfigurieren
+## Kontaktformular
 
-Das Formular nutzt **Netlify Forms**. Nach dem Deploy sind Einträge automatisch sichtbar:
+Das Formular läuft über Netlify Forms. Es funktioniert erst, wenn die Seite bei
+Netlify liegt — lokal geöffnet passiert beim Absenden nichts.
 
-1. Melde dich bei [netlify.com](https://netlify.com) an
-2. Öffne deine Website
-3. Gehe zu „Forms” → neue Einträge werden hier angezeigt
-4. Optional: Konfiguriere E-Mail-Benachrichtigungen
+Nach dem Veröffentlichen: In Netlify die Seite öffnen → „Forms" → dort stehen
+die Anfragen. Unter „Forms" → „Form notifications" eine E-Mail-Benachrichtigung
+an `ademi.maler.gipser@gmail.com` einrichten, sonst muss man selbst nachschauen.
 
----
-
-## Domain verbinden
-
-Nach dem Deploy kann man eine eigene Domain verbinden (z. B. `ademi-biel.ch`):
-
-1. Kaufe eine Domain bei einem Registrar (z. B. Infomaniak, Namecheap)
-2. In Netlify gehe zu „Domain settings”
-3. Verbinde die Domain
-4. Aktualisiere die DNS-Einträge beim Registrar (Netlify zeigt die Anleitung)
+Gegen Spam ist ein verstecktes Feld eingebaut (`netlify-honeypot="firma"`), das
+Menschen nie ausfüllen, automatische Skripte aber schon. Solche Einsendungen
+verwirft Netlify.
 
 ---
 
-## Änderungen machen
+## Eigene Domain
 
-Bearbeite `index.html` direkt:
-- **Texte** – Suche nach dem Text und ändere ihn
-- **Farben** – Ändere die CSS-Variablen oben in der `<style>`-Section
-- **Inhalte** – Erweitere/kürze Abschnitte nach Bedarf
+1. Domain kaufen, zum Beispiel bei Infomaniak oder Hostpoint (beide Schweiz).
+2. In Netlify: „Domain settings" → „Add a domain".
+3. Die DNS-Einträge beim Anbieter so setzen, wie Netlify sie anzeigt.
+4. Bis zu 48 Stunden warten. Das HTTPS-Zertifikat stellt Netlify selbst aus.
 
-Nach Änderungen speichern und neu deployen:
-```bash
-git add .
-git commit -m “Update content”
-git push origin claude/ademi-malerei-gipserei-site-ugzd42
+---
+
+## Texte ändern
+
+Alles steht in `index.html`. Die Farben stehen gesammelt oben im
+`<style>`-Block:
+
+```css
+--brand:#d6392c;   /* Rot aus dem Logo */
+--ink:#161616;     /* Schwarz aus dem Logo */
 ```
 
+Wird eine Farbe dort geändert, zieht die ganze Seite mit.
+
 ---
 
-## Support
+## Getestet
 
-Für Fragen zu Netlify: [netlify.com/docs](https://netlify.com/docs)
-
+Geprüft mit Chromium bei 1440 px und 390 px Breite: alle Bilder laden, kein
+seitliches Scrollen, das Mobilmenü öffnet und schliesst, Schrift auf farbigen
+Flächen erfüllt die Kontrastvorgaben (WCAG AA).

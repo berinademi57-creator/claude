@@ -1,900 +1,831 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ADEMI - Professionelle Malerei, Gipserei und Reinigung in Biel-Bienne">
-    <meta name="keywords" content="Malerei, Gipserei, Reinigung, Biel-Bienne, Handwerk">
-    <title>ADEMI - Malerei, Gipserei & Reinigung | Biel-Bienne</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-red: #d4363d;
-            --primary-black: #1a1a1a;
-            --primary-white: #ffffff;
-            --light-gray: #f5f5f5;
-            --dark-gray: #4a4a4a;
-            --accent-gray: #707070;
-            --border-radius: 8px;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--primary-black);
-            background-color: var(--primary-white);
-        }
-
-        /* Header & Navigation */
-        header {
-            background-color: var(--primary-white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-black);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-letter {
-            color: var(--primary-red);
-            font-size: 2rem;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--primary-black);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-red);
-        }
-
-        .cta-button {
-            background-color: var(--primary-red);
-            color: var(--primary-white);
-            padding: 0.8rem 1.5rem;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .cta-button:hover {
-            background-color: #b8282d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 54, 61, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-red) 0%, #b8282d 100%);
-            color: var(--primary-white);
-            padding: 8rem 2rem;
-            text-align: center;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-white);
-            color: var(--primary-red);
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary-white);
-            padding: 1rem 2rem;
-            border: 2px solid var(--primary-white);
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--primary-white);
-            color: var(--primary-red);
-        }
-
-        /* Services Section */
-        .services {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary-black);
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary-red);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .service-card {
-            background-color: var(--light-gray);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--primary-red);
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(212, 54, 61, 0.15);
-            border-left-width: 8px;
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-red);
-            font-size: 1.5rem;
-        }
-
-        .service-card p {
-            color: var(--accent-gray);
-            line-height: 1.8;
-        }
-
-        /* Gallery Section */
-        .gallery {
-            background-color: var(--light-gray);
-            padding: 5rem 2rem;
-        }
-
-        .gallery-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--border-radius);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(212, 54, 61, 0.2);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(212, 54, 61, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .gallery-overlay h4 {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        /* About Section */
-        .about {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            font-size: 2.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-black);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            color: var(--accent-gray);
-            line-height: 1.9;
-            font-size: 1.05rem;
-        }
-
-        .about-features {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .feature-item {
-            display: flex;
-            gap: 1rem;
-            align-items: start;
-        }
-
-        .feature-icon {
-            font-size: 1.5rem;
-            color: var(--primary-red);
-            min-width: 30px;
-        }
-
-        .feature-text h4 {
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            color: var(--primary-black);
-        }
-
-        .feature-text p {
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        .about-image {
-            background: linear-gradient(135deg, var(--primary-red), #b8282d);
-            min-height: 450px;
-            border-radius: var(--border-radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-white);
-            font-size: 4rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Contact Section */
-        .contact {
-            background-color: var(--light-gray);
-            padding: 5rem 2rem;
-        }
-
-        .contact-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-info {
-            background-color: var(--primary-white);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .contact-info h3 {
-            color: var(--primary-red);
-            margin-bottom: 2rem;
-            font-size: 1.5rem;
-        }
-
-        .contact-item {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .contact-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .contact-label {
-            font-weight: 600;
-            color: var(--primary-black);
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--primary-red);
-        }
-
-        .contact-value {
-            color: var(--accent-gray);
-            font-size: 1.1rem;
-        }
-
-        .contact-value a {
-            color: var(--primary-red);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-value a:hover {
-            color: #b8282d;
-        }
-
-        .contact-form {
-            background-color: var(--primary-white);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .contact-form h3 {
-            color: var(--primary-red);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--primary-black);
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.9rem;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary-red);
-            box-shadow: 0 0 0 3px rgba(212, 54, 61, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 130px;
-        }
-
-        .form-submit {
-            background-color: var(--primary-red);
-            color: var(--primary-white);
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .form-submit:hover {
-            background-color: #b8282d;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 54, 61, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--primary-black);
-            color: var(--primary-white);
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-logo-letter {
-            color: var(--primary-red);
-        }
-
-        .footer-text {
-            color: #aaa;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-contact {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-            padding: 2rem 0;
-            border-top: 1px solid #444;
-            border-bottom: 1px solid #444;
-        }
-
-        .footer-contact-item {
-            color: #aaa;
-        }
-
-        .footer-contact-label {
-            font-weight: 600;
-            color: var(--primary-red);
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
-            color: var(--primary-white);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-weight: 500;
-        }
-
-        .social-link:hover {
-            color: var(--primary-red);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 4rem 2rem;
-                min-height: auto;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .about-image {
-                min-height: 300px;
-            }
-
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-
-            .footer-contact {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
-
-        /* Smooth scroll behavior */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .service-card, .gallery-item, .contact-info, .contact-form {
-            animation: fadeIn 0.6s ease-out;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADEMI – Maler, Gipser und Reinigung in Biel-Bienne</title>
+<meta name="description" content="ADEMI aus Biel-Bienne: Malerarbeiten, Gipserarbeiten und Reinigung für Privat- und Geschäftskunden. Saubere Ausführung, feste Termine, kostenlose Offerte.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ademi-maler-gipser.ch/">
+<link rel="icon" href="assets/logo.png" type="image/png">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_CH">
+<meta property="og:title" content="ADEMI – Maler, Gipser und Reinigung in Biel-Bienne">
+<meta property="og:description" content="Malerarbeiten, Gipserarbeiten und Reinigung aus einer Hand. Kostenlose Offerte für Ihr Projekt in Biel und Umgebung.">
+<meta property="og:image" content="assets/logo.png">
+
+<style>
+:root{
+  --brand:#d6392c;
+  --brand-dark:#b32a20;
+  --brand-soft:#fdf2f1;
+  --ink:#161616;
+  --ink-2:#3d3f42;
+  --muted:#6b6f74;
+  --line:#e3e1de;
+  --paper:#ffffff;
+  --paper-2:#f7f5f3;
+  --shell:1180px;
+  --r:4px;
+  --font:"Helvetica Neue",Helvetica,Arial,"Segoe UI",system-ui,sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+body{
+  font-family:var(--font);
+  color:var(--ink-2);
+  background:var(--paper);
+  font-size:17px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{max-width:100%;display:block}
+
+a{color:inherit}
+
+.shell{max-width:var(--shell);margin:0 auto;padding:0 28px}
+
+h1,h2,h3,h4{color:var(--ink);line-height:1.2;font-weight:700;letter-spacing:-.02em}
+
+::selection{background:var(--brand);color:#fff}
+
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+
+/* ---------- topbar ---------- */
+.topbar{
+  background:var(--ink);
+  color:#b9bcc0;
+  font-size:14px;
+  letter-spacing:.01em;
+}
+.topbar .shell{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  min-height:42px;
+  flex-wrap:wrap;
+}
+.topbar a{text-decoration:none;color:#e8e9ea}
+.topbar a:hover{color:#fff}
+.topbar-set{display:flex;gap:26px;flex-wrap:wrap}
+
+/* ---------- header ---------- */
+.site-header{
+  position:sticky;top:0;z-index:60;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.site-header .shell{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;min-height:84px;
+}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;flex-shrink:0}
+.brand img{height:48px;width:auto}
+.brand-name{display:flex;flex-direction:column;line-height:1.15}
+.brand-name b{
+  font-size:19px;color:var(--ink);letter-spacing:.14em;font-weight:700;
+}
+.brand-name span{
+  font-size:11px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;
+}
+
+.nav{display:flex;align-items:center;gap:34px}
+/* :not(.btn) keeps these rules off the CTA — otherwise .nav a would out-specify
+   .btn-primary and strip its padding and white text. */
+.nav a:not(.btn){
+  text-decoration:none;font-size:15px;font-weight:600;color:var(--ink);
+  letter-spacing:.01em;position:relative;padding:6px 0;
+  white-space:nowrap;flex-shrink:0;
+}
+.nav a:not(.btn)::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:var(--brand);transform:scaleX(0);transform-origin:left;
+  transition:transform .25s ease;
+}
+.nav a:not(.btn):hover::after{transform:scaleX(1)}
+.nav .btn{white-space:nowrap;flex-shrink:0}
+
+.btn{
+  display:inline-block;text-decoration:none;font-weight:700;font-size:15px;
+  padding:14px 26px;border-radius:var(--r);border:2px solid transparent;
+  transition:background .2s ease,color .2s ease,border-color .2s ease;
+  letter-spacing:.01em;cursor:pointer;font-family:inherit;
+}
+.btn-primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.btn-primary:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.75)}
+.btn-ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+.btn-outline{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-outline:hover{background:var(--ink);color:#fff}
+
+.nav-toggle{
+  display:none;background:none;border:1px solid var(--line);border-radius:var(--r);
+  width:46px;height:44px;cursor:pointer;position:relative;
+}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{
+  content:"";position:absolute;left:13px;width:20px;height:2px;background:var(--ink);
+  transition:transform .25s ease,opacity .2s ease;
+}
+.nav-toggle span{top:21px}
+.nav-toggle span::before{top:-6px;left:0}
+.nav-toggle span::after{top:6px;left:0}
+.nav-toggle[aria-expanded="true"] span{background:transparent}
+.nav-toggle[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(105deg,rgba(16,16,16,.94) 0%,rgba(16,16,16,.82) 46%,rgba(16,16,16,.5) 100%);
+}
+.hero .shell{position:relative;padding-top:104px;padding-bottom:60px}
+.hero .shell + .shell{padding-top:0}
+.hero-inner{max-width:660px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:700;color:var(--brand);margin-bottom:22px;
+}
+.eyebrow::before{content:"";width:34px;height:2px;background:var(--brand)}
+.hero .eyebrow{color:#fff}
+.hero h1{
+  color:#fff;font-size:clamp(2.15rem,5vw,3.5rem);margin-bottom:22px;
+}
+.hero p{
+  font-size:1.15rem;color:#d8d9da;margin-bottom:36px;max-width:56ch;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+
+.hero-facts{
+  position:relative;border-top:1px solid rgba(255,255,255,.16);
+  display:grid;grid-template-columns:repeat(3,1fr);
+}
+.hero-facts div{padding:26px 0}
+.hero-facts b{display:block;color:#fff;font-size:15px;letter-spacing:.01em}
+.hero-facts span{font-size:14px;color:#a7aaad}
+
+/* ---------- sections ---------- */
+section{padding:104px 0}
+.section-head{max-width:640px;margin-bottom:56px}
+.section-head .eyebrow{color:var(--brand);margin-bottom:18px}
+.section-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:16px}
+.section-head p{color:var(--muted)}
+.alt{background:var(--paper-2)}
+
+/* ---------- services ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease;
+}
+.card:hover{
+  border-color:#cfccc8;box-shadow:0 18px 40px -24px rgba(0,0,0,.4);transform:translateY(-3px);
+}
+.card figure{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--paper-2)}
+.card figure img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.card:hover figure img{transform:scale(1.05)}
+.card-no{
+  position:absolute;left:0;bottom:0;background:var(--brand);color:#fff;
+  font-size:13px;font-weight:700;letter-spacing:.14em;padding:9px 16px;
+}
+.card-body{padding:28px 26px 30px}
+.card h3{font-size:1.25rem;margin-bottom:12px}
+.card p{font-size:15.5px;color:var(--muted);margin-bottom:18px}
+.card ul{list-style:none;font-size:15px}
+.card li{position:relative;padding-left:20px;margin-bottom:7px;color:var(--ink-2)}
+.card li::before{
+  content:"";position:absolute;left:0;top:11px;width:8px;height:2px;background:var(--brand);
+}
+
+/* ---------- gallery ---------- */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.shot{
+  position:relative;overflow:hidden;border-radius:var(--r);
+  aspect-ratio:3/2;background:var(--paper-2);
+}
+/* light material shots need an edge so they read as photos on a light page */
+.shot::after{
+  content:"";position:absolute;inset:0;border-radius:var(--r);pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(22,22,22,.1);
+}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease}
+.shot:hover img{transform:scale(1.06)}
+.shot figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:44px 20px 18px;
+  background:linear-gradient(transparent,rgba(12,12,12,.86));
+  color:#fff;font-size:15px;font-weight:600;letter-spacing:.01em;
+}
+.shot figcaption small{
+  display:block;font-weight:400;font-size:13px;color:#c4c6c8;letter-spacing:.02em;
+}
+
+/* ---------- process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--line)}
+.step{padding:34px 26px 0 0;position:relative}
+.step::before{
+  content:"";position:absolute;top:-2px;left:0;width:46px;height:2px;background:var(--brand);
+}
+.step b{
+  display:block;font-size:13px;letter-spacing:.16em;color:var(--brand);
+  font-weight:700;margin-bottom:12px;
+}
+.step h3{font-size:1.05rem;margin-bottom:10px}
+.step p{font-size:15px;color:var(--muted)}
+
+/* ---------- about ---------- */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+.split-media{position:relative;padding:0 18px 18px 0}
+.split-media img{
+  border-radius:var(--r);aspect-ratio:4/5;object-fit:cover;width:100%;
+  border:1px solid var(--line);position:relative;z-index:1;
+}
+/* outlined frame, offset behind the photo */
+.split-media::after{
+  content:"";position:absolute;inset:18px 0 0 18px;
+  border:2px solid var(--brand);border-radius:var(--r);
+}
+.split h2{font-size:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:20px}
+.split p{color:var(--muted);margin-bottom:18px}
+.values{list-style:none;margin-top:32px;border-top:1px solid var(--line)}
+.values li{
+  display:grid;grid-template-columns:150px 1fr;gap:24px;
+  padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline;
+}
+.values b{color:var(--ink);font-size:15px}
+.values span{font-size:15px;color:var(--muted)}
+
+/* ---------- contact ---------- */
+.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+.info{border-top:2px solid var(--ink)}
+.info dl{display:grid;gap:0}
+.info-row{padding:22px 0;border-bottom:1px solid var(--line)}
+.info-row dt{
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;margin-bottom:8px;
+}
+.info-row dd{font-size:16.5px;color:var(--ink);line-height:1.6}
+.info-row dd a{color:var(--brand);text-decoration:none;font-weight:600}
+.info-row dd a:hover{text-decoration:underline}
+
+form{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:36px}
+.alt form{background:var(--paper)}
+.field{margin-bottom:20px}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+label{
+  display:block;font-size:13px;font-weight:700;color:var(--ink);
+  margin-bottom:7px;letter-spacing:.02em;
+}
+input,select,textarea{
+  width:100%;font-family:inherit;font-size:16px;color:var(--ink);
+  padding:13px 15px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--paper);transition:border-color .2s ease,box-shadow .2s ease;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft);
+}
+textarea{resize:vertical;min-height:140px}
+.consent{display:flex;gap:12px;align-items:flex-start;margin:24px 0}
+.consent input{width:18px;height:18px;margin-top:3px;flex-shrink:0;accent-color:var(--brand)}
+.consent label{font-weight:400;font-size:14px;color:var(--muted);margin:0;letter-spacing:0}
+form .btn-primary{width:100%;padding:16px}
+.form-note{font-size:13.5px;color:var(--muted);margin-top:14px;text-align:center}
+.hp{position:absolute;left:-9999px}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#a9acaf;padding:76px 0 0;font-size:15px}
+.foot-grid{
+  display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:56px;padding-bottom:56px;
+}
+.foot-brand img{height:56px;width:auto;margin-bottom:20px}
+.foot-brand p{max-width:34ch;color:#8f9296}
+footer h4{
+  color:#fff;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;
+}
+footer ul{list-style:none}
+footer li{margin-bottom:11px}
+footer a{text-decoration:none;color:#a9acaf;transition:color .2s ease}
+footer a:hover{color:#fff}
+.foot-bar{
+  border-top:1px solid #2b2d30;padding:24px 0;
+  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-size:13.5px;color:#7e8185;
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+  .cards,.gallery{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr);gap:0 26px}
+  .step{padding-bottom:30px}
+  .split{grid-template-columns:1fr;gap:44px}
+  .split-media{order:-1;max-width:440px}
+  .split-media img{aspect-ratio:4/3}
+  .contact-grid{grid-template-columns:1fr;gap:44px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:40px}
+}
+
+@media(max-width:760px){
+  body{font-size:16px}
+  .shell{padding:0 20px}
+  section{padding:72px 0}
+  .site-header .shell{min-height:72px}
+  .brand img{height:40px}
+  .nav-toggle{display:block}
+  .nav{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--line);
+    padding:8px 20px 20px;box-shadow:0 20px 30px -20px rgba(0,0,0,.35);
+  }
+  .nav.open{display:flex}
+  .nav a:not(.btn){padding:15px 0;border-bottom:1px solid var(--line);font-size:16px}
+  .nav a:not(.btn)::after{display:none}
+  .nav .btn{margin-top:16px;text-align:center}
+  .hero .shell{padding-top:76px;padding-bottom:76px}
+  .hero-facts{grid-template-columns:1fr}
+  .hero-facts div{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .hero-facts div:last-child{border-bottom:none}
+  .hero-actions .btn{flex:1 1 100%;text-align:center}
+  .cards,.gallery{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .step{padding-right:0}
+  .row-2{grid-template-columns:1fr;gap:0}
+  form{padding:26px 22px}
+  .values li{grid-template-columns:1fr;gap:4px}
+  .foot-grid{grid-template-columns:1fr;gap:36px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <nav>
-            <div class="logo">
-                <span class="logo-letter">A</span>
-                <span>DEMI</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Leistungen</a></li>
-                <li><a href="#gallery">Galerie</a></li>
-                <li><a href="#about">Über uns</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-                <li><a href="#contact" class="cta-button">Anfrage</a></li>
+
+<div class="topbar">
+  <div class="shell">
+    <span>Ernst-Schülerstrasse 28 &middot; 2502 Biel-Bienne</span>
+    <div class="topbar-set">
+      <a href="tel:+41763991713">076 399 17 13</a>
+      <a href="mailto:ademi.maler.gipser@gmail.com">ademi.maler.gipser@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="shell">
+    <a class="brand" href="#top" aria-label="ADEMI – Startseite">
+      <img src="assets/logo.png" alt="ADEMI Logo" width="519" height="266">
+      <span class="brand-name">
+        <b>ADEMI</b>
+        <span>Maler &middot; Gipser &middot; Reinigung</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav" aria-label="Menü öffnen">
+      <span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#referenzen">Oberflächen</a>
+      <a href="#ablauf">Ablauf</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#kontakt" class="btn btn-primary">Offerte anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" style="padding:0">
+    <div class="hero-bg">
+      <img src="assets/projekte/01-innenanstrich.jpg" alt="" aria-hidden="true">
+    </div>
+    <div class="shell">
+      <div class="hero-inner">
+        <span class="eyebrow">Malerbetrieb in Biel-Bienne</span>
+        <h1>Saubere Arbeit, die man Jahre später noch sieht.</h1>
+        <p>
+          Maler-, Gipser- und Reinigungsarbeiten aus einer Hand — für Wohnungen,
+          Einfamilienhäuser und Gewerbeobjekte in Biel und der ganzen Region Seeland.
+        </p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">Kostenlose Offerte</a>
+          <a href="tel:+41763991713" class="btn btn-ghost">076 399 17 13</a>
+        </div>
+      </div>
+    </div>
+    <div class="shell">
+      <div class="hero-facts">
+        <div>
+          <b>Ein Ansprechpartner</b>
+          <span>Von der Besichtigung bis zur Übergabe</span>
+        </div>
+        <div>
+          <b>Feste Termine</b>
+          <span>Verbindlich abgemacht, verbindlich eingehalten</span>
+        </div>
+        <div>
+          <b>Besenreine Übergabe</b>
+          <span>Wir räumen auf, bevor wir gehen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="leistungen">
+    <div class="shell">
+      <div class="section-head">
+        <span class="eyebrow">Leistungen</span>
+        <h2>Drei Gewerke, ein Team, eine Rechnung.</h2>
+        <p>
+          Weil Malerei, Gipserei und Reinigung bei uns zusammenlaufen, entfällt das
+          Koordinieren mehrerer Firmen — und niemand wartet auf den anderen.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <figure>
+            <img src="assets/projekte/01-innenanstrich.jpg" alt="Frisch gestrichene Innenwand in mattem Weiss" loading="lazy">
+            <span class="card-no">01</span>
+          </figure>
+          <div class="card-body">
+            <h3>Malerarbeiten</h3>
+            <p>Innen und aussen, vom einzelnen Zimmer bis zur kompletten Fassade.</p>
+            <ul>
+              <li>Innenanstriche und Deckenanstriche</li>
+              <li>Fassadenanstriche und Renovation</li>
+              <li>Fenster-, Türen- und Holzanstriche</li>
+              <li>Tapezier- und Spachtelarbeiten</li>
             </ul>
-        </nav>
-    </header>
+          </div>
+        </article>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Professionelle Handwerksqualität</h1>
-            <p>Malerei, Gipserei & Reinigung in Biel-Bienne</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">Jetzt anfragen</a>
-                <a href="#services" class="btn-secondary">Unsere Leistungen</a>
-            </div>
+        <article class="card">
+          <figure>
+            <img src="assets/projekte/03-gipserarbeiten.jpg" alt="Verputzte Wandfläche mit Kellenstruktur" loading="lazy">
+            <span class="card-no">02</span>
+          </figure>
+          <div class="card-body">
+            <h3>Gipserarbeiten</h3>
+            <p>Ebene Flächen und saubere Kanten als Grundlage für jeden Anstrich.</p>
+            <ul>
+              <li>Innenverputz und Aussenputz</li>
+              <li>Trockenbau und Gipsplattenwände</li>
+              <li>Abgehängte Decken</li>
+              <li>Risse, Löcher und Altbausanierung</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card">
+          <figure>
+            <img src="assets/projekte/06-reinigung.jpg" alt="Gereinigte helle Oberfläche" loading="lazy">
+            <span class="card-no">03</span>
+          </figure>
+          <div class="card-body">
+            <h3>Reinigung</h3>
+            <p>Damit die Fläche am Ende nicht nur fertig, sondern auch sauber ist.</p>
+            <ul>
+              <li>Umzugs- und Wohnungsreinigung</li>
+              <li>Baureinigung nach Umbauten</li>
+              <li>Unterhaltsreinigung für Gewerbe</li>
+              <li>Fenster- und Fassadenreinigung</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="referenzen" class="alt">
+    <div class="shell">
+      <div class="section-head">
+        <span class="eyebrow">Oberflächen</span>
+        <h2>Was wir ausführen.</h2>
+        <p>
+          Die Oberflächen und Strukturen, die wir für Sie herstellen — vom matten
+          Innenanstrich bis zum abgeriebenen Feinputz.
+        </p>
+      </div>
+
+      <!--
+        PLATZHALTER-BILDER.
+        Das sind erzeugte Materialaufnahmen, keine Fotos echter Aufträge.
+        Ersetzen Sie die sechs Dateien in assets/projekte/ durch eigene Fotos
+        (gleiche Dateinamen = nichts weiter zu ändern). Erst wenn hier echte
+        Aufträge stehen, dürfen Sie die Rubrik "Referenzen" nennen und Ort
+        bzw. Objekt dazuschreiben. Details in FOTOS-ANLEITUNG.md.
+      -->
+      <div class="gallery">
+        <figure class="shot">
+          <img src="assets/projekte/01-innenanstrich.jpg" alt="Matt gestrichene Innenwand" loading="lazy">
+          <figcaption>Innenanstrich<small>Matte Dispersion, Wand und Decke</small></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/projekte/02-fassade.jpg" alt="Strukturierter Aussenputz einer Fassade" loading="lazy">
+          <figcaption>Fassade<small>Aussenputz und Fassadenanstrich</small></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/projekte/03-gipserarbeiten.jpg" alt="Verputzte Wand mit sichtbarer Kellenstruktur" loading="lazy">
+          <figcaption>Gipserarbeiten<small>Innenverputz mit Kellenstruktur</small></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/projekte/04-feinputz.jpg" alt="Fein abgeriebene, glatte Putzoberfläche" loading="lazy">
+          <figcaption>Feinputz<small>Abgerieben und schleifglatt</small></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/projekte/05-farbberatung.jpg" alt="Ausgestrichene Farbfläche in kräftigem Rot" loading="lazy">
+          <figcaption>Farbton<small>Beratung und Musterfläche vor Ort</small></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/projekte/06-reinigung.jpg" alt="Gereinigte Oberfläche nach Bauabschluss" loading="lazy">
+          <figcaption>Reinigung<small>Baureinigung nach Abschluss</small></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="ablauf">
+    <div class="shell">
+      <div class="section-head">
+        <span class="eyebrow">Ablauf</span>
+        <h2>Vier Schritte, keine Überraschungen.</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <b>SCHRITT 01</b>
+          <h3>Anfrage</h3>
+          <p>Sie melden sich per Telefon, E-Mail oder Formular und beschreiben kurz, worum es geht.</p>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <h2 class="section-title">Unsere Leistungen</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🎨</div>
-                <h3>Malerei</h3>
-                <p>Professionelle Innen- und Außenanstriche mit hochwertigen Materialien. Saubere Verarbeitung, langanhaltende Ergebnisse und volle Kundenbetreuung von A bis Z.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🧱</div>
-                <h3>Gipserei</h3>
-                <p>Hochwertige Gipsarbeiten, Verputz und Trockenbau für perfekte Wände und Decken. Maßgenaue Umsetzung mit präzisen Kanten und ebenen Flächen.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">✨</div>
-                <h3>Reinigung</h3>
-                <p>Professionelle Reinigung von Innen- und Außenbereichen. Gründlich, zuverlässig und pünktlich – für strahlend saubere Räume und Gebäude.</p>
-            </div>
+        <div class="step">
+          <b>SCHRITT 02</b>
+          <h3>Besichtigung</h3>
+          <p>Wir schauen uns das Objekt vor Ort an, nehmen Mass und klären Untergrund und Farbwunsch.</p>
         </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="gallery-content">
-            <h2 class="section-title">Unsere Arbeiten</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Crect fill='%23e8d4c8' width='400' height='250'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23a67c52'%3E🏠 Innenmaler%3C/text%3E%3C/svg%3E" alt="Innenmaler">
-                    <div class="gallery-overlay">
-                        <h4>Innenmaler</h4>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Crect fill='%23d0e8e8' width='400' height='250'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%235a8a8a'%3E🏢 Außenmalerei%3C/text%3E%3C/svg%3E" alt="Außenmalerei">
-                    <div class="gallery-overlay">
-                        <h4>Außenmalerei</h4>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Crect fill='%23e0e8d0' width='400' height='250'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23708050'%3E🎯 Gipsarbeiten%3C/text%3E%3C/svg%3E" alt="Gipsarbeiten">
-                    <div class="gallery-overlay">
-                        <h4>Gipsarbeiten</h4>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Crect fill='%23d4d4e8' width='400' height='250'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%235858a0'%3E✨ Feinputz%3C/text%3E%3C/svg%3E" alt="Feinputz">
-                    <div class="gallery-overlay">
-                        <h4>Feinputz</h4>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Crect fill='%23e8d4d4' width='400' height='250'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23a05858'%3E🧹 Reinigung%3C/text%3E%3C/svg%3E" alt="Gebäudereinigung">
-                    <div class="gallery-overlay">
-                        <h4>Gebäudereinigung</h4>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Crect fill='%23d8e8d4' width='400' height='250'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23589050'%3E💼 Handwerk%3C/text%3E%3C/svg%3E" alt="Professionelles Handwerk">
-                    <div class="gallery-overlay">
-                        <h4>Professionelles Handwerk</h4>
-                    </div>
-                </div>
-            </div>
+        <div class="step">
+          <b>SCHRITT 03</b>
+          <h3>Offerte</h3>
+          <p>Sie erhalten eine schriftliche Offerte mit klaren Positionen und einem festen Termin.</p>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-content">
-            <div class="about-text">
-                <h2>Über ADEMI</h2>
-                <p>ADEMI ist Ihr zuverlässiger Partner für professionelle Handwerksarbeiten in der Region Biel-Bienne. Mit jahrelanger Erfahrung und Leidenschaft für Qualität bieten wir hochwertige Malerei-, Gipserei- und Reinigungsdienstleistungen.</p>
-                <p>Unser Anspruch ist einfach: Qualitätsarbeit, pünktliche Durchführung und volle Kundenzufriedenheit. Jedes Projekt wird mit Sorgfalt, Professionalität und Respekt für Ihre Räume durchgeführt.</p>
-
-                <div class="about-features">
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <div class="feature-text">
-                            <h4>Langjährige Erfahrung</h4>
-                            <p>Über 20 Jahre Handwerkserfahrung</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <div class="feature-text">
-                            <h4>Hochwertige Materialien</h4>
-                            <p>Nur beste Produkte und Farben</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <div class="feature-text">
-                            <h4>Pünktlich & Zuverlässig</h4>
-                            <p>Termintreue ist unsere Garantie</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">✓</span>
-                        <div class="feature-text">
-                            <h4>Kundenzufriedenheit</h4>
-                            <p>100% Zufriedenheit oder Geld zurück</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="about-image">
-                <div style="text-align: center;">
-                    <div style="font-size: 5rem; margin-bottom: 1rem;">🛠️</div>
-                    <p>Handwerksqualität<br>seit Jahren</p>
-                </div>
-            </div>
+        <div class="step">
+          <b>SCHRITT 04</b>
+          <h3>Ausführung</h3>
+          <p>Wir decken sauber ab, arbeiten das Objekt fertig und übergeben es besenrein.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-content">
-            <div class="contact-info">
-                <h3>📞 Kontaktinformationen</h3>
+  <section id="ueber-uns" class="alt">
+    <div class="shell">
+      <div class="split">
+        <div>
+          <span class="eyebrow">Über uns</span>
+          <h2>Ein Handwerksbetrieb, kein Callcenter.</h2>
+          <p>
+            ADEMI ist ein Maler- und Gipserbetrieb aus Biel-Bienne. Geführt von
+            Ali Ademi, der jeden Auftrag selbst anschaut und auch auf der Baustelle
+            steht. Sie sprechen von der ersten Anfrage bis zur Schlussabnahme mit
+            derselben Person.
+          </p>
+          <p>
+            Wir arbeiten für Privatpersonen, Verwaltungen und Gewerbe in Biel, Nidau,
+            Brügg, Lyss und der weiteren Region Seeland. Deutsch, Albanisch und
+            Französisch sind kein Problem.
+          </p>
 
-                <div class="contact-item">
-                    <span class="contact-label">👤 Ansprechperson</span>
-                    <span class="contact-value">Ali Ademi</span>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-label">📍 Adresse</span>
-                    <span class="contact-value">
-                        Ernst-Schülerstrasse 28<br>
-                        2502 Biel-Bienne<br>
-                        Schweiz
-                    </span>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-label">📱 Telefon</span>
-                    <span class="contact-value"><a href="tel:+41763991713">+41 76 399 17 13</a></span>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-label">📧 E-Mail</span>
-                    <span class="contact-value"><a href="mailto:ademi.maler.gipser@gmail.com">ademi.maler.gipser@gmail.com</a></span>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-label">⏰ Öffnungszeiten</span>
-                    <span class="contact-value">
-                        Mo-Fr: 08:00 - 18:00<br>
-                        Sa: 09:00 - 14:00<br>
-                        So: Geschlossen
-                    </span>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <h3>Anfragenformular</h3>
-                <form netlify>
-                    <div class="form-group">
-                        <label for="name">Name *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-Mail *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Telefon</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+41 ...">
-                    </div>
-                    <div class="form-group">
-                        <label for="service">Dienstleistung *</label>
-                        <select id="service" name="service" required>
-                            <option value="">Bitte wählen...</option>
-                            <option value="Malerei">🎨 Malerei</option>
-                            <option value="Gipserei">🧱 Gipserei</option>
-                            <option value="Reinigung">✨ Reinigung</option>
-                            <option value="Sonstiges">❓ Sonstiges</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Nachricht *</label>
-                        <textarea id="message" name="message" placeholder="Beschreiben Sie Ihr Projekt..." required></textarea>
-                    </div>
-                    <button type="submit" class="form-submit">Anfrage absenden</button>
-                </form>
-            </div>
+          <ul class="values">
+            <li>
+              <b>Saubere Baustelle</b>
+              <span>Abdecken, abkleben, aufräumen gehört zum Auftrag — nicht dazu bestellt.</span>
+            </li>
+            <li>
+              <b>Verbindliche Preise</b>
+              <span>Was in der Offerte steht, steht auch auf der Rechnung.</span>
+            </li>
+            <li>
+              <b>Gute Materialien</b>
+              <span>Wir arbeiten mit Markenprodukten, weil Nacharbeit teurer ist als Farbe.</span>
+            </li>
+            <li>
+              <b>Termintreue</b>
+              <span>Ein abgemachter Termin ist ein Termin, kein Richtwert.</span>
+            </li>
+          </ul>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <span class="footer-logo-letter">A</span>DEMI
-            </div>
-            <p class="footer-text">Malerei • Gipserei • Reinigung</p>
-
-            <div class="footer-contact">
-                <div class="footer-contact-item">
-                    <span class="footer-contact-label">Telefon</span>
-                    <a href="tel:+41763991713" style="color: #aaa; text-decoration: none;">+41 76 399 17 13</a>
-                </div>
-                <div class="footer-contact-item">
-                    <span class="footer-contact-label">E-Mail</span>
-                    <a href="mailto:ademi.maler.gipser@gmail.com" style="color: #aaa; text-decoration: none;">ademi.maler.gipser@gmail.com</a>
-                </div>
-                <div class="footer-contact-item">
-                    <span class="footer-contact-label">Adresse</span>
-                    Ernst-Schülerstrasse 28<br>2502 Biel-Bienne
-                </div>
-            </div>
-
-            <div class="footer-social">
-                <a href="tel:+41763991713" class="social-link">📞 Anrufen</a>
-                <a href="mailto:ademi.maler.gipser@gmail.com" class="social-link">📧 E-Mail</a>
-                <a href="#contact" class="social-link">💬 Kontakt</a>
-            </div>
-
-            <p class="footer-text" style="margin-top: 2rem; padding-top: 2rem;">
-                &copy; 2026 ADEMI Malerei, Gipserei & Reinigung. Alle Rechte vorbehalten.
-            </p>
+        <div class="split-media">
+          <img src="assets/projekte/04-feinputz.jpg" alt="Fein abgezogene Putzfläche als Detailaufnahme" loading="lazy">
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="shell">
+      <div class="section-head">
+        <span class="eyebrow">Kontakt</span>
+        <h2>Offerte anfragen — kostenlos und unverbindlich.</h2>
+        <p>
+          Beschreiben Sie kurz Ihr Projekt. Wir melden uns in der Regel innerhalb
+          von zwei Arbeitstagen für einen Besichtigungstermin.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="info">
+          <dl>
+            <div class="info-row">
+              <dt>Inhaber</dt>
+              <dd>Ali Ademi</dd>
+            </div>
+            <div class="info-row">
+              <dt>Adresse</dt>
+              <dd>Ernst-Schülerstrasse 28<br>2502 Biel-Bienne<br>Schweiz</dd>
+            </div>
+            <div class="info-row">
+              <dt>Telefon</dt>
+              <dd><a href="tel:+41763991713">076 399 17 13</a></dd>
+            </div>
+            <div class="info-row">
+              <dt>E-Mail</dt>
+              <dd><a href="mailto:ademi.maler.gipser@gmail.com">ademi.maler.gipser@gmail.com</a></dd>
+            </div>
+            <div class="info-row">
+              <dt>Erreichbarkeit</dt>
+              <dd>Montag bis Freitag, 07:30 – 18:00<br>Samstag nach Absprache</dd>
+            </div>
+            <div class="info-row">
+              <dt>Einsatzgebiet</dt>
+              <dd>Biel-Bienne, Nidau, Brügg, Lyss und Region Seeland</dd>
+            </div>
+          </dl>
+        </div>
+
+        <form name="offerte" method="POST" data-netlify="true" netlify-honeypot="firma">
+          <input type="hidden" name="form-name" value="offerte">
+          <p class="hp">
+            <label>Bitte leer lassen: <input name="firma" tabindex="-1" autocomplete="off"></label>
+          </p>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="name">Name<span aria-hidden="true"> *</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="telefon">Telefon</label>
+              <input id="telefon" name="telefon" type="tel" autocomplete="tel" placeholder="076 000 00 00">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">E-Mail<span aria-hidden="true"> *</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="leistung">Leistung<span aria-hidden="true"> *</span></label>
+              <select id="leistung" name="leistung" required>
+                <option value="">Bitte wählen</option>
+                <option>Malerarbeiten</option>
+                <option>Gipserarbeiten</option>
+                <option>Reinigung</option>
+                <option>Mehrere Leistungen</option>
+                <option>Noch unklar</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="ort">Ort des Objekts</label>
+              <input id="ort" name="ort" type="text" placeholder="z. B. Biel">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="nachricht">Ihr Projekt<span aria-hidden="true"> *</span></label>
+            <textarea id="nachricht" name="nachricht" required
+              placeholder="Zum Beispiel: 3-Zimmer-Wohnung, Wände und Decken streichen, ca. 80 m², Ausführung im nächsten Monat."></textarea>
+          </div>
+
+          <div class="consent">
+            <input id="consent" name="einverstaendnis" type="checkbox" required>
+            <label for="consent">
+              Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage
+              gespeichert werden. Sie werden nicht an Dritte weitergegeben.
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Anfrage senden</button>
+          <p class="form-note">Oder direkt anrufen: 076 399 17 13</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/logo-weiss.png" alt="ADEMI" width="519" height="266">
+        <p>
+          Maler-, Gipser- und Reinigungsarbeiten für Biel-Bienne und die Region Seeland.
+        </p>
+      </div>
+
+      <div>
+        <h4>Leistungen</h4>
+        <ul>
+          <li><a href="#leistungen">Malerarbeiten</a></li>
+          <li><a href="#leistungen">Gipserarbeiten</a></li>
+          <li><a href="#leistungen">Reinigung</a></li>
+          <li><a href="#referenzen">Oberflächen</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li>Ali Ademi</li>
+          <li>Ernst-Schülerstrasse 28<br>2502 Biel-Bienne</li>
+          <li><a href="tel:+41763991713">076 399 17 13</a></li>
+          <li><a href="mailto:ademi.maler.gipser@gmail.com">ademi.maler.gipser@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bar">
+      <span>&copy; <span id="jahr">2026</span> ADEMI &middot; Ali Ademi, Biel-Bienne</span>
+      <span>Maler &middot; Gipser &middot; Reinigung</span>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "ADEMI Maler Gipser Reinigung",
+  "description": "Maler-, Gipser- und Reinigungsarbeiten in Biel-Bienne und der Region Seeland.",
+  "founder": "Ali Ademi",
+  "telephone": "+41763991713",
+  "email": "ademi.maler.gipser@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Ernst-Schülerstrasse 28",
+    "postalCode": "2502",
+    "addressLocality": "Biel-Bienne",
+    "addressCountry": "CH"
+  },
+  "areaServed": ["Biel-Bienne", "Nidau", "Brügg", "Lyss", "Seeland"],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "07:30",
+    "closes": "18:00"
+  }],
+  "knowsLanguage": ["de", "sq", "fr"]
+}
+</script>
+
+<script>
+(function () {
+  var toggle = document.getElementById('navToggle');
+  var nav = document.getElementById('nav');
+
+  toggle.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Menü schliessen' : 'Menü öffnen');
+  });
+
+  nav.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A' && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Menü öffnen');
+    }
+  });
+
+  document.getElementById('jahr').textContent = new Date().getFullYear();
+})();
+</script>
+
 </body>
 </html>
