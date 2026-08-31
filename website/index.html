@@ -212,12 +212,7 @@ header{
   color:var(--rot);margin:36px 0 14px;font-weight:500;
 }
 .story-seite{position:sticky;top:110px;display:flex;flex-direction:column;gap:26px}
-.wechsel-bild{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:var(--anthrazit)}
-.wechsel-bild img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;
-  opacity:0;transition:opacity 1.4s ease;
-}
-.wechsel-bild img.aktiv{opacity:1}
+.story-foto{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 20%}
 /* Zeitstrahl im "Le Parcours"-Stil: horizontale Linie mit Punkten */
 .zeitstrahl{margin-top:90px}
 .zs-liste{
@@ -531,7 +526,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <a class="btn btn-rot" href="#geschichte" style="margin-top:14px" data-i18n="intro.btn">Meine Geschichte →</a>
     </div>
     <div class="intro-bild reveal rechts">
-      <img src="bilder/portrait-intro.jpg" alt="Festim Ademi beim Wiegen vor dem Kampf" style="object-position:center 30%">
+      <img src="bilder/portrait-intro.jpg" alt="Festim Ademi beim Wiegen vor dem Kampf" style="object-position:center 42%">
     </div>
   </div>
 </section>
@@ -598,12 +593,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
 
     <aside class="story-seite">
       <!-- Wechselnde Fotos: blendet automatisch zwischen den Bildern um -->
-      <div class="wechsel-bild reveal rechts" id="wechselBild">
-        <img src="bilder/guertel.jpg" alt="Festim Ademi mit dem WBA-Gürtel" class="aktiv">
-        <img src="bilder/kampf-rot.jpg" alt="Festim Ademi im Kampf">
-        <img src="bilder/portrait-gym.jpg" alt="Festim Ademi im Training">
-        <img src="bilder/sieg-referee.jpg" alt="Festim Ademi – Sieg">
-      </div>
+      <img class="story-foto reveal rechts" src="bilder/guertel.jpg" alt="Festim Ademi mit dem WBA-Gürtel">
     </aside>
   </div>
 
@@ -615,7 +605,7 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
       <div class="zs"><div class="jahr">2014</div><div class="txt" data-i18n="way.t3">Erste Schweizer Meisterschaften · in meiner Heimatstadt Biel</div></div>
       <div class="zs"><div class="jahr">2015–24</div><div class="txt" data-i18n="way.t4">4× Schweizer Meister · Nationalmannschaft · internationale Wettkämpfe für die Schweiz</div></div>
       <div class="zs"><div class="jahr">2025</div><div class="txt" data-i18n="way.t5">„Werde der Pro" Top 100 · Profivertrag bei Ruhe Boxing · live auf DAZN</div></div>
-      <div class="zs"><div class="jahr">2026</div><div class="txt" data-i18n="way.t6">Ungeschlagen als Profi</div></div>
+      <div class="zs"><div class="jahr" data-i18n="way.j6">Heute</div><div class="txt" data-i18n="way.t6">Ungeschlagen als Profi</div></div>
     </div>
     <!-- Der Weg in Bildern: von den ersten Schritten bis zum Profi -->
     <div class="weg-fotos">
@@ -633,14 +623,14 @@ footer{border-top:1px solid var(--linie);background:var(--kohle);padding:46px 0}
     <!-- Klick auf ein Foto öffnet die Grossansicht (Lightbox) -->
     <div class="galerie-grid">
       <div class="g-item quer"><img src="bilder/sieg-jubel.jpg" alt="Jubel nach dem Sieg" style="object-position:center 18%"></div>
-      <div class="g-item"><img src="bilder/kampf-zwei.jpg" alt="Im Kampf gegen Gergo Lakatos" style="object-position:center 30%"></div>
-      <div class="g-item"><img src="bilder/kampf-punch.jpg" alt="Gerade Führhand im Profikampf" style="object-position:center 35%"></div>
+      <div class="g-item"><img src="bilder/kampf-zwei.jpg" alt="Im Profikampf" style="object-position:center 30%"></div>
+      <div class="g-item"><img src="bilder/kampf-rot.jpg" alt="Im Profikampf" style="object-position:center 35%"></div>
       <div class="g-item"><img src="bilder/kampf-rot2.jpg" alt="Angriff im Profikampf" style="object-position:center 35%"></div>
       <div class="g-item"><img src="bilder/training-sack.jpg" alt="Training am Sandsack"></div>
-      <div class="g-item quer"><img src="bilder/vertrag.jpg" alt="Vertragsunterzeichnung bei Ruhe Boxing" style="object-position:center 34%"></div>
-      <div class="g-item"><img src="bilder/amateur-kampf.jpg" alt="Amateurkampf im blauen Trikot" style="object-position:center 30%"></div>
-      <div class="g-item"><img src="bilder/portrait-wand.jpg" alt="Fokus vor dem Kampf" style="object-position:center 32%"></div>
+      <div class="g-item quer"><img src="bilder/interview-flagge.jpg" alt="Interview nach dem Sieg" style="object-position:center 40%"></div>
       <div class="g-item"><img src="bilder/ecke.jpg" alt="In der Ringecke zwischen den Runden" style="object-position:center 40%"></div>
+      <div class="g-item"><img src="bilder/vertrag.jpg" alt="Vertragsunterzeichnung bei Ruhe Boxing" style="object-position:center 34%"></div>
+      <div class="g-item"><img src="bilder/amateur-kampf.jpg" alt="Amateurkampf" style="object-position:center 30%"></div>
       <div class="g-item"><img src="bilder/kampf-dazn.jpg" alt="Fight Night auf DAZN" style="object-position:center 20%"></div>
     </div>
   </div>
@@ -973,7 +963,8 @@ TEXTE.en = {
 'ct.o1':'Partnership / sponsoring','ct.o2':'Press / media','ct.o3':'Other',
 'form.send':'Send','form.sending':'Sending …','form.ok':'Message successfully sent to',
 'form.mail':'Your email programme has been opened.','ft.rights':'All rights reserved',
-'st.h0':'The beginning'
+'st.h0':'The beginning',
+'way.j6':'Today'
 };
 
 TEXTE.fr = {
@@ -1027,7 +1018,8 @@ TEXTE.fr = {
 'ct.o1':'Partenariat / sponsoring','ct.o2':'Presse / médias','ct.o3':'Autre',
 'form.send':'Envoyer','form.sending':'Envoi en cours …','form.ok':'Message envoyé avec succès à',
 'form.mail':'Votre messagerie a été ouverte.','ft.rights':'Tous droits réservés',
-'st.h0':'Les débuts'
+'st.h0':'Les débuts',
+'way.j6':'Aujourd’hui'
 };
 
 /* Deutsch einmalig aus dem HTML einlesen, damit es nur an einer Stelle steht */
@@ -1137,18 +1129,6 @@ function aktualisiereCountdown(){
 countdownBereit = true;
 aktualisiereCountdown();
 setInterval(aktualisiereCountdown, 1000);
-
-/* ---------- Wechselnde Fotos (Geschichte) ---------- */
-const wechselBild = document.getElementById('wechselBild');
-if(wechselBild){
-  const bilder = wechselBild.querySelectorAll('img');
-  let aktuell = 0;
-  setInterval(() => {
-    bilder[aktuell].classList.remove('aktiv');
-    aktuell = (aktuell + 1) % bilder.length;
-    bilder[aktuell].classList.add('aktiv');
-  }, 4200);
-}
 
 /* ---------- Galerie-Lightbox ---------- */
 const galerieBilder = [...document.querySelectorAll('.galerie-grid img')];
