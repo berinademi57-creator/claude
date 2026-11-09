@@ -16,6 +16,17 @@ function Say($t) { Write-Host "`n> $t" -ForegroundColor Red }
 function Warn($t) { Write-Host "  ! $t" -ForegroundColor Yellow }
 
 # 1) OpenJarvis
+# Schon (teilweise) installiert? Der offizielle Installer legt OpenJarvis nach
+# %LOCALAPPDATA%\OpenJarvis\src. Ollama brauchen wir nicht (Jarvis denkt mit Claude).
+$ojScripts = Join-Path $env:LOCALAPPDATA "OpenJarvis\src\.venv\Scripts"
+if (-not (Get-Command jarvis -ErrorAction SilentlyContinue) -and (Test-Path (Join-Path $ojScripts "jarvis.exe"))) {
+    $env:Path = "$ojScripts;$env:Path"
+    $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    if ($userPath -notlike "*$ojScripts*") {
+        [Environment]::SetEnvironmentVariable("Path", "$ojScripts;$userPath", "User")
+    }
+    Write-Host "  OpenJarvis gefunden ($ojScripts), Ollama wird uebersprungen"
+}
 if (Get-Command jarvis -ErrorAction SilentlyContinue) {
     Say "OpenJarvis ist schon installiert"
 } else {
@@ -23,6 +34,10 @@ if (Get-Command jarvis -ErrorAction SilentlyContinue) {
     Invoke-RestMethod https://open-jarvis.github.io/OpenJarvis/install.ps1 | Invoke-Expression
 }
 $env:Path = "$HOME\.local\bin;$env:Path"
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($userPath -notlike "*\.local\bin*") {
+    [Environment]::SetEnvironmentVariable("Path", "$HOME\.local\bin;$userPath", "User")
+}
 
 # 2) jarvis-plus
 Say "Installiere jarvis-plus ..."
