@@ -9,6 +9,7 @@ werden die Login-Tokens lokal wiederverwendet.
 from __future__ import annotations
 
 from datetime import date, timedelta
+from pathlib import Path
 from typing import Any
 
 from .settings import Settings, data_path
@@ -20,6 +21,44 @@ def _tokenstore() -> str:
     return str(path)
 
 
+def _save_tokens(client: Any, store: str) -> bool:
+    """Login-Tokens speichern, egal welche garminconnect-Version installiert ist."""
+    for obj in (getattr(client, "garth", None), getattr(client, "client", None), client):
+        dump = getattr(obj, "dump", None) if obj is not None else None
+        if callable(dump):
+            try:
+                dump(store)
+                return True
+            except Exception:  # noqa: BLE001
+                continue
+    return False
+
+
+def _credential_login(settings: Settings, store: str, interactive: bool) -> Any:
+    from garminconnect import Garmin
+
+    kwargs: dict[str, Any] = {
+        "email": settings.require("GARMIN_EMAIL"),
+        "password": settings.require("GARMIN_PASSWORD"),
+    }
+    if interactive:
+        kwargs["prompt_mfa"] = lambda: input("Garmin MFA-Code: ")
+    try:
+        client = Garmin(**kwargs)
+    except TypeError:  # ältere Version ohne prompt_mfa
+        kwargs.pop("prompt_mfa", None)
+        client = Garmin(**kwargs)
+    # Neuere Versionen speichern die Tokens selbst, wenn man den Ordner mitgibt
+    try:
+        client.login(store)
+    except TypeError:
+        client.login()
+    except Exception:  # noqa: BLE001
+        client.login()
+    _save_tokens(client, store)
+    return client
+
+
 def _client(settings: Settings, *, interactive: bool = False) -> Any:
     try:
         from garminconnect import Garmin
@@ -29,31 +68,35 @@ def _client(settings: Settings, *, interactive: bool = False) -> Any:
         ) from exc
 
     store = _tokenstore()
-    if not interactive:
-        client = Garmin()
-        try:
-            client.login(store)
-            return client
-        except Exception as exc:  # noqa: BLE001
-            raise RuntimeError(
-                "Garmin ist nicht verbunden. Führe `jarvis-plus garmin-login` aus."
-            ) from exc
+    if interactive:
+        return _credential_login(settings, store, interactive=True)
 
-    email = settings.require("GARMIN_EMAIL")
-    password = settings.require("GARMIN_PASSWORD")
-    client = Garmin(
-        email=email,
-        password=password,
-        prompt_mfa=lambda: input("Garmin MFA-Code: "),
-    )
-    client.login()
-    client.garth.dump(store)
-    return client
+    # 1) gespeicherte Tokens
+    try:
+        client = Garmin()
+        client.login(store)
+        return client
+    except Exception:  # noqa: BLE001
+        pass
+    # 2) Fallback: E-Mail/Passwort aus jarvis-plus.env (falls hinterlegt)
+    if settings.get("GARMIN_EMAIL") and settings.get("GARMIN_PASSWORD"):
+        return _credential_login(settings, store, interactive=False)
+    raise RuntimeError("Garmin ist nicht verbunden. Führe `jarvis-plus garmin-login` aus.")
 
 
 def login(settings: Settings) -> None:
-    _client(settings, interactive=True)
-    print("✅ Garmin verbunden. (Passwort kannst du jetzt aus der .env löschen.)")
+    client = _credential_login(settings, _tokenstore(), interactive=True)
+    try:
+        Garmin_ok = client.get_full_name() if hasattr(client, "get_full_name") else ""
+    except Exception:  # noqa: BLE001
+        Garmin_ok = ""
+    saved = any(Path(_tokenstore()).iterdir())
+    print(f"✅ Garmin verbunden{(' als ' + Garmin_ok) if Garmin_ok else ''}.")
+    if saved:
+        print("Login gespeichert. Das Passwort kannst du jetzt aus der jarvis-plus.env löschen.")
+    else:
+        print("Diese garminconnect-Version speichert keinen Login. Lass E-Mail und Passwort "
+              "in der jarvis-plus.env stehen, dann meldet sich Jarvis selbst an.")
 
 
 def summarize_stats(stats: dict[str, Any]) -> dict[str, Any]:
