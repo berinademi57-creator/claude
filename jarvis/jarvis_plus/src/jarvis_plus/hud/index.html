@@ -86,7 +86,24 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
 #orb{position:absolute;inset:0;width:100%;height:100%;display:block}
 .state{position:absolute;bottom:6%;left:0;right:0;text-align:center}
 .state .s{font-family:var(--mono);letter-spacing:.42em;font-size:12px;color:var(--orange);text-shadow:0 0 12px rgba(255,90,40,.7)}
-.state .now{margin-top:8px;font-size:13px;color:var(--muted);min-height:18px}
+.state .now{margin:10px auto 0;font-size:15px;line-height:1.45;color:var(--text);min-height:22px;max-width:min(680px,92%);
+  text-shadow:0 0 18px rgba(255,80,40,.35)}
+.state .now:empty{display:none}
+/* Boot-Sequenz */
+#boot{position:fixed;inset:0;z-index:90;background:#020101;display:grid;place-items:center;transition:opacity .6s ease}
+#boot.off{opacity:0;pointer-events:none}
+#boot .box{width:min(460px,86vw);font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--muted)}
+#boot .t{font-size:22px;letter-spacing:.4em;color:var(--text);margin-bottom:22px}
+#boot .t b{color:var(--red)}
+#boot .ln{opacity:0;transform:translateX(-6px);transition:.25s;margin:6px 0;display:flex;justify-content:space-between}
+#boot .ln.on{opacity:1;transform:none}
+#boot .ln i{font-style:normal;color:var(--red)}
+#boot .bar{height:2px;background:rgba(255,72,40,.15);margin-top:20px;overflow:hidden}
+#boot .bar div{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--amber));box-shadow:0 0 12px var(--red);transition:width 1.8s cubic-bezier(.3,.7,.2,1)}
+/* Stimmen-Einstellungen */
+.vset{padding:14px 18px;border-bottom:1px solid var(--line);display:grid;gap:10px}
+.vset select,.vset input[type=range]{width:100%;accent-color:var(--red);background:#140a08;color:var(--text);border:1px solid var(--line2);border-radius:10px;padding:8px}
+.vset .row2{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--muted)}
 .chat{max-height:34vh;padding:4px 6px}
 .msg{max-width:88%;margin:8px 0;padding:11px 14px;border-radius:14px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
 .msg.u{margin-left:auto;background:rgba(255,59,36,.12);border:1px solid var(--line2)}
@@ -192,13 +209,22 @@ body.call .state{bottom:auto;top:62%}
 </style>
 </head>
 <body>
+<div id="boot" aria-hidden="true"><div class="box">
+  <div class="t">JARVIS <b>//</b> ONLINE</div>
+  <div class="ln"><span>KERN</span><i>OK</i></div>
+  <div class="ln"><span>STIMME</span><i>OK</i></div>
+  <div class="ln"><span>VITALS · WHOOP · GARMIN</span><i>OK</i></div>
+  <div class="ln"><span>VERBINDUNGEN</span><i>OK</i></div>
+  <div class="ln"><span>HÖRE AUF „JARVIS“</span><i>BEREIT</i></div>
+  <div class="bar"><div></div></div>
+</div></div>
 <div class="app">
   <div class="top">
     <div class="brand">JARVIS <b>//</b><span class="full"> COMMAND CENTER</span></div>
     <div class="sp"></div>
     <div class="pill hide-m" id="pModel"><span class="dot"></span><span>MODELL</span></div>
     <div class="pill" id="pOnline"><span class="dot"></span><span>OFFLINE</span></div>
-    <div class="pill btn" id="pAccess">ZUGRIFFE <span class="n" id="nMissing">0</span></div>
+    <div class="pill btn" id="pAccess">⚙ <span class="n" id="nMissing">0</span></div>
     <div id="clock" class="hide-m">--:--</div>
   </div>
 
@@ -243,7 +269,7 @@ body.call .state{bottom:auto;top:62%}
   </div>
 
   <div class="cmd">
-    <label class="toggle" title="Hört dauerhaft auf „Jarvis“"><input type="checkbox" id="wake"><span>WAKE-WORD</span></label>
+    <label class="toggle" title="Hört dauerhaft auf „Jarvis“, ohne Knopf"><input type="checkbox" id="wake"><span>FREIHÄNDIG</span></label>
     <label class="toggle" title="Antworten vorlesen"><input type="checkbox" id="speak" checked><span>STIMME</span></label>
     <input id="inp" placeholder="Sag „Jarvis …“ oder schreib hier" autocomplete="off">
     <button class="round" id="send" title="Senden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -258,7 +284,15 @@ body.call .state{bottom:auto;top:62%}
 </div>
 <div class="overlay" id="ov"></div>
 <aside class="drawer" id="drawer">
-  <header><div class="mono" style="color:var(--text)">Zugriffe &amp; Verbindungen</div><button class="x" data-close>SCHLIESSEN</button></header>
+  <header><div class="mono" style="color:var(--text)">Einstellungen &amp; Zugriffe</div><button class="x" data-close>SCHLIESSEN</button></header>
+  <div class="vset">
+    <div class="mono">Stimme von Jarvis</div>
+    <select id="voiceSel"></select>
+    <div class="row2"><span style="width:70px">Tempo</span><input type="range" id="vRate" min="0.8" max="1.3" step="0.05"></div>
+    <div class="row2"><span style="width:70px">Tiefe</span><input type="range" id="vPitch" min="0.5" max="1.3" step="0.05"></div>
+    <button class="x" id="vTest">STIMME TESTEN</button>
+    <div class="row2" style="font-size:11px;line-height:1.5">Tipp: Die schönsten Stimmen heissen „Natural“ (z.B. Jan · Schweiz) und gibt es gratis im Microsoft-Edge-Browser.</div>
+  </div>
   <div class="scroll" id="accList"></div>
 </aside>
 <div class="preview" id="preview">
@@ -347,6 +381,22 @@ const orb = (() => {
       ctx.lineWidth = th.w;
       ctx.stroke();
     }
+    // Audio-Ring: reagiert auf deine Stimme und auf Jarvis' Stimme
+    if (level > 0.04 || mode !== "idle") {
+      const bars = mobile ? 72 : 120;
+      for (let i = 0; i < bars; i++) {
+        const a = (i / bars) * Math.PI * 2 + t * .15;
+        const n = .5 + .5 * Math.sin(i * 1.7 + t * 6) * Math.sin(i * .37 + t * 2.3);
+        const len = R * (.05 + level * .32 * n + (mode === "thinking" ? .04 * Math.sin(t * 10 + i) : 0));
+        const r0 = R * 1.22;
+        ctx.strokeStyle = `rgba(255,${90 + 80 * n | 0},50,${.25 + level * .5})`;
+        ctx.lineWidth = mobile ? 1.6 : 2;
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(a) * r0, cy + Math.sin(a) * r0);
+        ctx.lineTo(cx + Math.cos(a) * (r0 + len), cy + Math.sin(a) * (r0 + len));
+        ctx.stroke();
+      }
+    }
     ctx.globalCompositeOperation = "source-over";
     requestAnimationFrame(frame);
   }
@@ -408,26 +458,74 @@ $("#send").onclick = () => send($("#inp").value);
 $("#inp").addEventListener("keydown", e => { if(e.key==="Enter") send($("#inp").value); });
 
 /* ───────────────────────── Stimme: Ausgabe */
-let voice = null;
+const store = { get(k, d){ try{ const v = localStorage.getItem("jarvis_"+k); return v===null ? d : v; }catch(e){ return d; } },
+                set(k, v){ try{ localStorage.setItem("jarvis_"+k, v); }catch(e){} } };
+let voice = null, voices = [];
+function voiceScore(v){
+  let s = 0;
+  if(/natural|neural|online|premium|enhanced/i.test(v.name)) s += 50;      // die guten Stimmen
+  if(/de-CH/i.test(v.lang)) s += 20;                                     // Schweizer Stimme
+  if(/Jan|Florian|Conrad|Killian|Ralf|Kasper|Daniel|Markus|Yannick|Stefan|Leni/i.test(v.name)) s += 10;
+  if(/Google/i.test(v.name)) s += 5;
+  return s;
+}
 function pickVoice(){
-  const vs = speechSynthesis.getVoices().filter(v => /^de/i.test(v.lang));
-  voice = vs.find(v=>/de-CH/i.test(v.lang)) || vs.find(v=>/Daniel|Markus|Yannick|Conrad|Google Deutsch|Stefan/i.test(v.name)) || vs[0] || null;
+  voices = speechSynthesis.getVoices().filter(v => /^de/i.test(v.lang)).sort((a,b)=>voiceScore(b)-voiceScore(a));
+  const saved = store.get("voice", "");
+  voice = voices.find(v => v.name === saved) || voices[0] || null;
+  const sel = $("#voiceSel");
+  sel.innerHTML = voices.length ? voices.map(v => `<option ${v===voice?"selected":""}>${esc(v.name)}</option>`).join("")
+                                : "<option>Keine deutsche Stimme gefunden</option>";
 }
 if ("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+$("#voiceSel").onchange = e => { voice = voices.find(v => v.name === e.target.value) || voice; store.set("voice", voice?.name || ""); };
+$("#vRate").value = store.get("rate", "1.05"); $("#vPitch").value = store.get("pitch", "0.85");
+$("#vRate").oninput = e => store.set("rate", e.target.value);
+$("#vPitch").oninput = e => store.set("pitch", e.target.value);
+$("#vTest").onclick = () => speak("Systeme online. Ich bin bereit, wenn du es bist.");
+
+let speakQueue = [];
 function speak(text){
   if(!$("#speak").checked || !("speechSynthesis" in window)){ afterSpeak(); return; }
-  const clean = text.replace(/```[\s\S]*?```/g," Code siehe Bildschirm. ").replace(/https?:\/\/\S+/g,"Link").replace(/[*_`#>]/g,"").slice(0,900);
-  const u = new SpeechSynthesisUtterance(clean);
-  if(voice) u.voice = voice; u.lang = voice?.lang || "de-DE"; u.rate = 1.05; u.pitch = .9;
-  u.onstart = () => setState("speaking");
-  u.onboundary = () => { orb.level = .7; };
-  u.onend = afterSpeak; u.onerror = afterSpeak;
-  speechSynthesis.cancel(); speechSynthesis.speak(u);
+  const clean = text.replace(/```[\s\S]*?```/g," Code siehe Bildschirm. ").replace(/https?:\/\/\S+/g,"Link")
+                    .replace(/[*_`#>|]/g,"").replace(/\s+/g," ").trim().slice(0,1500);
+  // Satz für Satz sprechen: klingt natürlicher und umgeht das 15-Sekunden-Limit von Chrome
+  speakQueue = clean.match(/[^.!?…]+[.!?…]*/g) || [clean];
+  speechSynthesis.cancel();
+  speakNext();
 }
+function speakNext(){
+  const part = (speakQueue.shift() || "").trim();
+  if(!part){ $("#nowLine").textContent = ""; afterSpeak(); return; }
+  const u = new SpeechSynthesisUtterance(part);
+  if(voice) u.voice = voice;
+  u.lang = voice?.lang || "de-DE";
+  u.rate = parseFloat(store.get("rate", "1.05")); u.pitch = parseFloat(store.get("pitch", "0.85"));
+  u.onstart = () => { setState("speaking"); $("#nowLine").textContent = part; };
+  u.onboundary = () => { orb.level = .75; };
+  u.onend = speakNext; u.onerror = speakNext;
+  speechSynthesis.speak(u);
+}
+let followUp = false;
 function afterSpeak(){
   setState("idle");
   if(inCall) setTimeout(()=>startListening(false), 250);
-  else if($("#wake").checked) startListening(true);
+  else if($("#wake").checked){
+    // Nach einer Antwort kurz ohne „Jarvis“ weiterreden können
+    followUp = true; setTimeout(()=>startListening(false), 250);
+  }
+}
+function chime(up=true){
+  try{
+    audioCtx = audioCtx || new AudioContext();
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = "sine"; o.frequency.setValueAtTime(up ? 660 : 880, audioCtx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(up ? 990 : 520, audioCtx.currentTime + .18);
+    g.gain.setValueAtTime(.0001, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.08, audioCtx.currentTime + .03);
+    g.gain.exponentialRampToValueAtTime(.0001, audioCtx.currentTime + .25);
+    o.connect(g).connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + .3);
+  }catch(e){}
 }
 
 /* ───────────────────────── Stimme: Eingabe */
@@ -454,7 +552,10 @@ function startListening(wake=false){
   wakeMode = wake;
   rec = new SR(); rec.lang = "de-CH"; rec.interimResults = true; rec.continuous = wake;
   let finalText = "";
-  rec.onstart = () => { if(!wake) setState("listening"); $("#mic").classList.add("live"); startMeter(); };
+  rec.onstart = () => {
+    if(!wake) setState("listening"); $("#mic").classList.add("live"); startMeter();
+    if(!wake && followUp){ const me = rec; setTimeout(()=>{ if(rec===me && !finalText.trim()) try{ me.stop(); }catch(e){} }, 7000); }
+  };
   rec.onresult = e => {
     let interim = "";
     for(let i=e.resultIndex;i<e.results.length;i++){
@@ -463,8 +564,10 @@ function startListening(wake=false){
     }
     const heard = (finalText + " " + interim).trim();
     if(wake){
-      const m = heard.match(/jarvis[,!. ]*(.*)$/i);
-      if(m){ setState("listening"); $("#nowLine").textContent = "„" + m[1] + "“";
+      const m = heard.match(/(?:jarvis|javis|jarwis|jervis|tscharvis|scharvis|charvis|dschärvis)[,!. ]*(.*)$/i);
+      if(m){
+        if(state !== "listening"){ chime(true); }
+        setState("listening"); $("#nowLine").textContent = "„" + m[1] + "“";
         if(finalText && m[1]){ rec.stop(); wakeMode=false; send(m[1]); } }
     } else { $("#nowLine").textContent = "„" + heard + "“"; }
   };
@@ -473,6 +576,9 @@ function startListening(wake=false){
     if(!wake && finalText.trim()) send(finalText);
     else if(state==="listening") setState("idle");
     if(inCall && !finalText.trim() && state==="idle") setTimeout(()=>startListening(false), 300);
+    // Folgefrage: nichts gesagt → zurück zum Warten auf „Jarvis“
+    if(!inCall && !wake && followUp && !finalText.trim()){ followUp = false; if($("#wake").checked) setTimeout(()=>startListening(true), 300); }
+    if(!wake && finalText.trim()) followUp = false;
     if(wakeMode && $("#wake").checked && state==="idle") setTimeout(()=>startListening(true), 300);
   };
   rec.onerror = () => {};
@@ -494,7 +600,9 @@ function endCall(){
 $("#callBtn").onclick = () => inCall ? endCall() : startCall();
 $("#hangup").onclick = endCall;
 $("#mic").onclick = () => { speechSynthesis?.cancel(); if(state==="listening"){ rec?.stop(); } else startListening(false); };
-$("#wake").onchange = e => { if(e.target.checked) startListening(true); else { wakeMode=false; rec?.abort(); } };
+$("#wake").checked = store.get("wake", "1") === "1";
+$("#wake").onchange = e => { store.set("wake", e.target.checked ? "1" : "0");
+  if(e.target.checked) startListening(true); else { wakeMode=false; followUp=false; rec?.abort(); } };
 addEventListener("keydown", e => { if(e.code==="Space" && document.activeElement!==$("#inp") && !e.repeat){ e.preventDefault(); $("#mic").click(); } });
 
 /* ───────────────────────── Live-Aktivität (SSE) */
@@ -598,7 +706,16 @@ addEventListener("keydown", e => { if(e.key==="Escape") closeAll(); });
 /* ───────────────────────── Start */
 connectEvents(); loadStatus(); loadHealth();
 setInterval(loadStatus, 60_000); setInterval(() => loadHealth(), 600_000);
-addMsg("assistant", "Systeme online. Tipp auf das Mikrofon, drück die Leertaste oder schalte WAKE-WORD ein und sag „Jarvis …“.");
+addMsg("assistant", "Systeme online. Sag einfach „Jarvis …“ und dann, was du brauchst. Kein Knopf nötig. (Ausschalten: FREIHÄNDIG unten links.)");
+(function boot(){
+  const el = $("#boot");
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){ el.remove(); return; }
+  el.querySelectorAll(".ln").forEach((ln,i) => setTimeout(()=>ln.classList.add("on"), 180 + i*260));
+  requestAnimationFrame(()=>{ el.querySelector(".bar div").style.width = "100%"; });
+  setTimeout(()=>{ el.classList.add("off"); setTimeout(()=>el.remove(), 700); }, 2100);
+})();
+// Freihändig: sofort auf „Jarvis“ hören (Browser fragt beim ersten Mal nach dem Mikrofon)
+setTimeout(()=>{ if($("#wake").checked) startListening(true); }, 2300);
 </script>
 </body>
 </html>

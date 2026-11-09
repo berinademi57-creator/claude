@@ -114,14 +114,15 @@ def browser_for_app_window() -> list[str] | None:
     if system == "windows":
         for base in (os.environ.get("PROGRAMFILES", ""), os.environ.get("PROGRAMFILES(X86)", ""),
                      os.environ.get("LOCALAPPDATA", "")):
+            # Edge zuerst: hat gratis die natürlichen Microsoft-Stimmen (z.B. Jan, Schweiz)
             candidates += [
-                os.path.join(base, "Google", "Chrome", "Application", "chrome.exe"),
                 os.path.join(base, "Microsoft", "Edge", "Application", "msedge.exe"),
+                os.path.join(base, "Google", "Chrome", "Application", "chrome.exe"),
             ]
     elif system == "darwin":
         candidates += [
-            "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+            "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
         ]
     else:

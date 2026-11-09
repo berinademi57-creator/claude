@@ -67,7 +67,8 @@ class Settings:
 
     @property
     def name(self) -> str:
-        return self.get("JARVIS_USER_NAME", "Boss")
+        """So spricht Jarvis dich an (Begrüssung, Telefon, Alarme)."""
+        return self.get("JARVIS_ANREDE", "Boss Ademi")
 
 
 def load_settings() -> Settings:
