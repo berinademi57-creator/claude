@@ -167,31 +167,46 @@ def windows_command(argv: list[str]) -> str:
     return f'powershell.exe -NoProfile -WindowStyle Hidden -Command "& {inner}"'
 
 
+def windows_vbs(cmds: list[list[str]], delay_s: int = 0) -> str:
+    """VBScript, das Programme unsichtbar startet (kein schwarzes Fenster)."""
+    lines = ['Set sh = CreateObject("WScript.Shell")']
+    if delay_s:
+        lines.append(f"WScript.Sleep {delay_s * 1000}")
+    for argv in cmds:
+        quoted = " ".join(f'""{a}""' if " " in a or i == 0 else a for i, a in enumerate(argv))
+        lines.append(f'sh.Run "{quoted}", 0, False')
+    return "\r\n".join(lines) + "\r\n"
+
+
+def _startup_dir() -> Path:
+    import os
+
+    return Path(os.environ.get("APPDATA", str(Path.home()))) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Startup"
+
+
 def _windows(install: bool) -> list[str]:
+    """Autostart-Ordner statt Aufgabenplanung: braucht keine Admin-Rechte."""
     out = []
-    for name, cmd in SERVICES.items():
-        task = f"Jarvis-{name}"
-        subprocess.run(["schtasks", "/Delete", "/TN", task, "/F"], capture_output=True)
-        if install:
-            subprocess.run(
-                ["schtasks", "/Create", "/TN", task, "/SC", "ONLOGON", "/RL", "LIMITED",
-                 "/TR", windows_command(_resolve(cmd)), "/F"],
-                check=True,
-                capture_output=True,
-            )
-            subprocess.run(["schtasks", "/Run", "/TN", task], capture_output=True)
-            out.append(f"✅ {name} läuft (Aufgabenplanung, startet bei jeder Anmeldung)")
-        else:
-            out.append(f"🗑  {name} entfernt")
-    task = "Jarvis-window"
-    subprocess.run(["schtasks", "/Delete", "/TN", task, "/F"], capture_output=True)
-    if install and _open_on_login():
-        subprocess.run(
-            ["schtasks", "/Create", "/TN", task, "/SC", "ONLOGON", "/DELAY", "0000:20",
-             "/RL", "LIMITED", "/TR", windows_command(_resolve(WINDOW[1])), "/F"],
-            capture_output=True,
-        )
+    # alte Aufgaben (falls vorhanden) entfernen
+    for name in [*SERVICES, "window"]:
+        subprocess.run(["schtasks", "/Delete", "/TN", f"Jarvis-{name}", "/F"], capture_output=True)
+    folder = _startup_dir()
+    services = folder / "Jarvis.vbs"
+    window = folder / "Jarvis-Fenster.vbs"
+    if not install:
+        services.unlink(missing_ok=True)
+        window.unlink(missing_ok=True)
+        return ["🗑  Jarvis aus dem Autostart entfernt"]
+    folder.mkdir(parents=True, exist_ok=True)
+    cmds = [_resolve(cmd) for cmd in SERVICES.values()]
+    services.write_text(windows_vbs(cmds), encoding="utf-8")
+    subprocess.run(["wscript", str(services)], check=False)  # jetzt gleich starten
+    out += [f"✅ {name} läuft (startet bei jeder Anmeldung)" for name in SERVICES]
+    if _open_on_login():
+        window.write_text(windows_vbs([_resolve(WINDOW[1])], delay_s=20), encoding="utf-8")
         out.append("✅ HUD-Fenster öffnet sich beim Anmelden")
+    else:
+        window.unlink(missing_ok=True)
     return out
 
 
