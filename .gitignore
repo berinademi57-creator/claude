@@ -25,3 +25,8 @@ web-build/
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+
+# Python / Trading-Bot
+.venv/
+__pycache__/
+trading/logs/

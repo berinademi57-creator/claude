@@ -1,0 +1,11 @@
+# TradingAgents (Multi-Agent-LLM-Analyse), fest auf einen geprüften Commit gepinnt
+tradingagents @ git+https://github.com/TauricResearch/TradingAgents.git@9fa1196fffbcfd9de5146d2dd2869df84ab99838
+
+# Bybit API (V5, Unified Trading) – wird hier NUR mit testnet=True benutzt
+pybit>=5.7
+
+# .env-Datei laden
+python-dotenv>=1.0
+
+# MetaTrader 5 Python-Anbindung – gibt es nur für Windows (Terminal muss installiert sein)
+MetaTrader5>=5.0.45; sys_platform == "win32"
