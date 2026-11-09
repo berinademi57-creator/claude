@@ -12,9 +12,17 @@ from typing import Any, Mapping
 TIMEOUT = 30
 
 
+def redact(url: str) -> str:
+    """Tokens aus URLs entfernen, damit sie nie in Meldungen/Logs landen."""
+    import re
+
+    url = re.sub(r"/bot[^/]+/", "/bot***/", url)  # Telegram
+    return re.sub(r"(access_token|token|key)=[^&]+", r"\1=***", url)
+
+
 class HttpError(RuntimeError):
     def __init__(self, status: int, body: str, url: str) -> None:
-        super().__init__(f"HTTP {status} bei {url}: {body[:500]}")
+        super().__init__(f"HTTP {status} bei {redact(url)}: {body[:500]}")
         self.status = status
         self.body = body
 
