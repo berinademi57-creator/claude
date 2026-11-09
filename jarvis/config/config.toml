@@ -1,0 +1,94 @@
+# ═══════════════════════════════════════════════════════════════
+#  Dein persönlicher Jarvis – OpenJarvis-Konfiguration
+#  Wird vom Installer nach ~/.openjarvis/config.toml kopiert.
+#  API-Keys gehören NICHT hierher, sondern in ~/.openjarvis/credentials.toml
+# ═══════════════════════════════════════════════════════════════
+
+# ─── Gehirn ─────────────────────────────────────────────────────
+# Variante A (Standard): Claude über die Anthropic-API.
+#   Beste Qualität für Coach, Business und Tool-Nutzung. Kostet pro Nutzung.
+[engine]
+default = "cloud"
+
+[intelligence]
+default_model = "claude-sonnet-5-5"
+provider = "anthropic"
+temperature = 0.6
+max_tokens = 2048
+
+# Variante B: komplett lokal und kostenlos (braucht einen starken PC).
+# Dafür die vier Zeilen oben auskommentieren und diese aktivieren:
+# [engine]
+# default = "ollama"
+# [intelligence]
+# default_model = "qwen3.5:9b"
+
+# ─── Agent (wie Jarvis denkt und welche Werkzeuge er hat) ────────
+[agent]
+default_agent = "orchestrator"
+max_turns = 15
+context_from_memory = true
+# Eingebaute Werkzeuge. Die jarvis-plus-Werkzeuge (Whoop, Garmin,
+# Stress, Anrufe, Instagram, Kunden, Über-mich) kommen automatisch über MCP dazu.
+tools = "think,calculator,web_search,get_weather,user_profile_manage,memory_manage,knowledge_search,schedule_task,list_scheduled_tasks,pause_scheduled_task,resume_scheduled_task,cancel_scheduled_task,calendar_upcoming,calendar_search,channel_send,pdf_extract,file_read,file_write"
+
+# Persönlichkeit + Infos über dich liegen in:
+#   ~/.openjarvis/SOUL.md   (wer Jarvis ist: dein Coach)
+#   ~/.openjarvis/USER.md   (Kurzprofil über dich)
+[system_prompt]
+soul_max_chars = 6000
+user_max_chars = 3000
+
+# Langzeitgedächtnis: Jarvis merkt sich automatisch Fakten aus Gesprächen.
+# Ansehen/Löschen: `jarvis memory list` / `jarvis memory clear`
+[memory]
+enabled = true
+backend = "local"
+max_facts = 5000
+
+[tools.storage]
+default_backend = "sqlite"
+
+# ─── Erweiterungen (jarvis-plus + weitere MCP-Server) ───────────
+[tools.mcp]
+enabled = true
+servers = "mcp-servers.json"
+
+# ─── Server (Desktop-App / Browser-Oberfläche) ──────────────────
+[server]
+host = "127.0.0.1"
+port = 8000
+agent = "orchestrator"
+
+# ─── Überall erreichbar: Telegram (Handy, PC, Tablet, Uhr) ──────
+# Bot-Token kommt aus credentials.toml (TELEGRAM_BOT_TOKEN).
+# allowed_chat_ids: NUR deine Chat-ID, damit niemand sonst deinen Jarvis nutzt.
+[channel]
+enabled = true
+default_channel = "telegram"
+default_agent = "orchestrator"
+
+[channel.telegram]
+allowed_chat_ids = ""   # ← vom Installer/von dir eingetragen, z.B. "123456789"
+parse_mode = "Markdown"
+
+# ─── Stimme (Sprachausgabe/-eingabe am PC) ──────────────────────
+[speech]
+backend = "auto"
+language = "de"
+tts_backend = "openai_tts"   # klingt natürlich auf Deutsch; braucht OPENAI_API_KEY
+voice_id = "onyx"
+voice_speed = 1.05
+
+# ─── Proaktiv: Jarvis meldet sich selbst ────────────────────────
+[proactive]
+enabled = true
+schedule = "0 7 * * *"
+timezone = "Europe/Berlin"
+notification_channel = ""   # ← z.B. "telegram:123456789"
+
+[telemetry]
+enabled = false
+
+[traces]
+enabled = false

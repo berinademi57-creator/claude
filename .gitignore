@@ -25,3 +25,10 @@ web-build/
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+
+# Jarvis: lokale Secrets + Python
+jarvis-plus.env
+credentials.toml
+__pycache__/
+*.egg-info/
+.pytest_cache/
