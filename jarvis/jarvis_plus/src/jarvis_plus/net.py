@@ -25,6 +25,7 @@ def request(
     *,
     params: Mapping[str, Any] | None = None,
     form: Mapping[str, Any] | None = None,
+    json_body: Any = None,
     headers: Mapping[str, str] | None = None,
     basic_auth: tuple[str, str] | None = None,
     bearer: str | None = None,
@@ -42,6 +43,9 @@ def request(
             {k: v for k, v in form.items() if v is not None}
         ).encode()
         hdrs["Content-Type"] = "application/x-www-form-urlencoded"
+    elif json_body is not None:
+        data = json.dumps(json_body).encode()
+        hdrs["Content-Type"] = "application/json"
     if basic_auth:
         token = base64.b64encode(f"{basic_auth[0]}:{basic_auth[1]}".encode()).decode()
         hdrs["Authorization"] = f"Basic {token}"

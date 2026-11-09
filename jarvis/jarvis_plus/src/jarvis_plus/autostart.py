@@ -1,0 +1,163 @@
+"""Jarvis immer im Hintergrund: startet automatisch beim Hochfahren/Anmelden.
+
+Drei Dienste:
+  openjarvis   → ``jarvis serve``      (Gehirn, Telegram, API)
+  jarvis-hud   → ``jarvis-plus hud``   (Oberfläche, Port 8765)
+  jarvis-watch → ``jarvis-plus watch`` (Stress-/Kunden-Wächter)
+
+macOS: LaunchAgents · Linux: systemd --user · Windows: Aufgabenplanung
+"""
+
+from __future__ import annotations
+
+import platform
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+SERVICES = {
+    "openjarvis": ["jarvis", "serve"],
+    "jarvis-hud": ["jarvis-plus", "hud"],
+    "jarvis-watch": ["jarvis-plus", "watch"],
+}
+LABEL_PREFIX = "ch.ademidigital."
+
+
+def _resolve(cmd: list[str]) -> list[str]:
+    exe = shutil.which(cmd[0])
+    if not exe:
+        raise RuntimeError(f"'{cmd[0]}' nicht gefunden. Ist es installiert und im PATH?")
+    return [exe, *cmd[1:]]
+
+
+def _log_dir() -> Path:
+    from .settings import HOME
+
+    path = HOME / "logs"
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+# ------------------------------------------------------------------ macOS
+
+
+def launchd_plist(name: str, argv: list[str], log_dir: Path) -> str:
+    args = "\n".join(f"    <string>{a}</string>" for a in argv)
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>{LABEL_PREFIX}{name}</string>
+  <key>ProgramArguments</key>
+  <array>
+{args}
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>ThrottleInterval</key><integer>20</integer>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>{Path(argv[0]).parent}:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string></dict>
+  <key>StandardOutPath</key><string>{log_dir / (name + '.log')}</string>
+  <key>StandardErrorPath</key><string>{log_dir / (name + '.log')}</string>
+</dict>
+</plist>
+"""
+
+
+def _mac(install: bool) -> list[str]:
+    agents = Path.home() / "Library" / "LaunchAgents"
+    agents.mkdir(parents=True, exist_ok=True)
+    out = []
+    for name, cmd in SERVICES.items():
+        plist = agents / f"{LABEL_PREFIX}{name}.plist"
+        subprocess.run(["launchctl", "unload", str(plist)], capture_output=True)
+        if install:
+            plist.write_text(launchd_plist(name, _resolve(cmd), _log_dir()))
+            subprocess.run(["launchctl", "load", "-w", str(plist)], check=True)
+            out.append(f"✅ {name} läuft (LaunchAgent)")
+        elif plist.exists():
+            plist.unlink()
+            out.append(f"🗑  {name} entfernt")
+    return out
+
+
+# ------------------------------------------------------------------ Linux
+
+
+def systemd_unit(name: str, argv: list[str]) -> str:
+    after = "" if name == "openjarvis" else "After=openjarvis.service\n"
+    exec_line = " ".join(f'"{a}"' if " " in a else a for a in argv)
+    return f"""[Unit]
+Description=Jarvis {name}
+{after}
+[Service]
+ExecStart={exec_line}
+Restart=always
+RestartSec=10
+Environment=PATH={Path(argv[0]).parent}:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target
+"""
+
+
+def _linux(install: bool) -> list[str]:
+    units = Path.home() / ".config" / "systemd" / "user"
+    units.mkdir(parents=True, exist_ok=True)
+    out = []
+    for name, cmd in SERVICES.items():
+        unit = units / f"{name}.service"
+        if install:
+            unit.write_text(systemd_unit(name, _resolve(cmd)))
+        else:
+            subprocess.run(["systemctl", "--user", "disable", "--now", f"{name}.service"],
+                           capture_output=True)
+            unit.unlink(missing_ok=True)
+            out.append(f"🗑  {name} entfernt")
+    subprocess.run(["systemctl", "--user", "daemon-reload"], check=False)
+    if install:
+        for name in SERVICES:
+            subprocess.run(["systemctl", "--user", "enable", "--now", f"{name}.service"], check=True)
+            out.append(f"✅ {name} läuft (systemd)")
+        # auch ohne Anmeldung weiterlaufen lassen
+        subprocess.run(["loginctl", "enable-linger"], capture_output=True)
+    return out
+
+
+# ------------------------------------------------------------------ Windows
+
+
+def windows_command(argv: list[str]) -> str:
+    inner = " ".join(f"'{a}'" if i == 0 else a for i, a in enumerate(argv))
+    return f'powershell.exe -NoProfile -WindowStyle Hidden -Command "& {inner}"'
+
+
+def _windows(install: bool) -> list[str]:
+    out = []
+    for name, cmd in SERVICES.items():
+        task = f"Jarvis-{name}"
+        subprocess.run(["schtasks", "/Delete", "/TN", task, "/F"], capture_output=True)
+        if install:
+            subprocess.run(
+                ["schtasks", "/Create", "/TN", task, "/SC", "ONLOGON", "/RL", "LIMITED",
+                 "/TR", windows_command(_resolve(cmd)), "/F"],
+                check=True,
+                capture_output=True,
+            )
+            subprocess.run(["schtasks", "/Run", "/TN", task], capture_output=True)
+            out.append(f"✅ {name} läuft (Aufgabenplanung, startet bei jeder Anmeldung)")
+        else:
+            out.append(f"🗑  {name} entfernt")
+    return out
+
+
+def apply(install: bool = True) -> list[str]:
+    system = platform.system()
+    if system == "Darwin":
+        return _mac(install)
+    if system == "Linux":
+        return _linux(install)
+    if system == "Windows":
+        return _windows(install)
+    raise RuntimeError(f"Betriebssystem nicht unterstützt: {system} ({sys.platform})")

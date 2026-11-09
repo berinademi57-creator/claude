@@ -23,6 +23,19 @@ def main(argv: list[str] | None = None) -> int:
     tg = sub.add_parser("test-telegram", help="Test-Nachricht über Telegram")
     tg.add_argument("text", nargs="?", default="Jarvis ist online ✅")
     sub.add_parser("where", help="Zeigt, wo die Einstellungen liegen")
+    hud = sub.add_parser("hud", help="Jarvis-Oberfläche starten (http://localhost:8765)")
+    hud.add_argument("--host", default=None)
+    hud.add_argument("--port", type=int, default=None)
+    hud.add_argument("--demo", action="store_true", help="Beispiel-Gesundheitsdaten anzeigen")
+    auto = sub.add_parser("autostart", help="Jarvis immer im Hintergrund laufen lassen")
+    auto.add_argument("aktion", choices=["an", "aus"], nargs="?", default="an")
+    con = sub.add_parser("connect", help="Connector verbinden (higgsfield, canva, notion, figma, 21st)")
+    con.add_argument("name")
+    dis = sub.add_parser("disconnect", help="Connector entfernen")
+    dis.add_argument("name")
+    sub.add_parser("connectors", help="Verfügbare Connectoren anzeigen")
+    sub.add_parser("status", help="Welche Zugänge fehlen noch?")
+    sub.add_parser("register", help="jarvis-plus in OpenJarvis eintragen (macht der Installer)")
 
     args = parser.parse_args(argv)
     settings = load_settings()
@@ -58,6 +71,44 @@ def main(argv: list[str] | None = None) -> int:
             print(telegram_me(settings, args.text))
         elif args.cmd == "where":
             print(f"Einstellungen: {ENV_FILE}")
+        elif args.cmd == "hud":
+            import os
+
+            from .hud_server import run
+
+            if args.demo:
+                os.environ["JARVIS_DEMO"] = "1"
+            run(args.host, args.port)
+        elif args.cmd == "autostart":
+            from .autostart import apply
+
+            print("\n".join(apply(install=args.aktion == "an")))
+        elif args.cmd == "connect":
+            from . import connectors
+
+            connectors.add(args.name, settings)
+            print(connectors.login(args.name, settings))
+            print("Neu starten, damit Jarvis ihn nutzt: jarvis restart")
+        elif args.cmd == "disconnect":
+            from . import connectors
+
+            connectors.remove(args.name)
+            print(f"{args.name} entfernt.")
+        elif args.cmd == "connectors":
+            from . import connectors
+
+            for c in connectors.listing():
+                print(f"{'✅' if c['aktiv'] else '○ '} {c['name']:<11} {c['titel']}")
+        elif args.cmd == "register":
+            from . import connectors
+
+            print("Eingetragen:", connectors.register_self()["command"])
+        elif args.cmd == "status":
+            from .access import status
+
+            for row in status(settings):
+                mark = "✅" if row["verbunden"] else "❌"
+                print(f"{mark} {row['name']:<28} {row['so_gehts']}")
     except KeyboardInterrupt:
         return 130
     except Exception as exc:  # noqa: BLE001

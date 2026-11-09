@@ -119,3 +119,100 @@ def test_quiet_hours():
     assert in_quiet_hours(datetime(2026, 1, 1, 23), 22, 7)
     assert in_quiet_hours(datetime(2026, 1, 1, 3), 22, 7)
     assert not in_quiet_hours(datetime(2026, 1, 1, 12), 22, 7)
+
+
+# ---------------------------------------------------------------- neue Bausteine
+import json as _json
+
+from jarvis_plus import activity, autostart, connectors, websites
+from jarvis_plus.hud_server import choose_model, trim_history
+from jarvis_plus.settings import Settings
+
+
+def test_model_routing_cheap_by_default():
+    s = Settings({})
+    assert choose_model("Wie war mein Schlaf?", s)[0] == "claude-haiku-5-5"
+    assert choose_model("Bau mir eine Landingpage für einen Maler", s)[0] == "claude-sonnet-5-5"
+    assert choose_model("Schreib eine Offerte für Kunde X", s)[0] == "claude-sonnet-5-5"
+    model, text = choose_model("/smart Erklär mir Zinseszins", s)
+    assert model == "claude-sonnet-5-5" and text == "Erklär mir Zinseszins"
+    assert choose_model("/schnell Website-Idee?", s)[0] == "claude-haiku-5-5"
+    custom = Settings({"JARVIS_MODEL_FAST": "fast-x"})
+    assert choose_model("hallo", custom)[0] == "fast-x"
+
+
+def test_trim_history_limits_tokens():
+    hist = [{"role": "user", "content": "x" * 9000}] + [
+        {"role": "assistant" if i % 2 else "user", "content": str(i)} for i in range(30)
+    ] + [{"role": "system", "content": "ignorieren"}]
+    out = trim_history(hist, keep=10)
+    assert len(out) == 9  # system-Nachricht fliegt raus
+    assert all(m["role"] in ("user", "assistant") for m in out)
+    assert len(trim_history([{"role": "user", "content": "y" * 9000}])[0]["content"]) == 4000
+
+
+def test_websites_save_and_safety(tmp_path):
+    import os
+
+    os.environ["JARVIS_SITES_DIR"] = str(tmp_path)
+    try:
+        res = websites.save("Müller Malerei!", {"index.html": "<h1>Hi</h1>", "css/a.css": "h1{}"})
+        assert res["name"] == "mueller-malerei"
+        assert (tmp_path / "mueller-malerei" / "css" / "a.css").exists()
+        assert websites.list_sites()[0]["vorschau"] == "/sites/mueller-malerei/"
+        with pytest.raises(ValueError):
+            websites.save("x", {"index.html": "a", "../../evil.txt": "b"})
+        with pytest.raises(ValueError):
+            websites.save("x", {"style.css": "a"})
+    finally:
+        del os.environ["JARVIS_SITES_DIR"]
+
+
+def test_activity_log_roundtrip(tmp_path):
+    import jarvis_plus.activity as act
+
+    orig = act.log_file
+    act.log_file = lambda: tmp_path / "a.jsonl"
+    try:
+        act.log("tool", "whoop_daten", status="start")
+        events, off = act.read_from(0)
+        assert [e["title"] for e in events] == ["whoop_daten"]
+        act.log("tool", "whoop_daten", status="ok", dauer=0.4)
+        new, off2 = act.read_from(off)
+        assert len(new) == 1 and new[0]["status"] == "ok" and off2 > off
+        assert len(act.recent(10)) == 2
+    finally:
+        act.log_file = orig
+
+
+def test_connectors_keep_existing_entries(tmp_path):
+    orig = connectors.servers_file
+    connectors.servers_file = lambda: tmp_path / "mcp-servers.json"
+    try:
+        (tmp_path / "mcp-servers.json").write_text(_json.dumps([{"name": "eigener", "url": "http://x"}]))
+        connectors.add("higgsfield", Settings({}))
+        connectors.add("21st", Settings({"TWENTYFIRST_API_KEY": "k123"}))
+        data = _json.loads((tmp_path / "mcp-servers.json").read_text())
+        names = [d["name"] for d in data]
+        assert names == ["eigener", "higgsfield", "21st"]
+        assert "https://mcp.higgsfield.ai/mcp" in data[1]["args"]
+        assert "x-api-key:k123" in data[2]["args"]
+        with pytest.raises(RuntimeError):
+            connectors.add("21st", Settings({}))  # Key fehlt → klare Meldung
+        connectors.remove("higgsfield")
+        assert [c["name"] for c in connectors.listing() if c["aktiv"]] == ["21st"]
+    finally:
+        connectors.servers_file = orig
+
+
+def test_autostart_files():
+    plist = autostart.launchd_plist("jarvis-hud", ["/u/bin/jarvis-plus", "hud"], Path("/tmp/logs"))
+    assert "<string>/u/bin/jarvis-plus</string>" in plist and "<key>KeepAlive</key><true/>" in plist
+    unit = autostart.systemd_unit("jarvis-watch", ["/u/bin/jarvis-plus", "watch"])
+    assert "ExecStart=/u/bin/jarvis-plus watch" in unit and "Restart=always" in unit
+    assert "After=openjarvis.service" in unit
+    cmd = autostart.windows_command([r"C:\Users\b\.local\bin\jarvis.exe", "serve"])
+    assert "-WindowStyle Hidden" in cmd and r"'C:\Users\b\.local\bin\jarvis.exe' serve" in cmd
+
+
+from pathlib import Path  # noqa: E402

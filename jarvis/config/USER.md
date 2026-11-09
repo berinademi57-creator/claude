@@ -1,14 +1,17 @@
 # Über mich (Kurzprofil – füll das aus!)
 
-- Name: Berin
-- Alter: 16
-- Wohnort / Zeitzone: Europe/Berlin
-- Sprache: Deutsch
+Tipp: Wenn du das private Paket (`jarvis/private/`) hast, wird diese Vorlage
+automatisch durch dein ausgefülltes Profil ersetzt.
+
+- Name:
+- Alter:
+- Wohnort / Zeitzone: Europe/Zurich
+- Sprache: Deutsch (Schweiz)
 
 ## Ziele
-- Fitness: (z.B. Muskelaufbau, Ziel-Gewicht, Sportart)
-- Business: (was machst du, was willst du dieses Jahr erreichen?)
-- Persönlich: (Schule, Gewohnheiten, Skills)
+- Fitness:
+- Business:
+- Persönlich:
 
 ## Business
 - Was ich anbiete:
@@ -18,12 +21,12 @@
 
 ## Alltag
 - Schule/Arbeit von–bis:
-- Training: (Tage, Uhrzeit)
+- Training:
 - Schlafenszeit / Aufstehen:
 
 ## Geräte
-- Whoop: ja
-- Garmin: (Modell)
-- Handy: iPhone
+- Whoop:
+- Garmin:
+- Handy:
 
 Mehr Details sammelt Jarvis automatisch in ~/.openjarvis/ueber-mich.md.

@@ -9,6 +9,9 @@ description = "Persönliche Erweiterungen für OpenJarvis: Whoop, Garmin, Stress
 requires-python = ">=3.10"
 dependencies = [
     "mcp>=1.6",
+    "starlette>=0.37",
+    "uvicorn>=0.29",
+    "websockets>=14",
 ]
 
 [project.optional-dependencies]
@@ -22,6 +25,9 @@ jarvis-plus = "jarvis_plus.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+jarvis_plus = ["hud/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -6,10 +6,12 @@ funktioniert auch mit jedem anderen MCP-Client (z.B. Claude Desktop).
 
 from __future__ import annotations
 
+import functools
 import json
+import time
 from typing import Any, Callable
 
-from . import customers, garmin, instagram, phone, profile, stress, whoop
+from . import access, activity, customers, garmin, instagram, phone, profile, stress, websites, whoop
 from .settings import load_settings
 
 try:  # mcp >= 2
@@ -20,11 +22,58 @@ except ImportError:  # mcp 1.x
 INSTRUCTIONS = (
     "Persönliche Werkzeuge: Gesundheit (Whoop, Garmin, Stress), Anrufe/SMS/"
     "Telegram an den Nutzer, Instagram, Kunden-CRM und das Profil 'über mich'. "
-    "Vor Instagram-Posts und Kommentar-Antworten immer erst den Text zeigen und "
-    "die Bestätigung des Nutzers abwarten."
+    "Vor Instagram-Posts, Kommentar-Antworten und dem Veröffentlichen von Websites "
+    "immer erst zeigen, was passiert, und die Bestätigung des Nutzers abwarten. "
+    "Fehlt ein Zugang, sag dem Nutzer genau, was er einrichten muss (zugriffe_status)."
 )
 
-mcp = _Server("jarvis-plus", instructions=INSTRUCTIONS)
+_server = _Server("jarvis-plus", instructions=INSTRUCTIONS)
+
+
+class _LoggedServer:
+    """Wie der MCP-Server, aber jeder Tool-Aufruf landet im Aktivitäts-Protokoll."""
+
+    def __init__(self, inner: Any) -> None:
+        self._inner = inner
+
+    def tool(self, *args: Any, **kwargs: Any) -> Callable:
+        register = self._inner.tool(*args, **kwargs)
+
+        def decorator(fn: Callable) -> Callable:
+            @functools.wraps(fn)
+            def wrapper(*a: Any, **kw: Any) -> Any:
+                started = time.time()
+                activity.log("tool", fn.__name__, status="start", detail=_short(kw))
+                result = fn(*a, **kw)
+                failed = isinstance(result, str) and result.startswith("FEHLER")
+                activity.log(
+                    "tool",
+                    fn.__name__,
+                    status="error" if failed else "ok",
+                    detail=result[:300] if failed else "",
+                    dauer=round(time.time() - started, 2),
+                )
+                return result
+
+            return register(wrapper)
+
+        return decorator
+
+    def run(self, *args: Any, **kwargs: Any) -> None:
+        self._inner.run(*args, **kwargs)
+
+
+def _short(kwargs: dict[str, Any]) -> str:
+    parts = []
+    for key, value in kwargs.items():
+        if "html" in key or "json" in key:
+            continue  # grosse Inhalte nicht ins Protokoll
+        text = str(value).replace("\n", " ")
+        parts.append(f"{key}={text[:60]}{'…' if len(text) > 60 else ''}")
+    return ", ".join(parts)
+
+
+mcp = _LoggedServer(_server)
 
 
 def _run(fn: Callable[[], Any]) -> str:
@@ -194,6 +243,45 @@ def instagram_foto_posten(bild_url: str, caption: str) -> str:
 def instagram_statistiken() -> str:
     """Reichweite, Aufrufe und Profilbesuche von heute."""
     return _run(lambda: instagram.insights(load_settings()))
+
+
+# ---------------------------------------------------------------- Websites
+
+
+@mcp.tool()
+def website_speichern(name: str, index_html: str, weitere_dateien_json: str = "") -> str:
+    """Speichert eine Website (index.html + optional weitere Dateien als JSON {"pfad": "inhalt"}). Danach sofort live im HUD sichtbar."""
+
+    def go() -> Any:
+        files = {"index.html": index_html}
+        if weitere_dateien_json.strip():
+            files.update(json.loads(weitere_dateien_json))
+        result = websites.save(name, files)
+        activity.log("website", result["name"], status="ok", vorschau=result["vorschau"])
+        return result
+
+    return _run(go)
+
+
+@mcp.tool()
+def websites_liste() -> str:
+    """Alle gebauten Websites mit Vorschau- und Live-Link."""
+    return _run(websites.list_sites)
+
+
+@mcp.tool()
+def website_veroeffentlichen(name: str) -> str:
+    """Stellt eine gespeicherte Website auf Netlify online. NUR nach ausdrücklicher Bestätigung des Nutzers aufrufen."""
+    return _run(lambda: websites.publish(load_settings(), name))
+
+
+# ---------------------------------------------------------------- Zugriffe
+
+
+@mcp.tool()
+def zugriffe_status() -> str:
+    """Welche Zugänge (APIs, Connectoren) eingerichtet sind und was fehlt, mit Anleitung. Nutzen, wenn etwas nicht klappt."""
+    return _run(lambda: access.missing_summary(load_settings()))
 
 
 def main() -> None:

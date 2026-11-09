@@ -6,15 +6,18 @@
 
 # ─── Gehirn ─────────────────────────────────────────────────────
 # Variante A (Standard): Claude über die Anthropic-API.
-#   Beste Qualität für Coach, Business und Tool-Nutzung. Kostet pro Nutzung.
+#   Haiku = sehr schnell und günstig für den Alltag (Telegram, Fragen, Erinnerungen).
+#   Das HUD schaltet bei Websites/Code/Strategie automatisch auf Sonnet
+#   (JARVIS_MODEL_FAST / JARVIS_MODEL_SMART in jarvis-plus.env).
+#   Prompt-Caching ist bei Claude automatisch aktiv, das spart zusätzlich Kosten.
 [engine]
 default = "cloud"
 
 [intelligence]
-default_model = "claude-sonnet-5-5"
+default_model = "claude-haiku-5-5"
 provider = "anthropic"
 temperature = 0.6
-max_tokens = 2048
+max_tokens = 8192   # genug Platz für eine komplette Website in einer Antwort
 
 # Variante B: komplett lokal und kostenlos (braucht einen starken PC).
 # Dafür die vier Zeilen oben auskommentieren und diese aktivieren:
@@ -26,18 +29,21 @@ max_tokens = 2048
 # ─── Agent (wie Jarvis denkt und welche Werkzeuge er hat) ────────
 [agent]
 default_agent = "orchestrator"
-max_turns = 15
+max_turns = 12
 context_from_memory = true
 # Eingebaute Werkzeuge. Die jarvis-plus-Werkzeuge (Whoop, Garmin,
 # Stress, Anrufe, Instagram, Kunden, Über-mich) kommen automatisch über MCP dazu.
 tools = "think,calculator,web_search,get_weather,user_profile_manage,memory_manage,knowledge_search,schedule_task,list_scheduled_tasks,pause_scheduled_task,resume_scheduled_task,cancel_scheduled_task,calendar_upcoming,calendar_search,channel_send,pdf_extract,file_read,file_write"
 
 # Persönlichkeit + Infos über dich liegen in:
-#   ~/.openjarvis/SOUL.md   (wer Jarvis ist: dein Coach)
-#   ~/.openjarvis/USER.md   (Kurzprofil über dich)
+#   ~/.openjarvis/SOUL.md    (wer Jarvis ist: Coach + Business-Partner)
+#   ~/.openjarvis/USER.md    (Kurzprofil über dich)
+#   ~/.openjarvis/MEMORY.md  (dein Business-Wissen, z.B. ademidigital)
+#   ~/.openjarvis/skills/    (Website-Skills, Marken-Skill …)
 [system_prompt]
 soul_max_chars = 6000
 user_max_chars = 3000
+memory_max_chars = 4000
 
 # Langzeitgedächtnis: Jarvis merkt sich automatisch Fakten aus Gesprächen.
 # Ansehen/Löschen: `jarvis memory list` / `jarvis memory clear`
@@ -54,7 +60,8 @@ default_backend = "sqlite"
 enabled = true
 servers = "mcp-servers.json"
 
-# ─── Server (Desktop-App / Browser-Oberfläche) ──────────────────
+# ─── Server (API für HUD, Desktop-App, Telegram) ────────────────
+# Das HUD (jarvis-plus hud, Port 8765) spricht mit diesem Server.
 [server]
 host = "127.0.0.1"
 port = 8000
@@ -76,6 +83,8 @@ parse_mode = "Markdown"
 [speech]
 backend = "auto"
 language = "de"
+# Im HUD läuft Sprache kostenlos über den Browser (Chrome/Edge/Safari).
+# Diese Einstellungen gelten für `jarvis` im Terminal / die Desktop-App.
 tts_backend = "openai_tts"   # klingt natürlich auf Deutsch; braucht OPENAI_API_KEY
 voice_id = "onyx"
 voice_speed = 1.05
@@ -84,7 +93,7 @@ voice_speed = 1.05
 [proactive]
 enabled = true
 schedule = "0 7 * * *"
-timezone = "Europe/Berlin"
+timezone = "Europe/Zurich"
 notification_channel = ""   # ← z.B. "telegram:123456789"
 
 [telemetry]

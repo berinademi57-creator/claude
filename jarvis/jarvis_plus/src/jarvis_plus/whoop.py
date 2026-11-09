@@ -16,7 +16,7 @@ from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Any
 
-from . import http
+from . import net as http
 from .settings import Settings, data_path, write_private
 
 AUTH_URL = "https://api.prod.whoop.com/oauth/oauth2/auth"

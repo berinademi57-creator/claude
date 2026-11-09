@@ -12,7 +12,7 @@ from __future__ import annotations
 import time
 from typing import Any
 
-from . import http
+from . import net as http
 from .settings import Settings
 
 

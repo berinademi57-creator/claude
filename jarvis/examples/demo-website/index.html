@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOIR GYM: Stärker als gestern</title>
+<meta name="description" content="Demo-Landingpage, gebaut von Jarvis. Fiktives Fitnessstudio.">
+<meta property="og:title" content="NOIR GYM: Stärker als gestern">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050404;--red:#ff2d20;--orange:#ff7a2f;--text:#f6f1ee;--muted:#9a908b;--line:rgba(255,60,40,.18)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Archivo,system-ui,sans-serif;overflow-x:hidden}
+.mono{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+a{color:inherit;text-decoration:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(18px,4vw,48px);
+  background:linear-gradient(#050404ee,#05040400)}
+.logo{font-weight:900;letter-spacing:.08em}.logo b{color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;font-weight:800;border-radius:99px;padding:15px 26px;
+  box-shadow:0 0 30px rgba(255,45,32,.55);transition:transform .2s,box-shadow .2s;border:0;cursor:pointer;font-size:15px;font-family:inherit}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(255,45,32,.85)}
+.btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none}
+header{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;padding:120px 18px 80px;overflow:hidden}
+#fx{position:absolute;inset:0;width:100%;height:100%}
+header::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 55%,rgba(255,45,32,.22),transparent 70%);pointer-events:none}
+.hero{position:relative;z-index:2;max-width:1100px}
+h1{font-size:clamp(52px,12vw,168px);line-height:.86;font-weight:900;letter-spacing:-.045em;text-transform:uppercase;margin:22px 0}
+h1 .w{display:inline-block;opacity:0;transform:translateY(40px) rotate(4deg);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
+h1 .r{color:var(--red);text-shadow:0 0 40px rgba(255,45,32,.6)}
+@keyframes up{to{opacity:1;transform:none}}
+.lead{font-size:clamp(17px,2vw,21px);color:var(--muted);max-width:620px;margin:0 auto 34px;line-height:1.5}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.marquee{border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:18px 0;background:#0a0606}
+.marquee div{display:inline-block;animation:mq 22s linear infinite;font-weight:900;font-size:28px;text-transform:uppercase;letter-spacing:.02em}
+.marquee span{color:var(--red);margin:0 26px}
+@keyframes mq{to{transform:translateX(-50%)}}
+section{padding:clamp(70px,10vw,130px) clamp(18px,5vw,64px);max-width:1240px;margin:auto}
+h2{font-size:clamp(36px,6vw,76px);font-weight:900;letter-spacing:-.035em;line-height:.95;text-transform:uppercase;margin:14px 0 40px}
+h2 em{font-style:normal;color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.stat{border:1px solid var(--line);border-radius:18px;padding:28px;background:linear-gradient(160deg,#120808,#070505)}
+.stat b{display:block;font-size:clamp(44px,6vw,64px);font-weight:900;letter-spacing:-.04em}
+.stat b i{font-style:normal;color:var(--red)}
+.reveal{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.wheel-wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.wheel{position:relative;width:min(420px,80vw);aspect-ratio:1;margin:auto}
+.wheel canvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 60px rgba(255,45,32,.35);transition:transform 4.5s cubic-bezier(.12,.8,.1,1)}
+.wheel::after{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%);border:14px solid transparent;border-top:26px solid #fff;filter:drop-shadow(0 0 8px var(--red))}
+#prize{margin-top:20px;font-weight:800;font-size:20px;min-height:28px;color:var(--orange)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.plan{border:1px solid var(--line);border-radius:22px;padding:30px;transition:transform .3s,border-color .3s}
+.plan:hover{transform:translateY(-6px) rotate(-.4deg);border-color:var(--red)}
+.plan.hot{background:linear-gradient(160deg,#2a0b07,#0b0504);border-color:var(--red);box-shadow:0 0 50px rgba(255,45,32,.2)}
+.plan .p{font-size:46px;font-weight:900;margin:14px 0}.plan .p small{font-size:15px;color:var(--muted)}
+.plan ul{list-style:none;display:grid;gap:9px;margin:18px 0 26px;color:var(--muted)}
+.plan li::before{content:"✓ ";color:var(--red);font-weight:900}
+footer{border-top:1px solid var(--line);padding:40px 18px;text-align:center}
+@media (max-width:820px){.wheel-wrap{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}h1 .w,.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav><div class="logo">NOIR<b>/</b>GYM</div><a class="btn ghost" href="#preise">Preise</a></nav>
+
+<header>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="hero">
+    <div class="mono">● Demo · Fiktives Studio · Gebaut von Jarvis</div>
+    <h1><span class="w">Stärker</span> <span class="w">als</span><br><span class="w r">gestern.</span></h1>
+    <p class="lead">Training, das sich an deine Recovery anpasst. Coaches, die mitdenken. Offen rund um die Uhr.</p>
+    <div class="cta"><a class="btn" href="#rad">Gratis-Probetraining drehen ↗</a><a class="btn ghost" href="#preise">Mitgliedschaft ansehen</a></div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div>Kraft<span>●</span>Ausdauer<span>●</span>Mobility<span>●</span>Recovery<span>●</span>24/7<span>●</span>Coaching<span>●</span>Kraft<span>●</span>Ausdauer<span>●</span>Mobility<span>●</span>Recovery<span>●</span>24/7<span>●</span>Coaching<span>●</span></div></div>
+
+<section>
+  <div class="mono reveal">Warum Noir</div>
+  <h2 class="reveal">Weniger Ausreden.<br><em>Mehr Fortschritt.</em></h2>
+  <div class="stats">
+    <div class="stat reveal"><b><span data-count="24">0</span><i>/7</i></b><span class="mono">Geöffnet</span></div>
+    <div class="stat reveal"><b><span data-count="1200">0</span><i>m²</i></b><span class="mono">Trainingsfläche</span></div>
+    <div class="stat reveal"><b><span data-count="15">0</span><i>min</i></b><span class="mono">Check-in mit Coach</span></div>
+  </div>
+</section>
+
+<section id="rad">
+  <div class="wheel-wrap">
+    <div class="reveal">
+      <div class="mono">Glücksrad</div>
+      <h2>Dreh.<br><em>Gewinn.</em><br>Trainier.</h2>
+      <p class="lead" style="margin:0 0 26px">Jeder Dreh gewinnt. Einmal pro Besuch.</p>
+      <button class="btn" id="spin">Jetzt drehen</button>
+      <div id="prize" aria-live="polite"></div>
+    </div>
+    <div class="wheel reveal"><canvas id="wheel" width="600" height="600"></canvas></div>
+  </div>
+</section>
+
+<section id="preise">
+  <div class="mono reveal">Mitgliedschaft</div>
+  <h2 class="reveal">Einfach.<br><em>Ehrlich.</em></h2>
+  <div class="plans">
+    <div class="plan reveal"><div class="mono">Basic</div><div class="p">49.– <small>/ Monat</small></div><ul><li>24/7 Zugang</li><li>App mit Trainingsplan</li></ul><a class="btn ghost" href="#">Starten</a></div>
+    <div class="plan hot reveal"><div class="mono" style="color:var(--orange)">Beliebt</div><div class="p">79.– <small>/ Monat</small></div><ul><li>Alles aus Basic</li><li>Monatlicher Coach-Check-in</li><li>Recovery-Zone</li></ul><a class="btn" href="#">Starten</a></div>
+    <div class="plan reveal"><div class="mono">Pro</div><div class="p">129.– <small>/ Monat</small></div><ul><li>Alles aus Plus</li><li>Personal Training 2×/Monat</li><li>Ernährungsplan</li></ul><a class="btn ghost" href="#">Starten</a></div>
+  </div>
+</section>
+
+<footer><div class="mono">Demo-Seite · Alle Inhalte fiktiv · Gebaut mit Jarvis</div></footer>
+
+<script>
+// Wörter der Headline nacheinander einblenden
+document.querySelectorAll("h1 .w").forEach((w,i)=>w.style.animationDelay=(.15+i*.14)+"s");
+
+// Partikel-Feld, reagiert auf Maus/Finger
+(()=>{const c=document.getElementById("fx"),x=c.getContext("2d");let W,H,m={x:-999,y:-999};
+const N=matchMedia("(max-width:700px)").matches?60:130,P=[];
+function rs(){W=c.width=c.offsetWidth*devicePixelRatio;H=c.height=c.offsetHeight*devicePixelRatio}
+addEventListener("resize",rs);rs();
+for(let i=0;i<N;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6});
+addEventListener("pointermove",e=>{const r=c.getBoundingClientRect();m={x:(e.clientX-r.left)*devicePixelRatio,y:(e.clientY-r.top)*devicePixelRatio}});
+const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+(function f(){x.clearRect(0,0,W,H);const L=140*devicePixelRatio;
+for(const p of P){const dx=p.x-m.x,dy=p.y-m.y,d=Math.hypot(dx,dy);if(d<L){p.vx+=dx/d*.05;p.vy+=dy/d*.05}
+p.vx*=.99;p.vy*=.99;p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+x.fillStyle="rgba(255,90,60,.8)";x.fillRect(p.x,p.y,2*devicePixelRatio,2*devicePixelRatio)}
+x.lineWidth=devicePixelRatio;for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+if(d<L){x.strokeStyle=`rgba(255,45,32,${(1-d/L)*.35})`;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+if(!reduce)requestAnimationFrame(f)})()})();
+
+// Scroll-Reveal + Zähler
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add("in");
+e.target.querySelectorAll("[data-count]").forEach(n=>{const t=+n.dataset.count,s=performance.now();
+(function k(now){const p=Math.min(1,(now-s)/1400);n.textContent=Math.round(t*(1-Math.pow(1-p,3))).toLocaleString("de-CH");if(p<1)requestAnimationFrame(k)})(s)});
+io.unobserve(e.target)}),{threshold:.2});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+// Glücksrad
+(()=>{const prizes=["Probetraining","Shake gratis","Coach-Check","1 Woche gratis","Handtuch","Probetraining"],
+cols=["#ff2d20","#1a0a08","#ff7a2f","#1a0a08","#ff2d20","#1a0a08"],cv=document.getElementById("wheel"),g=cv.getContext("2d"),n=prizes.length,a=2*Math.PI/n;
+prizes.forEach((p,i)=>{g.beginPath();g.moveTo(300,300);g.arc(300,300,300,i*a-Math.PI/2,(i+1)*a-Math.PI/2);g.fillStyle=cols[i];g.fill();
+g.save();g.translate(300,300);g.rotate(i*a+a/2-Math.PI/2);g.fillStyle="#fff";g.font="800 30px Archivo, sans-serif";g.textAlign="right";g.fillText(p,270,10);g.restore()});
+let rot=0;document.getElementById("spin").onclick=function(){this.disabled=true;const i=Math.floor(Math.random()*n);
+rot+=360*6+(360-(i*360/n+180/n))-(rot%360);cv.style.transform=`rotate(${rot}deg)`;
+setTimeout(()=>{document.getElementById("prize").textContent="Gewonnen: "+prizes[i]+" 🎉";this.disabled=false},4600)}})();
+</script>
+</body>
+</html>

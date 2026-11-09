@@ -1,6 +1,6 @@
 # Kalorien-Tracker + Whoop
 
-> 🤖 **Neu: Jarvis** (OpenJarvis + Whoop, Garmin, Stress-Check, Anrufe, Instagram, Kunden-CRM): siehe [`jarvis/README.md`](jarvis/README.md).
+> 🤖 **Neu: Jarvis** (HUD mit Stimme, Whoop/Garmin/Stress, Anrufe, Websites bauen, Connectoren, Autostart): siehe [`jarvis/README.md`](jarvis/README.md).
 
 Eine React-Native-App (Expo, iOS + Android aus **einer** Codebase) für
 Kalorien-Tracking mit **drei Eingabewegen** und einer **modularen

@@ -32,3 +32,6 @@ credentials.toml
 __pycache__/
 *.egg-info/
 .pytest_cache/
+
+# Jarvis: privates Paket (Profil, Business-Wissen) – niemals ins öffentliche Repo
+jarvis/private/

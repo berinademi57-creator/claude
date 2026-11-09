@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from xml.sax.saxutils import escape
 
-from . import http
+from . import net as http
 from .settings import Settings
 
 TWILIO_API = "https://api.twilio.com/2010-04-01/Accounts"
