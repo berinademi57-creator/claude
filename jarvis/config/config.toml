@@ -31,9 +31,15 @@ max_tokens = 8192   # genug Platz für eine komplette Website in einer Antwort
 default_agent = "orchestrator"
 max_turns = 12
 context_from_memory = true
-# Eingebaute Werkzeuge. Die jarvis-plus-Werkzeuge (Whoop, Garmin,
-# Stress, Anrufe, Instagram, Kunden, Über-mich) kommen automatisch über MCP dazu.
-tools = "think,calculator,web_search,get_weather,user_profile_manage,memory_manage,knowledge_search,schedule_task,list_scheduled_tasks,pause_scheduled_task,resume_scheduled_task,cancel_scheduled_task,calendar_upcoming,calendar_search,channel_send,pdf_extract,file_read,file_write"
+# Eingebaute Werkzeuge. Die jarvis-plus-Werkzeuge (Gesundheit, Anrufe, Instagram,
+# Kunden, Websites, Design, Apps/Links öffnen) und die Connectoren (Browser mit
+# deinen Logins, Desktop-Steuerung, Higgsfield …) kommen automatisch über MCP dazu.
+#
+# VOLLER PC-ZUGRIFF: shell_exec, file_*, apply_patch und code_interpreter laufen
+# als dein Benutzer, ohne Einschränkung. Jarvis fragt laut SOUL.md vor allem,
+# was löscht, installiert, bezahlt oder etwas an andere schickt.
+# Weniger Zugriff? Einfach die Namen aus der Liste entfernen.
+tools = "think,calculator,web_search,get_weather,user_profile_manage,memory_manage,knowledge_search,schedule_task,list_scheduled_tasks,pause_scheduled_task,resume_scheduled_task,cancel_scheduled_task,calendar_upcoming,calendar_search,channel_send,pdf_extract,file_read,file_write,shell_exec,apply_patch,code_interpreter,git_status,git_diff,git_commit,git_log,http_request"
 
 # Persönlichkeit + Infos über dich liegen in:
 #   ~/.openjarvis/SOUL.md    (wer Jarvis ist: Coach + Business-Partner)
@@ -41,7 +47,7 @@ tools = "think,calculator,web_search,get_weather,user_profile_manage,memory_mana
 #   ~/.openjarvis/MEMORY.md  (dein Business-Wissen, z.B. ademidigital)
 #   ~/.openjarvis/skills/    (Website-Skills, Marken-Skill …)
 [system_prompt]
-soul_max_chars = 6000
+soul_max_chars = 8000
 user_max_chars = 3000
 memory_max_chars = 4000
 

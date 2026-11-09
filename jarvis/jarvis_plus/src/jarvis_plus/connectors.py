@@ -17,6 +17,20 @@ from typing import Any
 
 from .settings import HOME, Settings, load_settings, write_private
 
+# Lokale Connectoren (laufen auf deinem PC, kein Login nötig)
+LOCAL: dict[str, dict[str, Any]] = {
+    "browser": {
+        "titel": "Browser mit deinen Logins (Playwright, Extension-Modus)",
+        "command": "npx",
+        # Token aus der Chrome-Erweiterung → credentials.toml [browser], damit nicht
+        # jedes Mal bestätigt werden muss (PLAYWRIGHT_MCP_EXTENSION_TOKEN).
+        "args": ["-y", "@playwright/mcp@latest", "--extension"],
+    },
+    "desktop": {
+        "titel": "Desktop-Steuerung (Windows-MCP bzw. AppleScript auf dem Mac)",
+    },
+}
+
 CATALOG: dict[str, dict[str, Any]] = {
     "higgsfield": {
         "titel": "Higgsfield (Bilder & Videos, braucht Abo, kostet Credits)",
@@ -50,7 +64,24 @@ def _save(servers: list[dict[str, Any]]) -> None:
     write_private(servers_file(), json.dumps(servers, indent=2))
 
 
+def local_entry(name: str, system: str | None = None) -> dict[str, Any]:
+    import platform
+
+    system = (system or platform.system()).lower()
+    if name == "desktop":
+        if system == "windows":
+            return {"name": "desktop", "command": shutil.which("uvx") or "uvx", "args": ["windows-mcp"]}
+        if system == "darwin":
+            return {"name": "desktop", "command": shutil.which("npx") or "npx",
+                    "args": ["-y", "@steipete/macos-automator-mcp@latest"]}
+        raise RuntimeError("Desktop-Steuerung gibt es für Windows und macOS.")
+    item = LOCAL[name]
+    return {"name": name, "command": shutil.which(item["command"]) or item["command"], "args": list(item["args"])}
+
+
 def entry_for(name: str, settings: Settings | None = None) -> dict[str, Any]:
+    if name in LOCAL:
+        return local_entry(name)
     item = CATALOG[name]
     args = ["-y", "mcp-remote@latest", item["url"]]
     if item.get("header"):
@@ -60,8 +91,8 @@ def entry_for(name: str, settings: Settings | None = None) -> dict[str, Any]:
 
 
 def add(name: str, settings: Settings | None = None) -> dict[str, Any]:
-    if name not in CATALOG:
-        raise ValueError(f"Unbekannt: {name}. Verfügbar: {', '.join(CATALOG)}")
+    if name not in CATALOG and name not in LOCAL:
+        raise ValueError(f"Unbekannt: {name}. Verfügbar: {', '.join([*LOCAL, *CATALOG])}")
     servers = [s for s in _load() if s.get("name") != name]
     entry = entry_for(name, settings)
     servers.append(entry)
@@ -86,11 +117,13 @@ def remove(name: str) -> None:
 
 def listing() -> list[dict[str, Any]]:
     active = {s.get("name") for s in _load()}
-    return [{"name": k, "titel": v["titel"], "aktiv": k in active} for k, v in CATALOG.items()]
+    return [{"name": k, "titel": v["titel"], "aktiv": k in active} for k, v in {**LOCAL, **CATALOG}.items()]
 
 
 def login(name: str, settings: Settings, timeout: int = 180) -> str:
     """Einmal mcp-remote starten, damit der Browser-Login passiert."""
+    if name in LOCAL:
+        return f"✅ {name} eingetragen (läuft lokal, kein Login nötig)."
     if not shutil.which("npx"):
         raise RuntimeError("Node.js fehlt (npx nicht gefunden). Installiere Node.js 22 von nodejs.org.")
     entry = entry_for(name, settings)

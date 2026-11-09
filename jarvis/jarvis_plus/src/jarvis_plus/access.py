@@ -89,6 +89,18 @@ INTEGRATIONS: list[Integration] = [
                 "Key auf 21st.dev/mcp → TWENTYFIRST_API_KEY, dann `jarvis-plus connect 21st`"),
     Integration("node", "Node.js (für Connectoren)", "System", lambda s: bool(shutil.which("npx")),
                 "Node.js 22 installieren: nodejs.org (Windows: winget install OpenJS.NodeJS.LTS)"),
+    Integration("browser", "Browser mit deinen Logins", "PC", _mcp("browser"),
+                "Chrome-Erweiterung „Playwright MCP Bridge“ installieren, dann `jarvis-plus connect browser`"),
+    Integration("desktop", "Desktop-Apps steuern", "PC", _mcp("desktop"),
+                "`jarvis-plus connect desktop` (Mac: danach Bedienungshilfen-Zugriff erlauben)"),
+    Integration("tailscale", "Tailscale (Handy-Zugang)", "System", lambda s: bool(shutil.which("tailscale")),
+                "tailscale.com installieren (PC + Handy), gleiches Konto"),
+    Integration("telefon", "Telefon-Leitung (mit Jarvis telefonieren)", "Kontakt",
+                lambda s: all(s.get(k) for k in ("PHONE_SECRET", "PHONE_PUBLIC_URL", "TWILIO_AUTH_TOKEN")),
+                "Twilio eintragen, Tailscale installieren, dann `jarvis-plus telefon-einrichten`"),
+    Integration("design-db", "Design-Datenbank (UI/UX Pro Max)", "Websites",
+                lambda s: (HOME / "vendor" / "ui-ux-pro-max").exists(),
+                "Installer erneut ausführen (lädt sie automatisch)"),
 ]
 
 

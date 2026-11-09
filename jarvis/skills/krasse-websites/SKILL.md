@@ -9,12 +9,23 @@ description: >-
 
 # Krasse Websites
 
-Ziel: Seiten, bei denen man stehen bleibt. Kino-Look, flüssige Animationen und trotzdem
-schnell, mobil perfekt und verständlich. Kombiniere diesen Ablauf mit den installierten
-Design-Skills `frontend-design`, `impeccable`, `design-taste-frontend` und
-`web-design-guidelines`. Die liefern Geschmack und Qualitätsregeln, dieser Skill den Ablauf.
+Ziel: Seiten, bei denen man stehen bleibt. Kino-Look, flüssige Animationen, 3D wo es passt,
+und trotzdem schnell, mobil perfekt und verständlich. Dieser Skill ist der Ablauf. Die
+Detail-Skills liefern das Handwerk:
+
+| Wofür | Skills |
+|---|---|
+| Geschmack, Layout, Typo | `frontend-design`, `impeccable`, `design-taste-frontend`, `ui-ux-pro-max`, `improve-ui` |
+| Qualität, Barrierefreiheit | `web-design-guidelines`, `baseline-ui`, `fixing-accessibility`, `frontend-ui-engineering` |
+| Animation | `gsap-core`, `gsap-timeline`, `gsap-scrolltrigger`, `gsap-plugins`, `gsap-performance`, `fixing-motion-performance` |
+| 3D | `threejs-fundamentals`, `-geometry`, `-materials`, `-lighting`, `-shaders`, `-animation`, `-interaction`, `-postprocessing`, `-performance` |
+| Promo-Video zur Website | `remotion-create`, `remotion-best-practices` |
+| Fertige UI-Bausteine | Connector `21st` (falls verbunden) |
 
 ## Ablauf (immer so)
+0. **Design-Recherche**: `design_recherche` mit Branche + Stimmung (z.B. „coiffeur luxus
+   dunkel“, bewegung 1–10) → Farbpalette, Schriften, Stil und GSAP-Snippet. Übernimm das
+   als Basis statt zu raten.
 1. **Brief in einem Satz klären**: Wer, was, für wen, welche eine Aktion soll der Besucher
    machen? Fehlt etwas Wichtiges (Firmenname, Angebot, Kontakt), frag einmal kurz nach.
    Sonst triff sinnvolle Annahmen und sag welche.
@@ -29,7 +40,10 @@ Design-Skills `frontend-design`, `impeccable`, `design-taste-frontend` und
 
 ## Technik
 - Eine Datei, kein Build. Vanilla JS. Bibliotheken nur wenn nötig, von
-  `https://cdnjs.cloudflare.com` mit fester Version (z.B. GSAP 3.12.5, three.js r128).
+  `https://cdnjs.cloudflare.com` mit fester Version, z.B.
+  GSAP + ScrollTrigger 3.12.5 (`/ajax/libs/gsap/3.12.5/gsap.min.js`,
+  `/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js`), three.js r128 (`/ajax/libs/three.js/r128/three.min.js`),
+  Lenis für weiches Scrollen von jsdelivr (`https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js`).
 - Mobile first: 360 px bis 1920 px, keine horizontale Scrollbar, Touch-Ziele ≥ 44 px.
 - Performance: Canvas-Effekte mit `requestAnimationFrame`, Partikelzahl auf dem Handy halbieren,
   `prefers-reduced-motion` respektieren, Bilder `loading="lazy"`.
@@ -45,6 +59,22 @@ Design-Skills `frontend-design`, `impeccable`, `design-taste-frontend` und
   3 Schritten, Preise „ab …“).
 - **Editorial** (Mode, Kunst, Food): grosse Serif-Headlines, asymmetrisches Raster,
   langsame Bild-Reveals.
+
+## 3D-Rezepte (three.js, nur wenn es zur Marke passt: Tech, Gaming, Produkte, Kreativ)
+- **Hero-Objekt**: ein Produkt/Logo-Körper (Torus, Kapsel, Kristall) mit `MeshPhysicalMaterial`
+  (Glanz, Transmission), langsamer Rotation, reagiert auf Maus/Scroll. Ein Licht + Environment.
+- **Partikel-Galaxie**: `Points` mit 3–8k Punkten (Handy: ein Viertel), Farbe der Marke,
+  Scroll verschiebt die Kamera.
+- **Shader-Hintergrund**: Fullscreen-Plane mit Noise-Shader (Aurora, Lava, Wellen),
+  billig für die GPU, sieht teuer aus.
+- Immer: `renderer.setPixelRatio(Math.min(devicePixelRatio, 2))`, Animation pausieren,
+  wenn der Canvas nicht sichtbar ist, Fallback-Bild ohne WebGL.
+
+## Animations-Rezepte (GSAP)
+- Headline Wort für Wort (SplitText oder eigene Spans) mit `stagger`.
+- `ScrollTrigger` mit `scrub` für Bild-Zooms, gepinnte Abschnitte, horizontale Galerien.
+- Zahlen hochzählen, Marquee, magnetische Buttons, Cursor-Follower (nur Desktop).
+- Max. 3 grosse Effekte pro Seite; `prefers-reduced-motion` → alles statisch.
 
 ## Wow-Momente (genau einen oder zwei pro Seite)
 Partikel-Hero, der auf die Maus reagiert · Scroll-Reveal von Headlines Wort für Wort ·

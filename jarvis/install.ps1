@@ -72,6 +72,8 @@ $creds = Join-Path $OJ "credentials.toml"
 if (-not (Test-Path $creds)) { Copy-Item (Join-Path $Here "config\credentials.toml.example") $creds }
 $envf = Join-Path $OJ "jarvis-plus.env"
 if (-not (Test-Path $envf)) { Copy-Item (Join-Path $Here "config\jarvis-plus.env.example") $envf }
+$privEnv = Join-Path $Priv "jarvis-plus.env"
+if (Test-Path $privEnv) { jarvis-plus env-merge $privEnv }
 
 jarvis-plus register
 
@@ -86,22 +88,33 @@ foreach ($root in @((Join-Path $Here "skills"), (Join-Path $Priv "skills"))) {
         Write-Host "  + $($_.Name)"
     }
 }
-$ghSkills = @(
-    @("frontend-design", "https://github.com/anthropics/skills"),
-    @("web-artifacts-builder", "https://github.com/anthropics/skills"),
-    @("theme-factory", "https://github.com/anthropics/skills"),
-    @("impeccable", "https://github.com/pbakaus/impeccable"),
-    @("design-taste-frontend", "https://github.com/Leonxlnx/taste-skill"),
-    @("web-design-guidelines", "https://github.com/vercel-labs/agent-skills")
-)
-foreach ($s in $ghSkills) {
-    $null | jarvis skill install "github:$($s[0])" --url $s[1] --force *> $null
-    if ($LASTEXITCODE -eq 0) { Write-Host "  + $($s[0])" } else { Warn "$($s[0]) nicht installiert (später: jarvis skill install github:$($s[0]) --url $($s[1]))" }
+foreach ($line in Get-Content (Join-Path $Here "skills.txt")) {
+    $line = $line.Trim()
+    if (-not $line -or $line.StartsWith("#")) { continue }
+    $name, $repo = $line -split "\s+", 2
+    $null | jarvis skill install "github:$name" --url $repo --force *> $null
+    if ($LASTEXITCODE -eq 0) { Write-Host "  + $name" } else { Warn "$name nicht installiert (später: jarvis skill install github:$name --url $repo)" }
 }
 
-# 5) Node.js
-if (-not (Get-Command npx -ErrorAction SilentlyContinue)) {
-    Warn "Node.js fehlt (für Connectoren + 'jarvis gui'): winget install OpenJS.NodeJS.LTS"
+# Design-Datenbank (UI/UX Pro Max)
+$vendor = Join-Path $OJ "vendor\ui-ux-pro-max"
+if (Test-Path (Join-Path $vendor ".git")) { git -C $vendor pull -q --ff-only }
+else {
+    New-Item -ItemType Directory -Force -Path (Join-Path $OJ "vendor") | Out-Null
+    git clone -q --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill $vendor
+    if ($LASTEXITCODE -eq 0) { Write-Host "  + Design-Datenbank" } else { Warn "Design-Datenbank nicht geladen (git noetig)" }
+}
+
+# 5) PC-Steuerung: Browser mit deinen Logins + Desktop-Apps (Windows-MCP)
+if (Get-Command npx -ErrorAction SilentlyContinue) {
+    jarvis-plus connect browser | Out-Null
+    Write-Host "  + Browser-Steuerung (Chrome-Erweiterung 'Playwright MCP Bridge' noch installieren)"
+} else {
+    Warn "Node.js fehlt (für Connectoren + Browser-Steuerung): winget install OpenJS.NodeJS.LTS"
+}
+if (Get-Command uvx -ErrorAction SilentlyContinue) {
+    jarvis-plus connect desktop | Out-Null
+    Write-Host "  + Desktop-Steuerung (Windows-MCP)"
 }
 
 # 6) Immer im Hintergrund

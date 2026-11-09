@@ -29,13 +29,17 @@ def main(argv: list[str] | None = None) -> int:
     hud.add_argument("--demo", action="store_true", help="Beispiel-Gesundheitsdaten anzeigen")
     auto = sub.add_parser("autostart", help="Jarvis immer im Hintergrund laufen lassen")
     auto.add_argument("aktion", choices=["an", "aus"], nargs="?", default="an")
-    con = sub.add_parser("connect", help="Connector verbinden (higgsfield, canva, notion, figma, 21st)")
+    con = sub.add_parser("connect", help="Connector verbinden (browser, desktop, higgsfield, canva, notion, figma, 21st)")
     con.add_argument("name")
     dis = sub.add_parser("disconnect", help="Connector entfernen")
     dis.add_argument("name")
     sub.add_parser("connectors", help="Verfügbare Connectoren anzeigen")
     sub.add_parser("status", help="Welche Zugänge fehlen noch?")
     sub.add_parser("register", help="jarvis-plus in OpenJarvis eintragen (macht der Installer)")
+    sub.add_parser("telefon-einrichten", help="Echte Telefonate mit Jarvis einrichten (Twilio + Tailscale)")
+    sub.add_parser("open", help="HUD als eigenes App-Fenster öffnen")
+    merge = sub.add_parser("env-merge", help="Leere Einstellungen aus einer Datei ergänzen (Installer)")
+    merge.add_argument("datei")
 
     args = parser.parse_args(argv)
     settings = load_settings()
@@ -99,6 +103,22 @@ def main(argv: list[str] | None = None) -> int:
 
             for c in connectors.listing():
                 print(f"{'✅' if c['aktiv'] else '○ '} {c['name']:<11} {c['titel']}")
+        elif args.cmd == "telefon-einrichten":
+            from .phone_line import setup
+
+            print("\n".join(setup(settings)))
+            print("Neu starten, damit die Leitung aktiv wird: jarvis-plus autostart")
+        elif args.cmd == "env-merge":
+            from pathlib import Path
+
+            from .settings import merge_env
+
+            keys = merge_env(Path(args.datei))
+            print(f"Übernommen: {', '.join(keys) if keys else 'nichts Neues'}")
+        elif args.cmd == "open":
+            from .pc import open_hud_window
+
+            print(open_hud_window(f"http://localhost:{settings.get_int('HUD_PORT', 8765)}"))
         elif args.cmd == "register":
             from . import connectors
 

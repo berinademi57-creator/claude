@@ -216,3 +216,70 @@ def test_autostart_files():
 
 
 from pathlib import Path  # noqa: E402
+
+
+# ---------------------------------------------------------------- PC, Design, Telefon
+from jarvis_plus import design, pc, phone_line
+from jarvis_plus.settings import merge_env
+
+
+def test_open_url_blocks_dangerous_schemes():
+    for bad in ("javascript:alert(1)", "file:///etc/passwd", "ms-msdt:/id"):
+        with pytest.raises(ValueError):
+            pc.open_url(bad)
+    with pytest.raises(ValueError):
+        pc.open_app("calc; rm -rf /")
+
+
+def test_design_args():
+    assert design.build_args("coiffeur luxus dunkel", projekt="Salon", bewegung=7) == [
+        "coiffeur luxus dunkel", "--design-system", "--format", "markdown", "-p", "Salon", "--motion", "7"]
+    assert design.build_args("scroll reveal", bereich="GSAP") == ["scroll reveal", "--domain", "gsap"]
+    with pytest.raises(ValueError):
+        design.build_args("x", bereich="--evil")
+    with pytest.raises(ValueError):
+        design.build_args("")
+
+
+def test_phone_twiml_and_signature():
+    s = Settings({"PHONE_PUBLIC_URL": "https://pc.tail.ts.net:8443", "PHONE_SECRET": "abc",
+                  "JARVIS_USER_NAME": "Berin"})
+    xml = phone_line.relay_twiml(s, 'Hey "Berin" <3')
+    assert 'url="wss://pc.tail.ts.net:8443/twilio/relay/abc"' in xml
+    assert "&lt;3" in xml and 'language="de-DE"' in xml
+    sig1 = phone_line.twilio_signature("tok", "https://x/y", {"b": "2", "a": "1"})
+    sig2 = phone_line.twilio_signature("tok", "https://x/y", {"a": "1", "b": "2"})
+    assert sig1 == sig2 and sig1 != phone_line.twilio_signature("other", "https://x/y", {"a": "1", "b": "2"})
+    assert phone_line._same_number("+41 79 000 00 00", "+41790000000")
+    assert not phone_line._same_number("", "")
+    with pytest.raises(RuntimeError):
+        phone_line.voice_url(Settings({"PHONE_PUBLIC_URL": "http://unsicher", "PHONE_SECRET": "a"}))
+
+
+def test_speakable_strips_markdown():
+    out = phone_line.speakable("**Recovery 41 %** 💪\n- Schlaf: [Details](https://x.y)\n`code`")
+    assert out == "Recovery 41 % Schlaf: Details code"
+
+
+def test_merge_env_only_fills_empty(tmp_path):
+    target = tmp_path / "t.env"
+    target.write_text("A=behalten\nB=\n")
+    source = tmp_path / "s.env"
+    source.write_text("A=neu\nB=gefuellt\nC=zusatz\nD=\n")
+    assert merge_env(source, target) == ["B", "C"]
+    text = target.read_text()
+    assert "A=behalten" in text and "B=gefuellt" in text and "C=zusatz" in text
+
+
+def test_local_connectors_per_os():
+    assert connectors.local_entry("desktop", "Windows")["args"] == ["windows-mcp"]
+    assert "@steipete/macos-automator-mcp@latest" in connectors.local_entry("desktop", "Darwin")["args"]
+    assert "--extension" in connectors.local_entry("browser")["args"]
+    with pytest.raises(RuntimeError):
+        connectors.local_entry("desktop", "Linux")
+
+
+def test_autostart_window_entries():
+    plist = autostart.launchd_plist("jarvis-window", ["/b/jarvis-plus", "open"], Path("/tmp"), keep_alive=False)
+    assert "<key>KeepAlive</key><false/>" in plist
+    assert "Exec=sh -c 'sleep 15; /b/jarvis-plus open'" in autostart.xdg_desktop_entry(["/b/jarvis-plus", "open"])

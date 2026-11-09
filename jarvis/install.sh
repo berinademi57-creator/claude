@@ -72,6 +72,9 @@ fi
 [[ -f "$OJ_HOME/credentials.toml" ]] || cp "$HERE/config/credentials.toml.example" "$OJ_HOME/credentials.toml"
 [[ -f "$OJ_HOME/jarvis-plus.env" ]] || cp "$HERE/config/jarvis-plus.env.example" "$OJ_HOME/jarvis-plus.env"
 chmod 600 "$OJ_HOME/credentials.toml" "$OJ_HOME/jarvis-plus.env"
+if [[ -f "$PRIV/jarvis-plus.env" ]]; then
+  OPENJARVIS_HOME="$OJ_HOME" jarvis-plus env-merge "$PRIV/jarvis-plus.env" | sed 's/^/  /'
+fi
 
 # jarvis-plus in OpenJarvis eintragen (andere Connectoren bleiben erhalten)
 jarvis-plus register
@@ -91,16 +94,30 @@ gh_skill() {  # $1 = Skill-Name, $2 = Repo
     warn "$1 konnte nicht installiert werden (später: jarvis skill install github:$1 --url $2)"
   fi
 }
-gh_skill frontend-design        https://github.com/anthropics/skills
-gh_skill web-artifacts-builder  https://github.com/anthropics/skills
-gh_skill theme-factory          https://github.com/anthropics/skills
-gh_skill impeccable             https://github.com/pbakaus/impeccable
-gh_skill design-taste-frontend  https://github.com/Leonxlnx/taste-skill
-gh_skill web-design-guidelines  https://github.com/vercel-labs/agent-skills
+# Liste: jarvis/skills.txt (Name + Repo). Design, Animation (GSAP), 3D (Three.js), Video (Remotion)
+while read -r name repo; do
+  [[ -z "$name" || "$name" == \#* ]] && continue
+  gh_skill "$name" "$repo"
+done < "$HERE/skills.txt"
 
-# 5) Node.js für Connectoren (Higgsfield, Canva, Notion …)
-if ! command -v npx >/dev/null 2>&1; then
-  warn "Node.js fehlt (für Connectoren + 'jarvis gui'). Mac: brew install node · Linux: https://nodejs.org"
+# Design-Datenbank (UI/UX Pro Max: Paletten, Schriften, Stile, GSAP-Presets)
+VENDOR="$OJ_HOME/vendor/ui-ux-pro-max"
+if [[ -d "$VENDOR/.git" ]]; then
+  git -C "$VENDOR" pull -q --ff-only || warn "Design-Datenbank: Update fehlgeschlagen"
+else
+  mkdir -p "$OJ_HOME/vendor"
+  git clone -q --depth 1 https://github.com/nextlevelbuilder/ui-ux-pro-max-skill "$VENDOR" \
+    && echo "  ✓ Design-Datenbank" || warn "Design-Datenbank konnte nicht geladen werden (git nötig)"
+fi
+
+# 5) PC-Steuerung: Browser mit deinen Logins + Desktop-Apps
+if command -v npx >/dev/null 2>&1; then
+  jarvis-plus connect browser >/dev/null && echo "  ✓ Browser-Steuerung (Chrome-Erweiterung „Playwright MCP Bridge“ noch installieren)"
+  if [[ "$(uname)" == "Darwin" ]]; then
+    jarvis-plus connect desktop >/dev/null && echo "  ✓ Desktop-Steuerung (macOS)"
+  fi
+else
+  warn "Node.js fehlt (für Connectoren, Browser-Steuerung, 'jarvis gui'). Mac: brew install node · Linux: https://nodejs.org"
 fi
 
 # 6) Immer im Hintergrund

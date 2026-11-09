@@ -2,8 +2,10 @@
 
 Drei Dienste:
   openjarvis   → ``jarvis serve``      (Gehirn, Telegram, API)
-  jarvis-hud   → ``jarvis-plus hud``   (Oberfläche, Port 8765)
+  jarvis-hud   → ``jarvis-plus hud``   (Oberfläche Port 8765, Telefon-Leitung Port 8766)
   jarvis-watch → ``jarvis-plus watch`` (Stress-/Kunden-Wächter)
+Dazu beim Anmelden einmal: ``jarvis-plus open`` → HUD als eigenes App-Fenster
+(abschaltbar mit JARVIS_OPEN_ON_LOGIN=false).
 
 macOS: LaunchAgents · Linux: systemd --user · Windows: Aufgabenplanung
 """
@@ -22,6 +24,13 @@ SERVICES = {
     "jarvis-watch": ["jarvis-plus", "watch"],
 }
 LABEL_PREFIX = "ch.ademidigital."
+WINDOW = ("jarvis-window", ["jarvis-plus", "open"])
+
+
+def _open_on_login() -> bool:
+    from .settings import load_settings
+
+    return load_settings().get("JARVIS_OPEN_ON_LOGIN", "true").lower() != "false"
 
 
 def _resolve(cmd: list[str]) -> list[str]:
@@ -42,8 +51,9 @@ def _log_dir() -> Path:
 # ------------------------------------------------------------------ macOS
 
 
-def launchd_plist(name: str, argv: list[str], log_dir: Path) -> str:
+def launchd_plist(name: str, argv: list[str], log_dir: Path, keep_alive: bool = True) -> str:
     args = "\n".join(f"    <string>{a}</string>" for a in argv)
+    keep = "<true/>" if keep_alive else "<false/>"
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -54,7 +64,7 @@ def launchd_plist(name: str, argv: list[str], log_dir: Path) -> str:
 {args}
   </array>
   <key>RunAtLoad</key><true/>
-  <key>KeepAlive</key><true/>
+  <key>KeepAlive</key>{keep}
   <key>ThrottleInterval</key><integer>20</integer>
   <key>EnvironmentVariables</key>
   <dict><key>PATH</key><string>{Path(argv[0]).parent}:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string></dict>
@@ -79,6 +89,15 @@ def _mac(install: bool) -> list[str]:
         elif plist.exists():
             plist.unlink()
             out.append(f"🗑  {name} entfernt")
+    name, cmd = WINDOW
+    plist = agents / f"{LABEL_PREFIX}{name}.plist"
+    subprocess.run(["launchctl", "unload", str(plist)], capture_output=True)
+    if install and _open_on_login():
+        plist.write_text(launchd_plist(name, _resolve(cmd), _log_dir(), keep_alive=False))
+        subprocess.run(["launchctl", "load", "-w", str(plist)], check=False)
+        out.append("✅ HUD-Fenster öffnet sich beim Anmelden")
+    elif plist.exists():
+        plist.unlink()
     return out
 
 
@@ -122,7 +141,22 @@ def _linux(install: bool) -> list[str]:
             out.append(f"✅ {name} läuft (systemd)")
         # auch ohne Anmeldung weiterlaufen lassen
         subprocess.run(["loginctl", "enable-linger"], capture_output=True)
+    desktop = Path.home() / ".config" / "autostart" / "jarvis-window.desktop"
+    if install and _open_on_login():
+        desktop.parent.mkdir(parents=True, exist_ok=True)
+        desktop.write_text(xdg_desktop_entry(_resolve(WINDOW[1])))
+        out.append("✅ HUD-Fenster öffnet sich beim Anmelden")
+    else:
+        desktop.unlink(missing_ok=True)
     return out
+
+
+def xdg_desktop_entry(argv: list[str]) -> str:
+    return (
+        "[Desktop Entry]\nType=Application\nName=Jarvis\n"
+        f"Exec=sh -c 'sleep 15; {argv[0]} {' '.join(argv[1:])}'\n"
+        "X-GNOME-Autostart-enabled=true\n"
+    )
 
 
 # ------------------------------------------------------------------ Windows
@@ -149,6 +183,15 @@ def _windows(install: bool) -> list[str]:
             out.append(f"✅ {name} läuft (Aufgabenplanung, startet bei jeder Anmeldung)")
         else:
             out.append(f"🗑  {name} entfernt")
+    task = "Jarvis-window"
+    subprocess.run(["schtasks", "/Delete", "/TN", task, "/F"], capture_output=True)
+    if install and _open_on_login():
+        subprocess.run(
+            ["schtasks", "/Create", "/TN", task, "/SC", "ONLOGON", "/DELAY", "0000:20",
+             "/RL", "LIMITED", "/TR", windows_command(_resolve(WINDOW[1])), "/F"],
+            capture_output=True,
+        )
+        out.append("✅ HUD-Fenster öffnet sich beim Anmelden")
     return out
 
 

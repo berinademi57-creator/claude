@@ -83,7 +83,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
 /* ── Center */
 .center{display:grid;grid-template-rows:minmax(240px,1fr) auto;min-height:0;gap:10px}
 .orb-wrap{position:relative;display:grid;place-items:center;min-height:0}
-#orb{width:100%;height:100%;display:block}
+#orb{position:absolute;inset:0;width:100%;height:100%;display:block}
 .state{position:absolute;bottom:6%;left:0;right:0;text-align:center}
 .state .s{font-family:var(--mono);letter-spacing:.42em;font-size:12px;color:var(--orange);text-shadow:0 0 12px rgba(255,90,40,.7)}
 .state .now{margin-top:8px;font-size:13px;color:var(--muted);min-height:18px}
@@ -128,6 +128,20 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
 @keyframes pulse{50%{box-shadow:0 0 0 12px rgba(255,59,36,.0),0 0 40px rgba(255,59,36,.9)}}
 .toggle{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer;user-select:none;white-space:nowrap}
 .toggle input{accent-color:var(--red)}
+#callBtn svg{stroke:var(--text)}
+/* ── Anruf-Modus */
+.callbar{display:none;position:fixed;left:0;right:0;bottom:max(28px,env(safe-area-inset-bottom));z-index:40;
+  flex-direction:column;align-items:center;gap:16px}
+.callbar .who{font-family:var(--mono);letter-spacing:.4em;font-size:13px;color:var(--text)}
+.callbar .tm{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.2em}
+.hangup{width:74px;height:74px;border-radius:50%;border:0;background:#e5281a;display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 0 40px rgba(229,40,26,.7)}
+.hangup svg{width:32px;height:32px;transform:rotate(135deg)}
+body.call .main .panel,body.call .chat,body.call .cmd,body.call .tabs{display:none!important}
+body.call .main{grid-template-columns:1fr!important}
+body.call .center{display:grid!important;grid-template-rows:1fr!important}
+body.call .callbar{display:flex}
+body.call .state{bottom:auto;top:62%}
 
 /* ── Drawer + preview */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:60;display:none}
@@ -233,10 +247,15 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
     <label class="toggle" title="Antworten vorlesen"><input type="checkbox" id="speak" checked><span>STIMME</span></label>
     <input id="inp" placeholder="Sag „Jarvis …“ oder schreib hier" autocomplete="off">
     <button class="round" id="send" title="Senden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <button class="round" id="callBtn" title="Anruf-Modus (freihändig reden)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></button>
     <button class="round" id="mic" title="Sprechen"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
   </div>
 </div>
 
+<div class="callbar" id="callbar">
+  <div class="who">JARVIS</div><div class="tm" id="callTime">00:00</div>
+  <button class="hangup" id="hangup" title="Auflegen"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></button>
+</div>
 <div class="overlay" id="ov"></div>
 <aside class="drawer" id="drawer">
   <header><div class="mono" style="color:var(--text)">Zugriffe &amp; Verbindungen</div><button class="x" data-close>SCHLIESSEN</button></header>
@@ -294,6 +313,7 @@ const orb = (() => {
     cv.width = W*dpr; cv.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
   }
   addEventListener("resize", resize); resize();
+  if ("ResizeObserver" in window) new ResizeObserver(resize).observe(cv);
   function frame(){
     t += 1/60;
     level += (target - level) * .12;
@@ -371,7 +391,7 @@ async function send(text){
   setState("thinking"); $("#nowLine").textContent = "Denke nach …";
   try{
     const r = await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({message:text, history})});
+      body:JSON.stringify({message:text, history, mode: inCall ? "call" : "chat"})});
     const d = await r.json();
     const reply = d.reply || d.error || "…";
     history.push({role:"user",content:text},{role:"assistant",content:reply});
@@ -404,7 +424,11 @@ function speak(text){
   u.onend = afterSpeak; u.onerror = afterSpeak;
   speechSynthesis.cancel(); speechSynthesis.speak(u);
 }
-function afterSpeak(){ setState("idle"); if($("#wake").checked) startListening(true); }
+function afterSpeak(){
+  setState("idle");
+  if(inCall) setTimeout(()=>startListening(false), 250);
+  else if($("#wake").checked) startListening(true);
+}
 
 /* ───────────────────────── Stimme: Eingabe */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -448,11 +472,27 @@ function startListening(wake=false){
     $("#mic").classList.remove("live"); stopMeter();
     if(!wake && finalText.trim()) send(finalText);
     else if(state==="listening") setState("idle");
+    if(inCall && !finalText.trim() && state==="idle") setTimeout(()=>startListening(false), 300);
     if(wakeMode && $("#wake").checked && state==="idle") setTimeout(()=>startListening(true), 300);
   };
   rec.onerror = () => {};
   try{ rec.start(); }catch(e){}
 }
+let inCall = false, callTimer = null;
+function startCall(){
+  inCall = true; document.body.classList.add("call");
+  const t0 = Date.now();
+  callTimer = setInterval(()=>{ const s=Math.floor((Date.now()-t0)/1000);
+    $("#callTime").textContent = String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }, 1000);
+  $("#speak").checked = true;
+  speak("Hey, ich höre.");
+}
+function endCall(){
+  inCall = false; document.body.classList.remove("call"); clearInterval(callTimer);
+  try{ rec?.abort(); }catch(e){} speechSynthesis?.cancel(); setState("idle"); $("#nowLine").textContent = "";
+}
+$("#callBtn").onclick = () => inCall ? endCall() : startCall();
+$("#hangup").onclick = endCall;
 $("#mic").onclick = () => { speechSynthesis?.cancel(); if(state==="listening"){ rec?.stop(); } else startListening(false); };
 $("#wake").onchange = e => { if(e.target.checked) startListening(true); else { wakeMode=false; rec?.abort(); } };
 addEventListener("keydown", e => { if(e.code==="Space" && document.activeElement!==$("#inp") && !e.repeat){ e.preventDefault(); $("#mic").click(); } });

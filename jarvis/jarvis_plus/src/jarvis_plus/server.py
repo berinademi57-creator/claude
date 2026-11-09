@@ -11,7 +11,7 @@ import json
 import time
 from typing import Any, Callable
 
-from . import access, activity, customers, garmin, instagram, phone, profile, stress, websites, whoop
+from . import access, activity, customers, design, garmin, instagram, pc, phone, phone_line, profile, stress, websites, whoop
 from .settings import load_settings
 
 try:  # mcp >= 2
@@ -273,6 +273,42 @@ def websites_liste() -> str:
 def website_veroeffentlichen(name: str) -> str:
     """Stellt eine gespeicherte Website auf Netlify online. NUR nach ausdrücklicher Bestätigung des Nutzers aufrufen."""
     return _run(lambda: websites.publish(load_settings(), name))
+
+
+# ---------------------------------------------------------------- Design
+
+
+@mcp.tool()
+def design_recherche(anfrage: str, bereich: str = "", projekt: str = "", bewegung: int = 0) -> str:
+    """Design-Datenbank (UI/UX Pro Max): ohne bereich → komplettes Design-System (Farben, Schriften, Stil, Effekte) für z.B. "coiffeur luxus dunkel". bereich: style|color|typography|landing|product|ux|icons|gsap|chart|google-fonts|web|react. bewegung 1-10 = Animations-Intensität (liefert GSAP-Snippet)."""
+    return _run(lambda: design.search(anfrage, bereich, projekt, bewegung))
+
+
+# ---------------------------------------------------------------- PC
+
+
+@mcp.tool()
+def link_oeffnen(url: str) -> str:
+    """Öffnet einen Link im normalen Browser des Nutzers (mit allen gespeicherten Logins), z.B. Instagram, Gmail, Bexio, Shopify."""
+    return _run(lambda: pc.open_url(url))
+
+
+@mcp.tool()
+def app_oeffnen(name: str) -> str:
+    """Startet eine App auf dem PC, z.B. Spotify, Excel, WhatsApp, Visual Studio Code, Canva, Figma."""
+    return _run(lambda: pc.open_app(name))
+
+
+@mcp.tool()
+def datei_oeffnen(pfad: str) -> str:
+    """Öffnet eine Datei oder einen Ordner mit der passenden App."""
+    return _run(lambda: pc.open_path(pfad))
+
+
+@mcp.tool()
+def mich_anrufen_gespraech(begruessung: str = "") -> str:
+    """Ruft MEIN Handy an und startet ein echtes Gespräch (ich kann zurückreden). Braucht die eingerichtete Telefon-Leitung."""
+    return _run(lambda: phone_line.call_me_conversation(load_settings(), begruessung))
 
 
 # ---------------------------------------------------------------- Zugriffe

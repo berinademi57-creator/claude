@@ -1,0 +1,40 @@
+# Skills, die der Installer von GitHub holt:  <Skill-Name>  <Repo>
+# Alle Open Source (MIT/Apache), Stand November 2026.
+
+# ── Design & Geschmack
+frontend-design              https://github.com/anthropics/skills
+web-artifacts-builder        https://github.com/anthropics/skills
+theme-factory                https://github.com/anthropics/skills
+impeccable                   https://github.com/pbakaus/impeccable
+design-taste-frontend        https://github.com/Leonxlnx/taste-skill
+ui-ux-pro-max                https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+banner-design                https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+web-design-guidelines        https://github.com/vercel-labs/agent-skills
+improve-ui                   https://github.com/ibelick/ui-skills
+baseline-ui                  https://github.com/ibelick/ui-skills
+fixing-accessibility         https://github.com/ibelick/ui-skills
+fixing-motion-performance    https://github.com/ibelick/ui-skills
+frontend-ui-engineering      https://github.com/addyosmani/agent-skills
+performance-optimization     https://github.com/addyosmani/agent-skills
+
+# ── Animation (offiziell von GSAP)
+gsap-core                    https://github.com/greensock/gsap-skills
+gsap-timeline                https://github.com/greensock/gsap-skills
+gsap-scrolltrigger           https://github.com/greensock/gsap-skills
+gsap-plugins                 https://github.com/greensock/gsap-skills
+gsap-performance             https://github.com/greensock/gsap-skills
+
+# ── 3D (Three.js)
+threejs-fundamentals         https://github.com/CloudAI-X/threejs-skills
+threejs-geometry             https://github.com/CloudAI-X/threejs-skills
+threejs-materials            https://github.com/CloudAI-X/threejs-skills
+threejs-lighting             https://github.com/CloudAI-X/threejs-skills
+threejs-shaders              https://github.com/CloudAI-X/threejs-skills
+threejs-animation            https://github.com/CloudAI-X/threejs-skills
+threejs-interaction          https://github.com/CloudAI-X/threejs-skills
+threejs-postprocessing       https://github.com/CloudAI-X/threejs-skills
+threejs-performance          https://github.com/CloudAI-X/threejs-skills
+
+# ── Videos aus Code (Reels, Promo-Clips) – Remotion: für Firmen ab 4 Personen lizenzpflichtig
+remotion-best-practices      https://github.com/remotion-dev/skills
+remotion-create              https://github.com/remotion-dev/skills

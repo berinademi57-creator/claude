@@ -88,3 +88,31 @@ def write_private(path: Path, text: str) -> None:
         path.chmod(0o600)
     except OSError:  # Windows
         pass
+
+
+def set_value(key: str, value: str, path: Path | None = None) -> None:
+    """Einen Wert in jarvis-plus.env setzen (Zeile ersetzen oder anhängen)."""
+    path = path or ENV_FILE
+    lines = path.read_text(encoding="utf-8").splitlines() if path.exists() else []
+    out, done = [], False
+    for line in lines:
+        if line.split("=", 1)[0].strip() == key and not line.lstrip().startswith("#"):
+            out.append(f"{key}={value}")
+            done = True
+        else:
+            out.append(line)
+    if not done:
+        out.append(f"{key}={value}")
+    write_private(path, "\n".join(out) + "\n")
+
+
+def merge_env(source: Path, target: Path | None = None) -> list[str]:
+    """Werte aus source übernehmen, aber nur wo target leer ist. Gibt geänderte Keys zurück."""
+    target = target or ENV_FILE
+    current = _parse_env_file(target)
+    changed = []
+    for key, value in _parse_env_file(source).items():
+        if value and not current.get(key):
+            set_value(key, value, target)
+            changed.append(key)
+    return changed

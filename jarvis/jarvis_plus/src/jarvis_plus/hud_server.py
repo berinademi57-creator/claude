@@ -255,7 +255,12 @@ async def api_chat(request: Request) -> Response:
     if not text:
         return JSONResponse({"error": "Leere Nachricht"}, status_code=400)
     model, text = choose_model(text, settings)
-    messages = trim_history(body.get("history") or []) + [{"role": "user", "content": text}]
+    prompt = text
+    if body.get("mode") == "call":  # Anruf-Modus im HUD: kurze, gesprochene Antworten
+        from .phone_line import CALL_HINT
+
+        prompt = CALL_HINT + text
+    messages = trim_history(body.get("history") or []) + [{"role": "user", "content": prompt}]
     started = time.time()
     activity.log("chat", "Auftrag", status="start", detail=text[:120], modell=model)
     try:
@@ -367,4 +372,18 @@ def run(host: str | None = None, port: int | None = None) -> None:
             "(oder nutze Tailscale: `tailscale serve --bg 8765`)."
         )
     print(f"Jarvis HUD läuft: http://{'localhost' if is_loopback else host}:{port}")
-    uvicorn.run(create_app(), host=host, port=port, log_level="warning")
+    servers = [uvicorn.Server(uvicorn.Config(create_app(), host=host, port=port, log_level="warning"))]
+
+    from . import phone_line
+
+    if phone_line.enabled(settings):
+        phone_port = settings.get_int("PHONE_PORT", 8766)
+        # Nur lokal; nach aussen geht nur dieser Port über Tailscale Funnel.
+        servers.append(uvicorn.Server(uvicorn.Config(
+            phone_line.create_app(), host="127.0.0.1", port=phone_port, log_level="warning")))
+        print(f"Telefon-Leitung aktiv (Port {phone_port}, Nummer {settings.get('TWILIO_FROM_NUMBER')})")
+
+    async def serve_all() -> None:
+        await asyncio.gather(*(srv.serve() for srv in servers))
+
+    asyncio.run(serve_all())

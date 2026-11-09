@@ -1,5 +1,7 @@
 # 🤖 Dein Jarvis: OpenJarvis + persönliche Erweiterungen
 
+> **👉 Einrichten: [SETUP.md](SETUP.md)** zeigt jede App, jede API und jeden Schritt, plus was dir noch fehlt.
+
 Basis ist [OpenJarvis](https://github.com/open-jarvis/OpenJarvis) (Stanford, Open Source).
 Dazu kommt **jarvis-plus**: HUD mit Stimme, Whoop, Garmin, Stress-Check, Anrufe,
 Instagram, Kunden-CRM, Website-Bau mit Veröffentlichung, Connectoren und Autostart.
@@ -29,6 +31,8 @@ Instagram, Kunden-CRM, Website-Bau mit Veröffentlichung, Connectoren und Autost
 | Sagt dir, wenn er Zugriff braucht | ✅ | Panel „Zugriffe“ im HUD + `jarvis-plus status` + Jarvis meldet es von selbst |
 | Kennt dich + ademidigital | ✅ | Privates Paket: Profil, Business-Wissen, Marken-Skill (nicht im öffentlichen Repo) |
 | Connectoren wie Higgsfield | ✅ | `jarvis-plus connect higgsfield` (auch canva, notion, figma, 21st) |
+| Voller PC-Zugriff | ✅ | Apps, Links und Dateien öffnen; **Browser mit deinen gespeicherten Logins** (Playwright MCP Bridge); Desktop-Apps steuern (Windows-MCP / AppleScript); Shell und Dateien |
+| Telefonieren | ✅ | **📞 Anruf-Modus** im HUD (gratis, freihändig) + **echte Telefonate** über Twilio: Jarvis ruft dich an, ihr redet richtig |
 | Ruft dich an, Erinnerungen | ✅ | Twilio + geplante Aufgaben |
 | Whoop, Garmin, Stress | ✅ | Wächter meldet sich bei hohem Stress selbst |
 | Coach, Kunden, Gmail/Kalender | ✅ | wie vorher |
@@ -121,17 +125,22 @@ Terminbuchungs-Button“*. Jarvis
 4. ändert, was du willst,
 5. stellt sie nach deinem „ja“ auf Netlify online und nennt den Link.
 
-Installierte Website-Skills (Open Source):
+Installierte Skills (31 Stück, Liste in [`skills.txt`](skills.txt), alle Open Source):
 
-| Skill | Quelle | Wofür |
+| Bereich | Skills | Quelle |
 |---|---|---|
-| `krasse-websites` | dieses Repo | Ablauf, Stil-Rezepte, Wow-Momente, Checkliste |
-| `frontend-design` | [anthropics/skills](https://github.com/anthropics/skills) | weg vom generischen KI-Look |
-| `web-artifacts-builder`, `theme-factory` | anthropics/skills | komplexere Web-Apps, Farbthemen |
-| `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Design-Sprache und Feinschliff |
-| `design-taste-frontend` | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) | Firmen-Websites auf Top-Niveau |
-| `web-design-guidelines` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | Qualitäts- und UX-Regeln |
-| `ademi-digital` | privates Paket | Marke und Content von ADEMI DIGITAL |
+| Ablauf | `krasse-websites` | dieses Repo |
+| Design & Geschmack | `frontend-design`, `web-artifacts-builder`, `theme-factory` | [anthropics/skills](https://github.com/anthropics/skills) |
+| | `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) ★107k |
+| | `design-taste-frontend` | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) ★112k |
+| | `ui-ux-pro-max`, `banner-design` + **Design-Datenbank** (`design_recherche`) | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) ★147k |
+| | `improve-ui`, `baseline-ui`, `fixing-accessibility`, `fixing-motion-performance` | [ibelick/ui-skills](https://github.com/ibelick/ui-skills) ★11k |
+| | `web-design-guidelines` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) |
+| | `frontend-ui-engineering`, `performance-optimization` | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) ★114k |
+| Animation | `gsap-core`, `gsap-timeline`, `gsap-scrolltrigger`, `gsap-plugins`, `gsap-performance` | [greensock/gsap-skills](https://github.com/greensock/gsap-skills) (offiziell) ★18k |
+| 3D | `threejs-fundamentals`, `-geometry`, `-materials`, `-lighting`, `-shaders`, `-animation`, `-interaction`, `-postprocessing`, `-performance` | [CloudAI-X/threejs-skills](https://github.com/CloudAI-X/threejs-skills) ★4k |
+| Video (Reels aus Code) | `remotion-create`, `remotion-best-practices` | [remotion-dev/skills](https://github.com/remotion-dev/skills) |
+| Marke | `ademi-digital` | privates Paket |
 
 Ein Beispiel liegt in `examples/demo-website/` (fiktives Fitnessstudio).
 
@@ -146,6 +155,8 @@ Ein Beispiel liegt in `examples/demo-website/` (fiktives Fitnessstudio).
 | `notion` | Seiten, Datenbanken | |
 | `figma` | Designs lesen | |
 | `21st` | fertige UI-Komponenten für Websites | API-Key von 21st.dev |
+| `browser` | dein echter Chrome mit allen Logins ([Playwright MCP](https://github.com/microsoft/playwright-mcp), Extension-Modus) | Chrome-Erweiterung „Playwright MCP Bridge“ |
+| `desktop` | Desktop-Apps bedienen: [Windows-MCP](https://github.com/CursorTouch/Windows-MCP) bzw. [macos-automator-mcp](https://github.com/steipete/macos-automator-mcp) | Mac: Bedienungshilfen erlauben |
 | Gmail, Kalender, Drive, Strava, Outlook, Slack … | eingebaut in OpenJarvis | `jarvis connect --help` |
 
 Weitere MCP-Server kannst du in `~/.openjarvis/mcp-servers.json` eintragen.
@@ -158,7 +169,9 @@ jeder braucht einmal den Login über `jarvis-plus connect`.
 
 ```
 jarvis-plus hud            Oberfläche (http://localhost:8765), --demo = Beispieldaten
-jarvis-plus autostart      immer im Hintergrund (an|aus)
+jarvis-plus open           HUD als App-Fenster öffnen
+jarvis-plus autostart      immer im Hintergrund + HUD-Fenster beim Anmelden (an|aus)
+jarvis-plus telefon-einrichten   echte Telefonate (Twilio + Tailscale Funnel)
 jarvis-plus status         welche Zugänge fehlen
 jarvis-plus connect NAME   Connector verbinden · connectors = Liste
 jarvis-plus check          Stress-Check jetzt
@@ -170,7 +183,9 @@ MCP-Tools für Jarvis: Gesundheit (`whoop_daten`, `garmin_daten`, `stress_check`
 Kontakt (`mich_anrufen`, `mir_sms_schicken`, `mir_telegram_schicken`), Profil
 (`ueber_mich_lesen`, `ueber_mich_merken`), Kunden (`kunde_*`, `kunden_*`), Instagram
 (`instagram_*`), Websites (`website_speichern`, `websites_liste`,
-`website_veroeffentlichen`), `zugriffe_status`.
+`website_veroeffentlichen`), Design (`design_recherche`), PC (`link_oeffnen`, `app_oeffnen`,
+`datei_oeffnen`), Telefon (`mich_anrufen_gespraech`), `zugriffe_status`.
+Dazu die eingebauten OpenJarvis-Werkzeuge inkl. `shell_exec` und Dateizugriff.
 
 Tests: `cd jarvis/jarvis_plus && pip install -e '.[dev]' && pytest`
 
@@ -187,4 +202,8 @@ inoffizielle Bibliothek; bei Garmin-Änderungen hilft meist `pip install -U garm
 - Alle Keys liegen nur auf deinem Rechner (`~/.openjarvis/`, Dateirechte 600).
 - HUD nur lokal oder über Tailscale; im WLAN nur mit `HUD_TOKEN`.
 - Telegram ist auf deine Chat-ID beschränkt; Jarvis ruft/schreibt nur **dich** an.
+- Telefon-Leitung: eigener Port, geheimer Pfad, Twilio-Signatur wird geprüft, nur deine
+  Nummer wird angenommen. Das HUD ist darüber nicht erreichbar.
+- Voller PC-Zugriff: Jarvis fragt vor Löschen, Installieren, Bezahlen, Senden und
+  Veröffentlichen (Regeln in `SOUL.md`). Weniger Zugriff → Werkzeuge in `config.toml` entfernen.
 - Veröffentlichen (Instagram, Websites) und Mails an andere nur nach deinem „ja“.
