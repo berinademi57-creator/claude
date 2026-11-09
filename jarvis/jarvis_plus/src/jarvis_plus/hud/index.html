@@ -484,9 +484,38 @@ $("#vRate").oninput = e => store.set("rate", e.target.value);
 $("#vPitch").oninput = e => store.set("pitch", e.target.value);
 $("#vTest").onclick = () => speak("Systeme online. Ich bin bereit, wenn du es bist.");
 
-let speakQueue = [];
+let speakQueue = [], ttsProvider = "browser", ttsAudio = null;
+async function speakPremium(clean){
+  // ElevenLabs über den HUD-Server: tiefe Film-Stimme wie in Jarvis-Videos
+  const r = await fetch("/api/tts", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({text: clean})});
+  if(!r.ok) throw new Error("tts " + r.status);
+  const url = URL.createObjectURL(await r.blob());
+  ttsAudio?.pause();
+  ttsAudio = new Audio(url);
+  try{
+    audioCtx = audioCtx || new AudioContext();
+    const src = audioCtx.createMediaElementSource(ttsAudio), an = audioCtx.createAnalyser();
+    an.fftSize = 256; src.connect(an); an.connect(audioCtx.destination);
+    const buf = new Uint8Array(an.frequencyBinCount);
+    (function tick(){ if(!ttsAudio || ttsAudio.paused) return; an.getByteFrequencyData(buf);
+      orb.level = Math.min(1, buf.reduce((a,b)=>a+b,0)/buf.length/60); requestAnimationFrame(tick); })();
+  }catch(e){}
+  ttsAudio.onplay = () => { setState("speaking"); $("#nowLine").textContent = clean.length > 220 ? clean.slice(0,220) + " …" : clean; };
+  ttsAudio.onended = () => { URL.revokeObjectURL(url); $("#nowLine").textContent = ""; afterSpeak(); };
+  await ttsAudio.play();
+}
 function speak(text){
-  if(!$("#speak").checked || !("speechSynthesis" in window)){ afterSpeak(); return; }
+  if(!$("#speak").checked){ afterSpeak(); return; }
+  if(ttsProvider === "elevenlabs"){
+    const clean = text.replace(/```[\s\S]*?```/g," Code siehe Bildschirm. ").replace(/https?:\/\/\S+/g,"Link")
+                      .replace(/[*_`#>|]/g,"").replace(/\s+/g," ").trim().slice(0,1500);
+    speakPremium(clean).catch(() => speakBrowser(text));
+    return;
+  }
+  speakBrowser(text);
+}
+function speakBrowser(text){
+  if(!("speechSynthesis" in window)){ afterSpeak(); return; }
   const clean = text.replace(/```[\s\S]*?```/g," Code siehe Bildschirm. ").replace(/https?:\/\/\S+/g,"Link")
                     .replace(/[*_`#>|]/g,"").replace(/\s+/g," ").trim().slice(0,1500);
   // Satz für Satz sprechen: klingt natürlicher und umgeht das 15-Sekunden-Limit von Chrome
@@ -599,7 +628,7 @@ function endCall(){
 }
 $("#callBtn").onclick = () => inCall ? endCall() : startCall();
 $("#hangup").onclick = endCall;
-$("#mic").onclick = () => { speechSynthesis?.cancel(); if(state==="listening"){ rec?.stop(); } else startListening(false); };
+$("#mic").onclick = () => { speechSynthesis?.cancel(); ttsAudio?.pause(); if(state==="listening"){ rec?.stop(); } else startListening(false); };
 $("#wake").checked = store.get("wake", "1") === "1";
 $("#wake").onchange = e => { store.set("wake", e.target.checked ? "1" : "0");
   if(e.target.checked) startListening(true); else { wakeMode=false; followUp=false; rec?.abort(); } };
@@ -684,6 +713,7 @@ async function loadStatus(){
     $("#accList").innerHTML = d.zugriffe.map(z=>`<div class="acc"><div class="row"><span>${esc(z.name)}</span>
       <span class="b ${z.verbunden?"ok":"no"}">${z.verbunden?"✓ VERBUNDEN":"✕ FEHLT"}</span></div>
       ${z.verbunden?"":`<div class="how">${esc(z.so_gehts)}</div>`}</div>`).join("");
+    ttsProvider = d.stimme || "browser";
     $("#sites").innerHTML = (d.websites||[]).slice(-5).reverse().map(s=>`<div class="site" data-url="${esc(s.vorschau)}" data-name="${esc(s.name)}">
       <span>${esc(s.name)}</span><span class="live">${s.live_url?"● ONLINE":"VORSCHAU"}</span></div>`).join("");
     document.querySelectorAll(".site").forEach(el => el.onclick = () => openPreview(el.dataset.url, el.dataset.name));
@@ -715,7 +745,14 @@ addMsg("assistant", "Systeme online. Sag einfach „Jarvis …“ und dann, was 
   setTimeout(()=>{ el.classList.add("off"); setTimeout(()=>el.remove(), 700); }, 2100);
 })();
 // Freihändig: sofort auf „Jarvis“ hören (Browser fragt beim ersten Mal nach dem Mikrofon)
-setTimeout(()=>{ if($("#wake").checked) startListening(true); }, 2300);
+setTimeout(async ()=>{
+  await loadStatus();
+  const h = new Date().getHours();
+  const gruss = h < 11 ? "Guten Morgen" : h < 18 ? "Hey" : "Guten Abend";
+  // Begrüssung sprechen, danach hört Jarvis automatisch zu (afterSpeak)
+  if($("#speak").checked) speak(`${gruss}, Boss Ademi. Systeme sind online. Was steht an?`);
+  else if($("#wake").checked) startListening(true);
+}, 2300);
 </script>
 </body>
 </html>

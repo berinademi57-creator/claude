@@ -87,6 +87,34 @@ def _ask_openjarvis(settings: Settings, model: str, messages: list[dict[str, str
         return json.loads(resp.read().decode())
 
 
+# --------------------------------------------------------------- Stimme (ElevenLabs)
+# Die Stimmen aus Jarvis-Videos: tief, filmreif. Gratis-Konto reicht für den Anfang.
+DEFAULT_VOICE = "onwK4e9ZLuTAKqWW03F9"  # „Daniel“: tiefe, ruhige Erzähler-Stimme
+
+
+def _tts_provider(settings: Settings) -> str:
+    return "elevenlabs" if settings.get("ELEVENLABS_API_KEY") else "browser"
+
+
+def _elevenlabs(settings: Settings, text: str) -> bytes:
+    voice = settings.get("ELEVENLABS_VOICE_ID", DEFAULT_VOICE)
+    body = json.dumps({
+        "text": text[:2000],
+        "model_id": settings.get("ELEVENLABS_MODEL", "eleven_flash_v2_5"),
+        "language_code": "de",
+        "voice_settings": {"stability": 0.45, "similarity_boost": 0.8, "style": 0.35},
+    }).encode()
+    req = urllib.request.Request(
+        f"https://api.elevenlabs.io/v1/text-to-speech/{voice}?output_format=mp3_44100_128",
+        data=body,
+        headers={"xi-api-key": settings.get("ELEVENLABS_API_KEY"), "Content-Type": "application/json",
+                 "Accept": "audio/mpeg"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return resp.read()
+
+
 def _openjarvis_online(settings: Settings) -> bool:
     try:
         with urllib.request.urlopen(f"{_openjarvis_url(settings)}/health", timeout=2):
@@ -209,6 +237,23 @@ async def asset(request: Request) -> Response:
     return FileResponse(_asset(name), media_type=media)
 
 
+async def api_tts(request: Request) -> Response:
+    settings = load_settings()
+    if not _authorized(request, settings):
+        return _deny()
+    if _tts_provider(settings) != "elevenlabs":
+        return JSONResponse({"error": "keine Premium-Stimme eingerichtet"}, status_code=404)
+    text = str((await request.json()).get("text", "")).strip()
+    if not text:
+        return JSONResponse({"error": "leer"}, status_code=400)
+    try:
+        audio = await asyncio.to_thread(_elevenlabs, settings, text)
+    except Exception as exc:  # noqa: BLE001
+        activity.log("stimme", "ElevenLabs", status="error", detail=str(exc)[:200])
+        return JSONResponse({"error": str(exc)[:200]}, status_code=502)
+    return Response(audio, media_type="audio/mpeg")
+
+
 async def api_status(request: Request) -> Response:
     settings = load_settings()
     if not _authorized(request, settings):
@@ -223,6 +268,7 @@ async def api_status(request: Request) -> Response:
             },
             "zugriffe": access.status(settings),
             "websites": websites.list_sites(),
+            "stimme": _tts_provider(settings),
         }
     )
 
@@ -350,6 +396,7 @@ def create_app() -> Starlette:
             Route("/api/status", api_status),
             Route("/api/health", api_health),
             Route("/api/chat", api_chat, methods=["POST"]),
+            Route("/api/tts", api_tts, methods=["POST"]),
             Route("/api/events", api_events),
             Route("/sites/{name}/", site_file),
             Route("/sites/{name}/{path:path}", site_file),

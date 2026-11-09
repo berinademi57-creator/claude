@@ -136,6 +136,15 @@ def browser_for_app_window() -> list[str] | None:
 def open_hud_window(url: str) -> str:
     browser = browser_for_app_window()
     if browser:
-        _launch([*browser, f"--app={url}", "--start-maximized"])
+        from .settings import HOME
+
+        profile = HOME / "hud-browser"  # eigenes Profil nur für das Jarvis-Fenster
+        _launch([
+            *browser, f"--app={url}", "--start-maximized",
+            f"--user-data-dir={profile}",
+            "--autoplay-policy=no-user-gesture-required",  # Jarvis darf sofort sprechen
+            "--use-fake-ui-for-media-stream",              # Mikrofon ohne Klick (nur dieses Profil)
+            "--no-first-run", "--no-default-browser-check",
+        ])
         return f"HUD-Fenster geöffnet: {url}"
     return open_url(url)

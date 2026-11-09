@@ -70,6 +70,8 @@ INTEGRATIONS: list[Integration] = [
                 "API-Key auf console.anthropic.com erstellen → ~/.openjarvis/credentials.toml"),
     Integration("telegram", "Telegram", "Kontakt", _has("TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"),
                 "@BotFather → /newbot; Chat-ID über @userinfobot → jarvis-plus.env"),
+    Integration("stimme", "Film-Stimme (ElevenLabs)", "Stimme", _has("ELEVENLABS_API_KEY"),
+                "elevenlabs.io (gratis) → API Keys → ELEVENLABS_API_KEY in jarvis-plus.env"),
     Integration("twilio", "Anrufe & SMS", "Kontakt",
                 _has("TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN", "TWILIO_FROM_NUMBER", "MY_PHONE_NUMBER"),
                 "twilio.com Konto + Nummer kaufen → SID, Token, Nummern in jarvis-plus.env"),
