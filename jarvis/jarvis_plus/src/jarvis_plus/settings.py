@@ -125,6 +125,7 @@ def fix_brain_config(path: Path | None = None, model: str = "claude-haiku-5-5") 
     want = {
         "engine": {"default": '"cloud"'},
         "intelligence": {"default_model": f'"{model}"', "provider": '"anthropic"'},
+        "channel": {"enabled": "false"},  # Telegram übernimmt jarvis-plus (mit Sprachnachrichten)
     }
     lines = path.read_text(encoding="utf-8").splitlines() if path.exists() else []
     out: list[str] = []

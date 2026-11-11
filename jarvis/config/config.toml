@@ -77,7 +77,7 @@ agent = "orchestrator"
 # Bot-Token kommt aus credentials.toml (TELEGRAM_BOT_TOKEN).
 # allowed_chat_ids: NUR deine Chat-ID, damit niemand sonst deinen Jarvis nutzt.
 [channel]
-enabled = true
+enabled = false   # Telegram läuft über jarvis-plus (mit Sprachnachrichten)
 default_channel = "telegram"
 default_agent = "orchestrator"
 

@@ -79,12 +79,24 @@ def telegram_me(settings: Settings, message: str) -> str:
     return "Telegram-Nachricht gesendet."
 
 
+def telegram_voice_me(settings: Settings, message: str) -> str:
+    """Sprachnachricht in Jarvis' Stimme per Telegram (fühlt sich an wie ein Anruf)."""
+    from .phone_line import speakable
+    from .telegram_bot import send_voice
+
+    send_voice(settings, settings.require("TELEGRAM_CHAT_ID"), speakable(message), caption=message[:1000])
+    return "Sprachnachricht gesendet."
+
+
 def notify(settings: Settings, message: str, *, call: bool = False) -> list[str]:
     """Benachrichtigt über alle eingerichteten Wege; Fehler stoppen nichts."""
     results: list[str] = []
     if settings.get("TELEGRAM_BOT_TOKEN") and settings.get("TELEGRAM_CHAT_ID"):
         try:
-            results.append(telegram_me(settings, message))
+            if settings.get("ELEVENLABS_API_KEY"):
+                results.append(telegram_voice_me(settings, message))
+            else:
+                results.append(telegram_me(settings, message))
         except Exception as exc:  # noqa: BLE001
             results.append(f"Telegram-Fehler: {exc}")
     if call and settings.get("TWILIO_ACCOUNT_SID"):

@@ -283,3 +283,20 @@ def test_autostart_window_entries():
     plist = autostart.launchd_plist("jarvis-window", ["/b/jarvis-plus", "open"], Path("/tmp"), keep_alive=False)
     assert "<key>KeepAlive</key><false/>" in plist
     assert "Exec=sh -c 'sleep 15; /b/jarvis-plus open'" in autostart.xdg_desktop_entry(["/b/jarvis-plus", "open"])
+
+
+def test_multipart_and_brain_fix(tmp_path):
+    from jarvis_plus import voice
+    from jarvis_plus.settings import fix_brain_config
+
+    body, ctype = voice.multipart({"model_id": "scribe_v1"}, {"file": ("a.ogg", b"OGG", "audio/ogg")})
+    boundary = ctype.split("boundary=")[1]
+    assert body.startswith(f"--{boundary}".encode()) and b'name="model_id"\r\n\r\nscribe_v1' in body
+    assert b'filename="a.ogg"' in body and body.endswith(f"--{boundary}--\r\n".encode())
+
+    cfg = tmp_path / "config.toml"
+    cfg.write_text('[engine]\ndefault = "nim"\n\n[channel]\nenabled = true\n\n[channel.telegram]\nallowed_chat_ids = "1"\n')
+    fix_brain_config(cfg)
+    text = cfg.read_text()
+    assert 'default = "cloud"' in text and "enabled = false" in text
+    assert 'allowed_chat_ids = "1"' in text and 'provider = "anthropic"' in text

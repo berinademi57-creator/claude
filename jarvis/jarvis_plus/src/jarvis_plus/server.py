@@ -139,6 +139,12 @@ def mir_sms_schicken(nachricht: str) -> str:
 
 
 @mcp.tool()
+def mir_sprachnachricht_schicken(nachricht: str) -> str:
+    """Schickt mir eine Telegram-SPRACHNACHRICHT in deiner Stimme (wie ein kurzer Anruf). Für Wichtiges, Erinnerungen, Weckruf."""
+    return _run(lambda: phone.telegram_voice_me(load_settings(), nachricht))
+
+
+@mcp.tool()
 def mir_telegram_schicken(nachricht: str) -> str:
     """Schickt mir eine Telegram-Nachricht (Push aufs Handy und PC)."""
     return _run(lambda: phone.telegram_me(load_settings(), nachricht))

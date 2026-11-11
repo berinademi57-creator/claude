@@ -88,31 +88,15 @@ def _ask_openjarvis(settings: Settings, model: str, messages: list[dict[str, str
 
 
 # --------------------------------------------------------------- Stimme (ElevenLabs)
-# Die Stimmen aus Jarvis-Videos: tief, filmreif. Gratis-Konto reicht für den Anfang.
-DEFAULT_VOICE = "onwK4e9ZLuTAKqWW03F9"  # „Daniel“: tiefe, ruhige Erzähler-Stimme
+from . import voice as _voice
 
 
 def _tts_provider(settings: Settings) -> str:
-    return "elevenlabs" if settings.get("ELEVENLABS_API_KEY") else "browser"
+    return "elevenlabs" if _voice.available(settings) else "browser"
 
 
 def _elevenlabs(settings: Settings, text: str) -> bytes:
-    voice = settings.get("ELEVENLABS_VOICE_ID", DEFAULT_VOICE)
-    body = json.dumps({
-        "text": text[:2000],
-        "model_id": settings.get("ELEVENLABS_MODEL", "eleven_flash_v2_5"),
-        "language_code": "de",
-        "voice_settings": {"stability": 0.45, "similarity_boost": 0.8, "style": 0.35},
-    }).encode()
-    req = urllib.request.Request(
-        f"https://api.elevenlabs.io/v1/text-to-speech/{voice}?output_format=mp3_44100_128",
-        data=body,
-        headers={"xi-api-key": settings.get("ELEVENLABS_API_KEY"), "Content-Type": "application/json",
-                 "Accept": "audio/mpeg"},
-        method="POST",
-    )
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        return resp.read()
+    return _voice.tts(settings, text)
 
 
 def _openjarvis_online(settings: Settings) -> bool:
@@ -431,6 +415,12 @@ def run(host: str | None = None, port: int | None = None) -> None:
         print(f"Telefon-Leitung aktiv (Port {phone_port}, Nummer {settings.get('TWILIO_FROM_NUMBER')})")
 
     async def serve_all() -> None:
+        import threading
+
+        from . import telegram_bot
+
+        # Telegram (Text + Sprachnachrichten) im Hintergrund mitlaufen lassen
+        threading.Thread(target=telegram_bot.run_forever, daemon=True).start()
         await asyncio.gather(*(srv.serve() for srv in servers))
 
     asyncio.run(serve_all())
