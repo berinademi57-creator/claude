@@ -13,6 +13,9 @@ git pull --ff-only
 Write-Host "> jarvis-plus aktualisieren ..." -ForegroundColor Red
 uv tool install --force --with garminconnect (Join-Path $Repo "jarvis\jarvis_plus")
 
+Write-Host "> Gehirn auf Claude stellen ..." -ForegroundColor Red
+jarvis-plus reparieren
+
 Write-Host "> Persoenlichkeit (SOUL.md) und Einstellungen aktualisieren ..." -ForegroundColor Red
 $oj = Join-Path $HOME ".openjarvis"
 Copy-Item (Join-Path $Repo "jarvis\config\SOUL.md") (Join-Path $oj "SOUL.md") -Force

@@ -117,3 +117,61 @@ def merge_env(source: Path, target: Path | None = None) -> list[str]:
             set_value(key, value, target)
             changed.append(key)
     return changed
+
+
+def fix_brain_config(path: Path | None = None, model: str = "claude-haiku-5-5") -> list[str]:
+    """[engine] und [intelligence] in config.toml auf Claude stellen, alles andere behalten."""
+    path = path or (HOME / "config.toml")
+    want = {
+        "engine": {"default": '"cloud"'},
+        "intelligence": {"default_model": f'"{model}"', "provider": '"anthropic"'},
+    }
+    lines = path.read_text(encoding="utf-8").splitlines() if path.exists() else []
+    out: list[str] = []
+    section = None
+    done: dict[str, set[str]] = {k: set() for k in want}
+    seen_sections: set[str] = set()
+    changes: list[str] = []
+
+    def flush(sec: str | None) -> None:
+        if sec in want:
+            for key, val in want[sec].items():
+                if key not in done[sec]:
+                    out.append(f"{key} = {val}")
+                    done[sec].add(key)
+                    changes.append(f"{sec}.{key} ergänzt")
+
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith("[") and stripped.endswith("]") and not stripped.startswith("[["):
+            flush(section)
+            section = stripped[1:-1].strip()
+            if section in want and section in seen_sections:
+                section = "__dup__" + section  # doppelte Sektion: Inhalte auskommentieren
+                out.append("# " + line + "   (doppelt, von jarvis-plus deaktiviert)")
+                continue
+            seen_sections.add(section)
+            out.append(line)
+            continue
+        if section and section.startswith("__dup__"):
+            out.append(("# " + line) if stripped and not stripped.startswith("#") else line)
+            continue
+        if section in want and "=" in stripped and not stripped.startswith("#"):
+            key = stripped.split("=", 1)[0].strip()
+            if key in want[section]:
+                new = f"{key} = {want[section][key]}"
+                if stripped != new:
+                    changes.append(f"{section}.{key}: {stripped.split('=', 1)[1].strip()} → {want[section][key]}")
+                out.append(new)
+                done[section].add(key)
+                continue
+        out.append(line)
+    flush(section)
+    for sec in want:
+        if sec not in seen_sections:
+            out += ["", f"[{sec}]"]
+            for key, val in want[sec].items():
+                out.append(f"{key} = {val}")
+            changes.append(f"[{sec}] angelegt")
+    path.write_text("\n".join(out) + "\n", encoding="utf-8")
+    return changes

@@ -38,6 +38,7 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("register", help="jarvis-plus in OpenJarvis eintragen (macht der Installer)")
     sub.add_parser("telefon-einrichten", help="Echte Telefonate mit Jarvis einrichten (Twilio + Tailscale)")
     sub.add_parser("open", help="HUD als eigenes App-Fenster öffnen")
+    sub.add_parser("reparieren", help="Gehirn auf Claude stellen (falls ein anderes eingestellt ist)")
     merge = sub.add_parser("env-merge", help="Leere Einstellungen aus einer Datei ergänzen (Installer)")
     merge.add_argument("datei")
 
@@ -115,6 +116,11 @@ def main(argv: list[str] | None = None) -> int:
 
             keys = merge_env(Path(args.datei))
             print(f"Übernommen: {', '.join(keys) if keys else 'nichts Neues'}")
+        elif args.cmd == "reparieren":
+            from .settings import fix_brain_config
+
+            changes = fix_brain_config()
+            print("✅ Gehirn steht auf Claude." + ("\n  " + "\n  ".join(changes) if changes else ""))
         elif args.cmd == "open":
             from .pc import open_hud_window
 

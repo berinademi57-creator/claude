@@ -140,7 +140,7 @@ def open_hud_window(url: str) -> str:
 
         profile = HOME / "hud-browser"  # eigenes Profil nur für das Jarvis-Fenster
         _launch([
-            *browser, f"--app={url}", "--start-maximized",
+            *browser, f"--app={url}", "--start-fullscreen",
             f"--user-data-dir={profile}",
             "--autoplay-policy=no-user-gesture-required",  # Jarvis darf sofort sprechen
             "--use-fake-ui-for-media-stream",              # Mikrofon ohne Klick (nur dieses Profil)
