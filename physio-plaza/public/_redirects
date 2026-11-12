@@ -4,11 +4,11 @@
 # =====================================================================
 
 /home                     /                 301
-/book-online              /#kontakt         301
-/booking-calendar         /#kontakt         301
-/booking-calendar/*       /#kontakt         301
-/booking-form             /#kontakt         301
-/inquiry-services-page    /#kontakt         301
+/book-online              /#termin         301
+/booking-calendar         /#termin         301
+/booking-calendar/*       /#termin         301
+/booking-form             /#termin         301
+/inquiry-services-page    /#termin         301
 /service-page             /#leistungen      301
 /service-page/*           /#leistungen      301
 /blog                     /#ueber-mich      301

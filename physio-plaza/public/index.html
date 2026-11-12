@@ -211,7 +211,7 @@
         <a class="header-phone" href="tel:+41415545541" aria-label="Anrufen: 041&nbsp;554&nbsp;55&nbsp;41">
           <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span>041&nbsp;554&nbsp;55&nbsp;41</span>
         </a>
-        <a class="btn btn--primary header-cta" href="#kontakt">Termin anfragen</a>
+        <a class="btn btn--primary header-cta" href="#termin">Termin anfragen</a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
           <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
@@ -231,7 +231,7 @@
       </ul>
     </nav>
     <div class="mobile-menu__actions">
-      <a class="btn btn--primary btn--block" href="#kontakt"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Termin anfragen</a>
+      <a class="btn btn--primary btn--block" href="#termin"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Termin anfragen</a>
       <a class="btn btn--light btn--block" href="tel:+41415545541"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>041&nbsp;554&nbsp;55&nbsp;41</a>
     </div>
     <p class="mobile-menu__note">Telefonzeiten: Di–Fr, 13:00–14:00 Uhr</p>
@@ -264,7 +264,7 @@
           </p>
 
           <div class="btn-row hero__actions" data-enter>
-            <a class="btn btn--primary" href="#kontakt">
+            <a class="btn btn--primary" href="#termin">
               <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Termin anfragen
             </a>
             <a class="btn btn--light" href="tel:+41415545541">
@@ -400,7 +400,7 @@
               <li>Wissenschaftlich fundiert</li>
               <li>Ganzheitliche Begleitung</li>
             </ul>
-            <a class="btn btn--white" href="#kontakt">Beratung anfragen <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <a class="btn btn--white" href="#termin">Beratung anfragen <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </div>
         </article>
 
@@ -622,7 +622,7 @@
 
         <div class="services__cta" data-reveal>
           <p>Welche Behandlung passt zu Ihnen?<small>Wir beraten Sie gerne persönlich – unverbindlich.</small></p>
-          <a class="btn btn--primary" href="#kontakt">Jetzt Behandlung starten <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn--primary" href="#termin">Jetzt Behandlung starten <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
       </div>
     </section>
@@ -860,6 +860,7 @@
                 <h3>Telefon</h3>
                 <a class="big-link" href="tel:+41415545541">041&nbsp;554&nbsp;55&nbsp;41</a>
                 <small>Fixe Telefonzeiten: Dienstag bis Freitag, 13:00–14:00 Uhr</small>
+                <p class="open-status" id="phone-status" hidden><span class="status-dot"></span><span data-phone-text></span></p>
               </div>
             </div>
 
@@ -909,7 +910,7 @@
             </div>
           </div>
 
-          <div class="form-card" data-reveal="right">
+          <div class="form-card" id="termin">
             <div id="form-wrap">
               <h3>Termin anfragen</h3>
               <p>Füllen Sie das Formular aus – wir rufen Sie zurück oder antworten per E-Mail. Felder mit <span class="req" aria-hidden="true">*</span> sind Pflichtfelder.</p>
@@ -1035,7 +1036,7 @@
         <div class="faq" data-reveal>
           <details>
             <summary>Wie vereinbare ich einen Termin?</summary>
-            <div class="faq__answer"><p>Rufen Sie uns während der Telefonzeiten (Dienstag bis Freitag, 13:00–14:00 Uhr) unter <a href="tel:+41415545541">041&nbsp;554&nbsp;55&nbsp;41</a> an oder senden Sie uns jederzeit eine Anfrage über das <a href="#kontakt">Kontaktformular</a>. Wir melden uns so rasch wie möglich bei Ihnen.</p></div>
+            <div class="faq__answer"><p>Rufen Sie uns während der Telefonzeiten (Dienstag bis Freitag, 13:00–14:00 Uhr) unter <a href="tel:+41415545541">041&nbsp;554&nbsp;55&nbsp;41</a> an oder senden Sie uns jederzeit eine Anfrage über das <a href="#termin">Kontaktformular</a>. Wir melden uns so rasch wie möglich bei Ihnen.</p></div>
           </details>
           <details>
             <summary>Kann ich auch abends oder am Samstag kommen?</summary>
@@ -1064,7 +1065,7 @@
           <h2 id="cta-title">Bereit für mehr Beweglichkeit?</h2>
           <p>Vereinbaren Sie jetzt Ihren Termin – wir nehmen uns Zeit für Sie und Ihre Ziele.</p>
           <div class="btn-row">
-            <a class="btn btn--white" href="#kontakt"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Termin anfragen</a>
+            <a class="btn btn--white" href="#termin"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Termin anfragen</a>
             <a class="btn btn--outline-white" href="tel:+41415545541"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>041&nbsp;554&nbsp;55&nbsp;41</a>
           </div>
         </div>
@@ -1127,7 +1128,7 @@
   <!-- Mobile Aktionsleiste -->
   <aside class="action-bar" id="action-bar" aria-label="Schnellkontakt">
     <a class="btn btn--light" href="tel:+41415545541"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>Anrufen</a>
-    <a class="btn btn--primary" href="#kontakt"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Termin anfragen</a>
+    <a class="btn btn--primary" href="#termin"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>Termin anfragen</a>
   </aside>
 
   <!-- Bild-Grossansicht -->

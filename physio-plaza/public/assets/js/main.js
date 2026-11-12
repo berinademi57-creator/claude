@@ -495,6 +495,8 @@
    * 10. Öffnungszeiten: "Jetzt geöffnet" (Zeitzone Zürich)
    * ------------------------------------------------------------------ */
   var HOURS = { 0: null, 1: [8, 21], 2: [8, 21], 3: [8, 21], 4: [8, 21], 5: [8, 21], 6: [7, 19] };
+  // Fixe Telefonzeiten: Dienstag (2) bis Freitag (5), 13–14 Uhr
+  var PHONE_HOURS = { 2: [13, 14], 3: [13, 14], 4: [13, 14], 5: [13, 14] };
   var DAY_NAMES = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
   var WD = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
 
@@ -555,6 +557,18 @@
       var days = tr.getAttribute("data-days").split(",");
       tr.classList.toggle("is-today", days.indexOf(String(s.day)) !== -1);
     });
+
+    // Telefon: nur während der fixen Telefonzeiten als "jetzt erreichbar" anzeigen
+    var phoneBadge = $("#phone-status");
+    if (phoneBadge) {
+      var now = zurichNow();
+      var ph = PHONE_HOURS[now.day];
+      var reachable = !!ph && now.min >= ph[0] * 60 && now.min < ph[1] * 60;
+      phoneBadge.hidden = !reachable;
+      if (reachable) {
+        $("[data-phone-text]", phoneBadge).textContent = "Jetzt telefonisch erreichbar · bis " + pad(ph[1]) + " Uhr";
+      }
+    }
   }
   updateOpenStatus();
   window.setInterval(updateOpenStatus, 60000);
