@@ -75,7 +75,26 @@
           { "@type": "City", "name": "Luzern" }
         ],
         "founder": { "@id": "https://www.physio-plaza.com/#hasan-zeciri" },
-        "employee": { "@id": "https://www.physio-plaza.com/#hasan-zeciri" }
+        "employee": { "@id": "https://www.physio-plaza.com/#hasan-zeciri" },
+        "knowsAbout": ["Physiotherapie", "Neurorehabilitation", "Manuelle Therapie", "Dry Needling", "Stosswellentherapie", "Lasertherapie", "Lymphdrainage"],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Leistungen",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Neurorehabilitation" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Manuelle Therapie" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Medizinische Massage, Sportmassage, Schwangerschaftsmassage, Gesichtsmassage" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lymphdrainage" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dry Needling" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Elektrotherapie" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ultraschalltherapie" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Vakuumtherapie" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hochenergie-Induktionstherapie" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Stosswellentherapie" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "High-Power-Lasertherapie" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Traktionsbehandlung" } }
+          ]
+        }
       },
       {
         "@type": "Person",
@@ -83,6 +102,7 @@
         "name": "Hasan Zećiri",
         "jobTitle": "Physiotherapeut B.Sc., M.Sc. Neurorehabilitation",
         "image": "https://www.physio-plaza.com/assets/img/hasan-zeciri-640.webp",
+        "knowsAbout": ["Physiotherapie", "Neurorehabilitation", "Ultraschalldiagnostik"],
         "worksFor": { "@id": "https://www.physio-plaza.com/#praxis" }
       },
       {
@@ -100,6 +120,11 @@
             "@type": "Question",
             "name": "Wie vereinbare ich einen Termin?",
             "acceptedAnswer": { "@type": "Answer", "text": "Rufen Sie uns während der Telefonzeiten (Dienstag bis Freitag, 13:00–14:00 Uhr) unter 041 554 55 41 an oder senden Sie uns jederzeit eine Anfrage über das Kontaktformular. Wir melden uns so rasch wie möglich bei Ihnen." }
+          },
+          {
+            "@type": "Question",
+            "name": "Kann ich auch abends oder am Samstag kommen?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Ja. Wir sind Montag bis Freitag von 08:00 bis 21:00 Uhr und am Samstag von 07:00 bis 19:00 Uhr für Sie da – ideal, wenn Sie tagsüber arbeiten." }
           },
           {
             "@type": "Question",
@@ -215,21 +240,22 @@
 
       <div class="container hero__inner">
         <div class="hero__content">
-          <p class="hero__badge" data-enter>
-            <span class="hero__badge-dot"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span>
-            Physiotherapie &amp; Neuro-Rehabilitation in Emmenbrücke
-          </p>
-
-          <h1 class="hero__title" id="hero-title" data-enter>
-            <span class="line">Physiotherapie,</span>
-            <span class="line"><em>die bewegt.</em></span>
+          <h1 class="hero__heading" id="hero-title">
+            <span class="hero__badge" data-enter>
+              <span class="hero__badge-dot"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span>
+              <span>Physiotherapie &amp; <span class="nowrap">Neuro-Rehabilitation</span> in Emmenbrücke</span>
+            </span>
+            <span class="hero__title" data-enter>
+              <span class="line">Physiotherapie,</span>
+              <span class="line"><em>die bewegt.</em></span>
+            </span>
           </h1>
 
           <p class="hero__tagline" data-enter><span>Individuell</span><span>Modern</span><span>Nachhaltig</span></p>
 
           <p class="hero__text" data-enter>
             Moderne Physiotherapie in Emmenbrücke – ganzheitlich und auf Ihre Bedürfnisse abgestimmt.
-            Für mehr Beweglichkeit und weniger Schmerzen.
+            Unser Ziel: mehr Beweglichkeit und weniger Schmerzen.
           </p>
 
           <div class="btn-row hero__actions" data-enter>
@@ -311,7 +337,7 @@
           <div class="section-head" data-reveal>
             <p class="eyebrow">Leistungen</p>
             <h2 class="h2" id="leistungen-title">Unsere <em>Leistungen</em></h2>
-            <p class="lead">Von der manuellen Therapie bis zu modernen, gerätegestützten Verfahren: Wir kombinieren bewährte Methoden so, wie es Ihr Beschwerdebild erfordert.</p>
+            <p class="lead">Von der manuellen Therapie bis zu modernen, gerätegestützten Verfahren: In unserer Praxis in Emmenbrücke kombinieren wir bewährte Methoden so, wie es Ihr Beschwerdebild erfordert.</p>
           </div>
           <div class="filters" role="group" aria-label="Leistungen filtern" data-reveal>
             <button class="filter" type="button" data-filter="alle" aria-pressed="true">Alle</button>
@@ -356,7 +382,7 @@
             <div class="svc__body">
               <p class="svc__kicker">Mit den Händen</p>
               <h3>Manuelle Therapie &amp; Massagen</h3>
-              <p>Gezielte Handgriffe fördern die Beweglichkeit und können Schmerzen lindern. Ergänzend bieten wir verschiedene Massagen an.</p>
+              <p>Gezielte Handgriffe können die Beweglichkeit fördern und Schmerzen lindern. Ergänzend bieten wir verschiedene Massagen an.</p>
               <ul class="svc__tags">
                 <li>Medizinische Massage</li>
                 <li>Sportmassage</li>
@@ -408,7 +434,7 @@
             <div class="svc__body">
               <p class="svc__kicker">Gerätegestützt</p>
               <h3>Ultraschalltherapie</h3>
-              <p>Unterstützt die Behandlung von Gewebebeschwerden und fördert die natürlichen Heilungsprozesse.</p>
+              <p>Unterstützt die Behandlung von Gewebebeschwerden und kann die natürlichen Heilungsprozesse fördern.</p>
             </div>
           </article>
 
@@ -423,7 +449,7 @@
             <div class="svc__body">
               <p class="svc__kicker">Gerätegestützt</p>
               <h3>Vakuumtherapie</h3>
-              <p>Fördert die lokale Durchblutung, lockert das Gewebe und unterstützt die Behandlung von Muskelverspannungen.</p>
+              <p>Kann die lokale Durchblutung fördern, das Gewebe lockern und die Behandlung von Muskelverspannungen unterstützen.</p>
             </div>
           </article>
 
@@ -598,7 +624,7 @@
     <!-- ============ Über mich ============ -->
     <section class="section about" id="ueber-mich" aria-labelledby="ueber-title">
       <div class="container about__grid">
-        <aside class="profile" data-reveal="left">
+        <aside class="profile" data-reveal="left" aria-label="Profil Hasan Zećiri">
           <div class="profile__card">
             <div class="profile__avatar">
               <picture>
@@ -688,7 +714,7 @@
             <ul class="carousel__ring" id="carousel-ring">
               <li class="carousel__item">
                 <button class="carousel__btn" type="button" data-full="/assets/img/praxis-rezeption-1200.webp" data-caption="Empfang">
-                  <picture><source type="image/avif" srcset="/assets/img/praxis-rezeption-480.avif 480w, /assets/img/praxis-rezeption-800.avif 800w" sizes="360px"><img src="/assets/img/praxis-rezeption-480.webp" srcset="/assets/img/praxis-rezeption-480.webp 480w, /assets/img/praxis-rezeption-800.webp 800w" sizes="360px" width="480" height="640" loading="lazy" decoding="async" alt="Heller Empfangsbereich mit weiss-blauem Empfangstresen und Wanddekoration aus Moos-Waben"></picture>
+                  <picture><source type="image/avif" srcset="/assets/img/praxis-rezeption-480.avif 480w, /assets/img/praxis-rezeption-800.avif 800w" sizes="360px"><img src="/assets/img/praxis-rezeption-480.webp" srcset="/assets/img/praxis-rezeption-480.webp 480w, /assets/img/praxis-rezeption-800.webp 800w" sizes="360px" width="480" height="640" loading="lazy" decoding="async" alt="Empfang der Physiotherapie Central Plaza in Emmenbrücke mit weiss-blauem Tresen und Wanddekoration aus Moos-Waben"></picture>
                   <span class="carousel__caption">Empfang <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></span>
                 </button>
               </li>
@@ -916,6 +942,7 @@
           <div>
             <p class="eyebrow">Anfahrt</p>
             <h3>Anfahrt &amp; Parkmöglichkeiten</h3>
+            <p>Sie finden unsere Physiotherapie-Praxis an der Gerliswilstrasse 30 in Emmenbrücke – für Patientinnen und Patienten aus Emmen, Luzern, Rothenburg, Ebikon und der ganzen Region.</p>
             <p>Für unsere Patientinnen und Patienten stehen <strong>hinter dem Tramhüsli eigene Parkplätze</strong> zur Verfügung. Die Lage der Patientenparkplätze ist in der Abbildung markiert.</p>
             <p>Zusätzlich finden Sie weitere Parkmöglichkeiten in der näheren Umgebung.</p>
             <div class="btn-row">
@@ -945,6 +972,10 @@
           <details>
             <summary>Wie vereinbare ich einen Termin?</summary>
             <div class="faq__answer"><p>Rufen Sie uns während der Telefonzeiten (Dienstag bis Freitag, 13:00–14:00 Uhr) unter <a href="tel:+41415545541">041&nbsp;554&nbsp;55&nbsp;41</a> an oder senden Sie uns jederzeit eine Anfrage über das <a href="#kontakt">Kontaktformular</a>. Wir melden uns so rasch wie möglich bei Ihnen.</p></div>
+          </details>
+          <details>
+            <summary>Kann ich auch abends oder am Samstag kommen?</summary>
+            <div class="faq__answer"><p>Ja. Wir sind Montag bis Freitag von 08:00 bis 21:00 Uhr und am Samstag von 07:00 bis 19:00 Uhr für Sie da – ideal, wenn Sie tagsüber arbeiten.</p></div>
           </details>
           <details>
             <summary>Was bringe ich zum ersten Termin mit?</summary>

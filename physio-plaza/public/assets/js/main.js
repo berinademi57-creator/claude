@@ -236,6 +236,13 @@
       });
       var feature = $(".feature");
       if (feature) feature.hidden = cat === "geraet";
+      // Leere Raster samt Zwischenüberschrift ("Demnächst verfügbar") ausblenden
+      $$(".svc-grid").forEach(function (grid) {
+        var any = $$(".svc", grid).some(function (c) { return !c.classList.contains("is-hidden"); });
+        grid.hidden = !any;
+        var prev = grid.previousElementSibling;
+        if (prev && prev.classList.contains("services__soon-title")) prev.hidden = !any;
+      });
     });
   });
 
