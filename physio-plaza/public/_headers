@@ -1,0 +1,40 @@
+# =====================================================================
+#  Sicherheits-Header für Netlify  (gilt für die ganze Website)
+#  Testen nach dem Go-live:  https://securityheaders.com
+#                            https://observatory.mozilla.org
+# =====================================================================
+
+/*
+  # Nur eigene Dateien dürfen geladen/ausgeführt werden -> kein fremder Code (XSS-Schutz)
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types 'none'
+  # Immer HTTPS erzwingen (2 Jahre)
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+  # Browser darf Dateitypen nicht "erraten"
+  X-Content-Type-Options: nosniff
+  # Seite darf nicht in fremde Seiten eingebettet werden (Clickjacking-Schutz)
+  X-Frame-Options: DENY
+  # Beim Klick auf externe Links nur die Domain weitergeben
+  Referrer-Policy: strict-origin-when-cross-origin
+  # Kamera, Mikrofon, Standort, Zahlungen usw. komplett gesperrt
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), hid=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), xr-spatial-tracking=(), browsing-topics=()
+  # Isolation gegenüber anderen Fenstern/Seiten
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Origin-Agent-Cluster: ?1
+  X-Permitted-Cross-Domain-Policies: none
+  X-DNS-Prefetch-Control: off
+
+# Schriften ändern sich nie -> 1 Jahr im Browser speichern
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Bilder -> 30 Tage speichern
+/assets/img/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+# Danke- und Fehlerseite nicht bei Google listen
+/danke/*
+  X-Robots-Tag: noindex
+
+/.well-known/security.txt
+  Content-Type: text/plain; charset=utf-8

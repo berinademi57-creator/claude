@@ -1,0 +1,27 @@
+# =====================================================================
+#  Weiterleitungen der alten Wix-Adressen auf die neue Website
+#  301 = dauerhaft -> Google überträgt das bisherige Ranking
+# =====================================================================
+
+/home                     /                 301
+/book-online              /#kontakt         301
+/booking-calendar         /#kontakt         301
+/booking-calendar/*       /#kontakt         301
+/booking-form             /#kontakt         301
+/inquiry-services-page    /#kontakt         301
+/service-page             /#leistungen      301
+/service-page/*           /#leistungen      301
+/blog                     /#ueber-mich      301
+/blog/*                   /#ueber-mich      301
+/post/*                   /                 301
+/my-bookings              /                 301
+/account-settings         /                 301
+/profile                  /                 301
+/profile/*                /                 301
+/cart-page                /                 301
+/checkout                 /                 301
+/thank-you-page           /                 301
+/notifications            /                 301
+/members-area/*           /                 301
+/kontakt                  /#kontakt         301
+/leistungen               /#leistungen      301

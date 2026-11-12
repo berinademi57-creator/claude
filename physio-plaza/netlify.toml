@@ -1,0 +1,18 @@
+# =====================================================================
+#  Netlify-Konfiguration – Physiotherapie Central Plaza
+#
+#  Variante A (Git):  Netlify > "Add new site" > "Import from Git"
+#                     Base directory:     physio-plaza
+#                     Publish directory:  physio-plaza/public   (wird hier automatisch gesetzt)
+#                     Build command:      (leer lassen)
+#
+#  Variante B (Drag & Drop): den Ordner "public" auf app.netlify.com/drop ziehen.
+#                     _headers und _redirects liegen im Ordner und werden mitgenommen.
+#
+#  Sicherheits-Header:  public/_headers
+#  Weiterleitungen:     public/_redirects
+# =====================================================================
+
+[build]
+  publish = "public"
+  command = ""
