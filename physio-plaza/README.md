@@ -140,7 +140,8 @@ Das Skript entfernt automatisch **alle Metadaten** (z. B. GPS-Standort aus Handy
 | axe-core (WCAG 2.1 AA) | 0 Verstösse auf allen 5 Seiten (Desktop & Handy) |
 | HTML-Validierung (html-validate) | 0 Fehler auf allen 5 Seiten |
 | Kontrast | alle Texte ≥ 4.5:1 (grosse Überschriften ≥ 3:1) |
-| Responsive | 375 / 768 / 1280+ px, kein horizontales Scrollen |
+| Responsive | 320 / 375 / 768 / 1280+ px, kein horizontales Scrollen |
+| Geräte-Emulation | iPhone SE, iPhone 13, Pixel 7, Galaxy S9+, iPad Mini – exakte Breite, kein seitliches Wischen |
 | Funktionstests | Menü, Formular (Fehler/Erfolg/Honeypot), Galerie, Grossansicht, Filter, ohne JavaScript, „Bewegung reduzieren" |
 
 ---

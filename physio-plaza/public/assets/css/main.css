@@ -87,6 +87,9 @@
 }
 
 html {
+  /* Schutz gegen horizontales Wischen auf dem Handy (clip bricht position:sticky nicht) */
+  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
@@ -2891,6 +2894,14 @@ textarea.input {
   transform: none;
 }
 
+/* Handy/Tablet: seitliches Hereinfahren würde über den Bildschirmrand ragen -> von unten */
+@media (max-width: 1024px) {
+  .will-reveal[data-reveal="left"],
+  .will-reveal[data-reveal="right"] {
+    transform: translate3d(0, 34px, 0);
+  }
+}
+
 .svc.will-reveal.is-in {
   transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
 }
@@ -3128,13 +3139,20 @@ textarea.input {
     height: 34px;
   }
 
+  /* Auf dem Handy weniger 3D-Tiefe: sonst wirken die Karten grösser und ragen über den Rand */
+  .chip--status,
+  .chip--exp,
+  .chip--name {
+    --z: 24px;
+  }
+
   .chip--status {
-    left: -6%;
+    left: -3%;
     top: 4%;
   }
 
   .chip--exp {
-    right: -6%;
+    right: -3%;
     top: 50%;
   }
 
@@ -3217,7 +3235,20 @@ textarea.input {
   }
 
   .action-bar {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 8px;
+    padding-inline: 10px;
+  }
+
+  .action-bar .btn {
+    gap: 6px;
+    padding: 0 8px;
+    font-size: 0.95rem;
+  }
+
+  .action-bar .btn .icon {
+    width: 18px;
+    height: 18px;
   }
 }
 
