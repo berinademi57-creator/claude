@@ -36,7 +36,7 @@ Offen sind nur Punkte, die der Kunde bestätigen muss (Titel, Bildrechte, FAQ-In
 | 6 | Keine Gesundheitsdaten über das Formular erheben | ✅ erfüllt | Hinweis im Formular; keine Gesundheitsfelder |
 | 7 | Löschkonzept Formularanfragen | ⚠️ organisatorisch | Anfragen spätestens nach 12 Monaten in Netlify löschen (so in der DSE versprochen) |
 | 8 | Sachliche Gesundheitswerbung, keine Heilversprechen | ✅ erfüllt | Formulierungen mit «kann …», keine Superlative, keine Patientenbewertungen |
-| 9 | Titel/Abschlüsse korrekt | ❓ unbekannt | Kunde bestätigt B.Sc., M.Sc. Neurorehabilitation, Master Ultraschalldiagnostik, Anerkennung in der Schweiz |
+| 9 | Titel/Abschlüsse korrekt | ✅ weitgehend erfüllt | Gemäss Praxis-Broschüre: B.Sc., M.Sc. Neurorehabilitation; Ultraschalldiagnostik (MSc) ist **in Ausbildung** und so gekennzeichnet (vorher fälschlich als Abschluss). Anerkennung in der Schweiz vom Kunden bestätigen lassen |
 | 9a | Dry Needling nur mit Ausbildung | ❓ unbekannt | Physioswiss-Positionspapier: Dry Needling nur mit SRK-Anerkennung und standardisierter Dry-Needling-Ausbildung → Kunde bestätigt Zertifikat, sonst Leistung entfernen |
 | 10 | Bildrechte Gerätefotos & Dry-Needling-Foto | ❓ unbekannt | Erlaubnis der Hersteller/Quelle prüfen oder durch eigene Fotos ersetzen |
 | 11 | Bildrechte Unsplash-Bild (Ultraschall) | ✅ erfüllt | Unsplash-Lizenz erlaubt kommerzielle Nutzung |

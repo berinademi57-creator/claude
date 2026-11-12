@@ -117,13 +117,13 @@ Das Skript entfernt automatisch **alle Metadaten** (z. B. GPS-Standort aus Handy
 
 ## 6. Offene Punkte – bitte mit Hasan klären
 
-1. **Titel & Abschlüsse** exakt so korrekt? (Physiotherapeut B.Sc., M.Sc. Neurorehabilitation, Master Ultraschalldiagnostik, „über 15 Jahre Erfahrung", seit 2018 in der Schweiz)
+1. **Titel & Abschlüsse**: gemäss Praxis-Broschüre umgesetzt – Physiotherapeut (B.Sc.), M.Sc. Neurorehabilitation, **Ultraschalldiagnostik (MSc) in Ausbildung**, über 15 Jahre Erfahrung, seit 2018 in der Schweiz, Praxis seit 2023. Sobald der Ultraschall-Master abgeschlossen ist: Text im Profil und Zeitstrahl anpassen.
 1a. **Dry Needling**: Physioswiss verlangt dafür SRK-Anerkennung **und** eine standardisierte Dry-Needling-Ausbildung. Zertifikat vorhanden? Sonst die Karte entfernen.
 2. **Text Neurorehabilitation** („begleite ich Menschen mit neurologisch bedingten Einschränkungen …") – inhaltlich ok?
 3. **FAQ-Antworten** (Verordnung, Versichertenkarte, Krankenkasse) – passen sie zur Praxis?
 4. **Bildrechte**: Gerätefotos stammen von Herstellern, das Dry-Needling-Bild von der alten Wix-Seite – dürfen sie verwendet werden? (Im Zweifel durch eigene Fotos ersetzen.)
 5. **Mobilnummer** (076 271 22 76, steht auf dem Praxisschild) zusätzlich auf der Website zeigen? Aktuell nur Festnetz.
-6. **Logo**: wurde als Vektor nachgezeichnet (`brand/logo-mark.svg`). Falls die Original-Logodatei existiert → austauschen.
+6. **Logo**: nach der Broschüre zweifarbig als Vektor nachgezeichnet (`brand/logo-mark.svg`). Falls die Original-Logodatei (SVG/PDF) existiert → austauschen.
 7. **Domain**: bleibt es `www.physio-plaza.com`? (E-Mail läuft über `physio-plaza.ch`.)
 8. **Online-Buchung**: Wix-Buchung war leer. Später z. B. OneDoc o. Ä. einbinden? (Dann CSP + Datenschutz anpassen.)
 

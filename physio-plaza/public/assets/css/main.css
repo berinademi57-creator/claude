@@ -21,6 +21,16 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* Kursiv – nur für den Logo-Zusatz "Neuro-Rehabilitation" (wird erst geladen, wenn sichtbar) */
+@font-face {
+  font-family: "Jost";
+  src: url("../fonts/jost-italic-latin.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* Ersatzschrift mit angepassten Massen: solange Jost lädt, sieht der Text fast
    gleich aus -> beim Wechsel springt nichts (kein Layout-Shift). */
 @font-face {
@@ -446,10 +456,15 @@ address {
 }
 
 .brand__mark {
-  width: 46px;
-  height: 46px;
-  color: var(--blue);
+  width: 50px;
+  height: 50px;
+  color: var(--blue); /* Kreis + Wirbelsäule */
+  --logo-ink: #2b313b; /* Körperkontur (Anthrazit wie im Original-Logo) */
   transition: transform 0.6s var(--ease-out);
+}
+
+.logo-ink {
+  stroke: var(--logo-ink, #2b313b);
 }
 
 .brand:hover .brand__mark {
@@ -1132,6 +1147,83 @@ body.menu-open {
   line-height: 1.35;
 }
 
+/* ---------- Willkommen & Werte (aus der Broschüre) ---------- */
+.welcome__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(36px, 6vw, 80px);
+  align-items: center;
+}
+
+.welcome__text p + p {
+  margin-top: 14px;
+}
+
+.values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.value {
+  position: relative;
+  padding: 30px 22px 28px;
+  border-radius: var(--radius-l);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-s);
+  text-align: center;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.4s var(--ease);
+}
+
+.value:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.value__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 80px;
+  margin: 0 auto 16px;
+  color: var(--blue);
+}
+
+.value__hex {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: var(--ice);
+  stroke: var(--blue);
+  stroke-width: 2;
+  transition: transform 0.8s var(--ease-out);
+}
+
+.value:hover .value__hex {
+  transform: rotate(30deg);
+}
+
+.value__icon .icon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.6;
+}
+
+.value h3 {
+  font-size: 1.3rem;
+}
+
+.value p {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
 /* ---------- Leistungen ---------- */
 .services__top {
   display: flex;
@@ -1370,6 +1462,13 @@ body.menu-open {
 
 .svc h3 {
   font-size: 1.45rem;
+}
+
+.svc .svc__tagline {
+  margin-top: 6px;
+  color: var(--blue);
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .svc p {
@@ -2653,6 +2752,20 @@ textarea.input {
   color: var(--sky);
 }
 
+.footer__brand .brand__mark {
+  --logo-ink: #ffffff;
+  width: 56px;
+  height: 56px;
+}
+
+.brand__claim {
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--sky);
+  letter-spacing: 0.02em;
+  margin-top: 3px;
+}
+
 .footer__brand p {
   max-width: 340px;
   margin-top: 18px;
@@ -3060,7 +3173,8 @@ textarea.input {
 
   .about__grid,
   .contact__grid,
-  .directions {
+  .directions,
+  .welcome__grid {
     grid-template-columns: 1fr;
   }
 
@@ -3159,6 +3273,37 @@ textarea.input {
   .services__top {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* Werte auf dem Handy: Symbol links, Text rechts – kompakt */
+  .values {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .value {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    column-gap: 16px;
+    align-items: center;
+    padding: 18px 18px;
+    text-align: left;
+  }
+
+  .value__icon {
+    grid-row: span 2;
+    width: 56px;
+    height: 62px;
+    margin: 0;
+  }
+
+  .value__icon .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .value p {
+    margin-top: 2px;
   }
 
   .services__cta {

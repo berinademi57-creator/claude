@@ -113,7 +113,7 @@
 
   if ("IntersectionObserver" in window && !reduceMotion.matches) {
     // gestaffelte Verzögerung in Rastern
-    $$(".svc-grid, .steps, .info-cards, .timeline").forEach(function (group) {
+    $$(".svc-grid, .steps, .info-cards, .timeline, .values").forEach(function (group) {
       $$(":scope > [data-reveal]", group).forEach(function (el, i) {
         el.style.setProperty("--delay", (Math.min(i, 6) * 0.08).toFixed(2) + "s");
       });
