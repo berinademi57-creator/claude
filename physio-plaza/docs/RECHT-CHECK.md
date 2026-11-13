@@ -6,7 +6,9 @@
 
 ## Zusammenfassung
 **Freigabe mit Bedingungen.** Technik, Datenschutz und Impressum sind sauber umgesetzt.
-Offen sind nur Punkte, die der Kunde bestätigen muss (Titel, Bildrechte, FAQ-Inhalte).
+Offen sind Punkte, die nur der Kunde bestätigen kann (medizinische Texte der Leistungsseiten, Titel,
+Dry-Needling-Zertifikat, Bildrechte, FAQ-Inhalte), sowie eine kurze Vereinbarung zur Auftragsbearbeitung,
+falls die Website im Netlify-Konto der Agentur läuft.
 
 ## Anwendbare Vorschriften
 
@@ -29,13 +31,16 @@ Offen sind nur Punkte, die der Kunde bestätigen muss (Titel, Bildrechte, FAQ-In
 | # | Anforderung | Status | Massnahme |
 |---|---|---|---|
 | 1 | Impressum mit Firma, Adresse, E-Mail, vertretungsberechtigter Person, UID | ✅ erfüllt | UID CHE-149.883.560 in Zefix geprüft |
-| 2 | Datenschutzerklärung (Verantwortlicher, Zwecke, Empfänger, Ausland, Rechte, EDÖB) | ✅ erfüllt | – |
+| 2 | Datenschutzerklärung (Verantwortlicher, Zwecke, Empfänger, Ausland, Rechte, EDÖB) | ✅ erfüllt | Empfänger-Kategorien genannt: Hosting-Anbieter und beauftragte Dienstleister (Web-Agentur) |
 | 3 | Bekanntgabe in die USA (Netlify) | ✅ erfüllt | Netlify ist unter dem Swiss-U.S. DPF zertifiziert (Angemessenheit durch Bundesrat) |
 | 4 | Auftragsbearbeitungsvertrag mit Netlify | ⚠️ offen | DPA im Netlify-Konto herunterladen und ablegen |
+| 4a | Auftragsbearbeitung Praxis ↔ ADEMI DIGITAL (DSG Art. 9) | ⚠️ offen, falls die Website im Konto der Agentur läuft | Wer das Netlify-Konto verwaltet, kann die Formular-Anfragen lesen. Entweder das Konto gehört der Praxis (empfohlen), oder Praxis und Agentur halten schriftlich fest: Bearbeitung nur nach Weisung, Vertraulichkeit, Datensicherheit, Löschung, Netlify als Unterauftragsbearbeiter |
 | 5 | Datensicherheit (TLS, Härtung) | ✅ erfüllt | HTTPS/HSTS, CSP, keine Drittanbieter-Skripte |
 | 6 | Keine Gesundheitsdaten über das Formular erheben | ✅ erfüllt | Hinweis im Formular; keine Gesundheitsfelder |
 | 7 | Löschkonzept Formularanfragen | ⚠️ organisatorisch | Anfragen spätestens nach 12 Monaten in Netlify löschen (so in der DSE versprochen) |
-| 8 | Sachliche Gesundheitswerbung, keine Heilversprechen | ✅ erfüllt | Formulierungen mit «kann …», keine Superlative, keine Patientenbewertungen |
+| 8 | Sachliche Gesundheitswerbung, keine Heilversprechen | ✅ erfüllt | Formulierungen mit «kann …» bzw. «mit dem Ziel …», keine Superlative, keine Patientenbewertungen |
+| 8a | Medizinische Aussagen der vier Leistungsseiten fachlich richtig | ❓ vom Kunden zu prüfen | Texte zu Anwendungsgebieten, Ablauf und Hinweisen vor der Behandlung stammen nicht vom Therapeuten. Jede Seite trägt den Hinweis «ersetzt keine individuelle ärztliche oder physiotherapeutische Abklärung». Hasan liest gegen und gibt schriftlich frei |
+| 8b | Angaben zu Parkplätzen und Anfahrt richtig | ❓ teilweise offen | Bus/Bahn aus offiziellen Fahrplandaten (Stand Nov. 2026). Der Parkplan nennt Daten für zwei Felder (ab 01.12.26 / 01.02.27) – Bedeutung vom Kunden bestätigen lassen |
 | 9 | Titel/Abschlüsse korrekt | ✅ weitgehend erfüllt | Gemäss Praxis-Broschüre: B.Sc., M.Sc. Neurorehabilitation; Ultraschalldiagnostik (MSc) ist **in Ausbildung** und so gekennzeichnet (vorher fälschlich als Abschluss). Anerkennung in der Schweiz vom Kunden bestätigen lassen |
 | 9a | Dry Needling nur mit Ausbildung | ❓ unbekannt | Physioswiss-Positionspapier: Dry Needling nur mit SRK-Anerkennung und standardisierter Dry-Needling-Ausbildung → Kunde bestätigt Zertifikat, sonst Leistung entfernen |
 | 10 | Bildrechte Gerätefotos & Dry-Needling-Foto | ❓ unbekannt | Erlaubnis der Hersteller/Quelle prüfen oder durch eigene Fotos ersetzen |
@@ -50,20 +55,25 @@ Offen sind nur Punkte, die der Kunde bestätigen muss (Titel, Bildrechte, FAQ-In
 |---|---|---|
 | Fremde Gerätefotos ohne Erlaubnis | Mittel | Hersteller anfragen (meist problemlos) oder eigene Fotos der Geräte in der Praxis machen |
 | Unbestätigte Angaben zu Titeln/Erfahrung | Mittel | Vor Livegang vom Kunden schriftlich bestätigen lassen (E-Mail genügt) |
+| Fachlich ungenaue Aussage auf einer Leistungsseite | Mittel | Freigabe durch Hasan vor dem Livegang; Texte sind bewusst zurückhaltend formuliert |
+| Leistung beworben, für die die Ausbildung fehlt (Dry Needling) | Mittel–Hoch | Zertifikat bestätigen lassen, sonst Karte und Seite entfernen |
+| Agentur hat Zugriff auf Patientenanfragen ohne Vereinbarung | Mittel | Konto auf die Praxis oder kurze schriftliche Vereinbarung (siehe 4a) |
+| Netlify-Kontingent aufgebraucht → Website und Formular vorübergehend offline (Betriebsrisiko) | Niedrig–Mittel | Eigenes Konto für die Praxis, Warn-Mails beachten, bei Bedarf bezahlter Plan |
 | FAQ zur Kostenübernahme passt nicht zur Praxis | Niedrig | Kunde prüft; Text ist bewusst vorsichtig formuliert |
 | Formularanfragen werden nicht gelöscht | Niedrig | Jährliche Erinnerung im Kalender |
 | Spätere Ergänzung von Tracking/Buchungstool ohne DSE-Anpassung | Mittel | Bei jeder neuen Einbindung: Datenschutzerklärung und `_headers` (CSP) anpassen |
 
 ## Empfohlene Massnahmen (Priorität)
-1. **Kunde bestätigt** Titel, Abschlüsse, Dry-Needling-Ausbildung, Neurorehabilitations-Text und FAQ (schriftlich).
+1. **Kunde bestätigt** Titel, Abschlüsse, Dry-Needling-Ausbildung, die Texte der vier Leistungsseiten und die FAQ (schriftlich).
 2. **Bildrechte klären** für Gerätefotos und Dry-Needling-Bild – sonst ersetzen.
-3. **Netlify-DPA ablegen** und Löschroutine für Formularanfragen einplanen.
+3. **Konto-Frage klären:** Netlify-Konto der Praxis – oder Vereinbarung zur Auftragsbearbeitung zwischen Praxis und ADEMI DIGITAL.
+4. **Netlify-DPA ablegen** und Löschroutine für Formularanfragen einplanen.
 
 ## Freigaben
 
 | Wer | Warum | Status |
 |---|---|---|
-| Hasan Zećiri (Geschäftsführer) | Richtigkeit aller Inhalte, Titel, Bildrechte | ausstehend |
+| Hasan Zećiri (Geschäftsführer) | Richtigkeit aller Inhalte (inkl. Leistungsseiten), Titel, Zertifikate, Bildrechte, Parkplan | ausstehend |
 | optional: Physioswiss / Rechtsberatung | Gesundheitswerbung im Zweifelsfall | optional |
 
 ## Weitere Prüfung empfohlen

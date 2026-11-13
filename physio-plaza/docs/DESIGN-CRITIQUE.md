@@ -17,6 +17,10 @@ der Einstieg mit Porträt und 3D-Welle. Die grösste Chance lag beim **Weg zum T
 | Leistungen auf dem Handy sehr lang (11 Karten mit grossem Bild: 6580 px) | 🟡 Mittel | Kompakte Karten: kleines Bild links, Titel rechts, Text darunter – gleiche Schriftgrösse. Gemessen auf iPhone 13: 3800 px, also 42 % bzw. rund 4 Bildschirmhöhen weniger Scrollen | ✅ umgesetzt |
 | Telefon nur Di–Fr 13–14 Uhr erreichbar, aber „Anrufen" ist immer sichtbar | 🟡 Mittel | Live-Hinweis „Jetzt telefonisch erreichbar" während der Telefonzeit; sonst Formular als Hauptweg | ✅ umgesetzt |
 | Öffnungszeiten-Tabelle brach auf dem Handy mitten in der Uhrzeit um | 🟢 Klein | Uhrzeit bleibt auf einer Zeile | ✅ umgesetzt |
+| Leistungen nur als kurze Karten – wer mehr wissen wollte, fand nichts | 🟡 Mittel | Eigene Seiten für die vier Schwerpunkte, mit «Auf einen Blick»-Karte und direktem Weg ins Formular (Anliegen ist dort schon ausgewählt) | ✅ umgesetzt |
+| Anfahrt nur fürs Auto beschrieben; ältere Menschen kommen oft mit dem Bus | 🟡 Mittel | Haltestelle, Linien, Bahnhof und Gehzeiten nennen; zweiter Knopf «ÖV-Verbindung» | ✅ umgesetzt |
+| Von einer anderen Seite ins Formular gesprungen, landete man am PC rund 200 px zu tief | 🟡 Mittel | Die 3D-Galerie reserviert ihre Höhe sofort, nichts rutscht mehr nach | ✅ umgesetzt |
+| Parkplan enthält Datumsangaben, die nur im Bild standen | 🟢 Klein | Bildunterschrift nennt Feldnummern und Daten als Text (auch für Vorleseprogramme) | ✅ umgesetzt |
 | Keine Online-Terminbuchung | 🟡 Mittel | Später z. B. OneDoc anbinden (siehe SEO-Audit) | ⏳ offen |
 
 ## Visuelle Hierarchie

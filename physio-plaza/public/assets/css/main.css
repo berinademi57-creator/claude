@@ -1359,9 +1359,29 @@ body.menu-open {
   font-size: 0.98rem;
 }
 
-.feature .btn {
+.feature__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 26px;
   margin-top: 30px;
-  align-self: flex-start;
+}
+
+.feature__more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  color: #fff;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+  text-underline-offset: 5px;
+  transition: text-decoration-color 0.2s;
+}
+
+.feature__more:hover {
+  color: #fff;
+  text-decoration-color: #fff;
 }
 
 /* Leistungs-Karten */
@@ -1493,6 +1513,34 @@ body.menu-open {
   border: 1px solid var(--line);
   font-size: 0.92rem;
   color: var(--navy);
+}
+
+/* Link zur eigenen Leistungsseite – sitzt immer am unteren Kartenrand */
+.svc__more {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: auto;
+  padding-top: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.svc__more:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.svc__more .icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease);
+}
+
+.svc__more:hover .icon {
+  transform: translateX(4px);
 }
 
 .svc__badge {
@@ -1906,6 +1954,12 @@ body.menu-open {
 
 .carousel {
   position: relative;
+}
+
+/* Höhe der 3D-Galerie vorab reservieren (Bühne + Pfeile 74 px + Punkte 44 px).
+   main.js setzt die Klasse sofort beim Laden -> beim Umschalten verschiebt sich nichts. */
+.carousel--reserve {
+  min-height: calc(clamp(430px, 46vw, 560px) + 118px);
 }
 
 .carousel__viewport {
@@ -2587,8 +2641,20 @@ textarea.input {
   margin-top: 24px;
 }
 
+.directions__figure {
+  margin: 0;
+}
+
+.directions__figure figcaption {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
 .directions__map {
   display: block;
+  width: 100%;
   padding: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -2887,6 +2953,381 @@ textarea.input {
   max-width: calc(820px + 2 * var(--gutter));
 }
 
+/* ---------- Leistungsseiten (erzeugt von tools/build_leistungen.py) ---------- */
+.breadcrumb {
+  margin-bottom: 6px;
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 10px;
+}
+
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+}
+
+.breadcrumb li + li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-top: 1.5px solid #8a9bb0;
+  border-right: 1.5px solid #8a9bb0;
+  transform: rotate(45deg);
+}
+
+.breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--blue);
+}
+
+.breadcrumb [aria-current] {
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.page-hero--service {
+  padding-top: calc(var(--header-h) + clamp(24px, 4vw, 48px));
+  padding-bottom: clamp(48px, 7vw, 88px);
+}
+
+.page-hero--service h1 {
+  font-size: clamp(2.3rem, 4.8vw, 3.7rem);
+}
+
+.page-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.page-hero .btn-row {
+  margin-top: 30px;
+}
+
+/* "p" im Selektor nötig, damit die Regel stärker ist als ".page-hero p:not(.eyebrow)" */
+.page-hero p.page-hero__hint {
+  margin-top: 14px;
+  font-size: 0.98rem;
+}
+
+/* Abschnitt direkt vor dem blauen Abschlussband: unten weniger Leerraum */
+.section--flush-bottom {
+  padding-bottom: clamp(8px, 2vw, 24px);
+}
+
+/* Bild im Seitenkopf: leicht in den Raum gedreht, richtet sich beim Überfahren auf */
+.page-hero__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+  background: radial-gradient(90% 80% at 50% 62%, #ffffff 0%, var(--ice) 60%, var(--ice-2) 100%);
+  box-shadow: var(--shadow-l);
+  overflow: hidden;
+  transform: perspective(1400px) rotateY(-7deg) rotateX(2deg);
+  transition: transform 0.9s var(--ease-out);
+}
+
+.page-hero__media:hover {
+  transform: perspective(1400px) rotateY(0deg) rotateX(0deg);
+}
+
+.page-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-hero__media--device img {
+  object-fit: contain;
+  padding: 7% 10%;
+  mix-blend-mode: multiply;
+}
+
+.article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: clamp(36px, 5vw, 80px);
+  align-items: start;
+}
+
+.article__main > h2 {
+  margin-top: clamp(44px, 6vw, 64px);
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+}
+
+.article__main > h2:first-child {
+  margin-top: 0;
+}
+
+.article__main > p {
+  margin-top: 16px;
+  font-size: 1.12rem;
+}
+
+.checklist {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+
+.checklist .check {
+  margin-top: 2px;
+}
+
+/* Nummerierter Ablauf */
+.flow {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+  counter-reset: flow;
+}
+
+.flow li {
+  position: relative;
+  padding: 20px 22px 20px 78px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow-s);
+  counter-increment: flow;
+}
+
+.flow li::before {
+  content: counter(flow);
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--grad-blue);
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.flow h3 {
+  font-size: 1.2rem;
+}
+
+.flow p {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.note {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--ice);
+  color: var(--navy);
+}
+
+.article__main > .note {
+  font-size: 1.02rem;
+}
+
+.article__main > .article__disclaimer {
+  margin-top: 28px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* Liste mit Titel + Kurzbeschreibung (z. B. Massage-Arten) */
+.deflist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.deflist li {
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow-s);
+}
+
+.deflist h3 {
+  font-size: 1.2rem;
+}
+
+.deflist p {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.note .icon {
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  color: var(--blue);
+}
+
+/* Infokarte "Auf einen Blick" – bleibt am PC beim Scrollen stehen */
+.aside-card {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.aside-card h2 {
+  font-size: 1.35rem;
+}
+
+/* Liste mit Symbol + Titel + Text (Infokarte der Leistungsseiten, Anfahrt auf der Startseite) */
+.aside-list,
+.travel {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.aside-list li,
+.travel li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.aside-list .chip__icon,
+.travel .chip__icon {
+  width: 40px;
+  height: 40px;
+}
+
+.aside-list strong,
+.travel strong {
+  display: block;
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.travel {
+  margin-top: 20px;
+}
+
+.travel li {
+  font-size: 1.05rem;
+}
+
+.aside-card .open-status {
+  margin-top: 18px;
+}
+
+.aside-card .btn {
+  margin-top: 20px;
+}
+
+/* Verweise auf weitere Leistungen */
+.link-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.link-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  background: #fff;
+  box-shadow: var(--shadow-s);
+  color: var(--navy);
+  text-decoration: none;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.4s var(--ease), border-color 0.4s;
+}
+
+.link-card:hover {
+  color: var(--navy);
+  border-color: #c4d8f0;
+  box-shadow: var(--shadow);
+  transform: translateY(-4px);
+}
+
+.link-card__title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.link-card__text {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.link-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.link-card__more .icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease);
+}
+
+.link-card:hover .link-card__more .icon {
+  transform: translateX(4px);
+}
+
+.more-link {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.more-link a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 500;
+}
+
 .prose h2 {
   margin-top: 48px;
   font-size: clamp(1.5rem, 2.6vw, 1.9rem);
@@ -3177,8 +3618,19 @@ textarea.input {
   .about__grid,
   .contact__grid,
   .directions,
-  .welcome__grid {
+  .welcome__grid,
+  .page-hero__grid,
+  .article {
     grid-template-columns: 1fr;
+  }
+
+  .page-hero__media {
+    max-width: 560px;
+    transform: none;
+  }
+
+  .aside-card {
+    position: static;
   }
 
   .profile {
@@ -3278,6 +3730,28 @@ textarea.input {
     align-items: flex-start;
   }
 
+  /* Leistungsseiten auf dem Handy */
+  .link-cards,
+  .deflist {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero .btn-row .btn {
+    width: 100%;
+  }
+
+  .flow li {
+    padding: 18px 18px 18px 68px;
+  }
+
+  .flow li::before {
+    left: 14px;
+  }
+
+  .aside-card {
+    padding: 22px;
+  }
+
   /* Leistungskarten auf dem Handy kompakt: kleines Bild links, Titel rechts,
      Text in voller Breite darunter -> halb so viel Scrollen, gleiche Schriftgrösse */
   .svc {
@@ -3305,10 +3779,16 @@ textarea.input {
     padding: 8%;
   }
 
-  /* Beschreibung, Untertitel und Stichworte: volle Breite unter Bild + Titel */
+  /* Beschreibung, Untertitel, Stichworte und Link: volle Breite unter Bild + Titel */
   .svc__body > p,
-  .svc__tags {
+  .svc__tags,
+  .svc__more {
     grid-column: 1 / -1;
+  }
+
+  .svc__more {
+    justify-self: start;
+    padding-top: 8px;
   }
 
   .svc__body > p {

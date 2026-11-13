@@ -37,10 +37,12 @@
   var actionBar = $("#action-bar");
 
   var onScroll = rafThrottle(function () {
+    // Reihenfolge ist wichtig für flüssiges Scrollen: erst alles messen, dann alles ändern.
     var y = window.scrollY || window.pageYOffset;
+    var tl = measureTimeline();
     if (header) header.classList.toggle("is-scrolled", y > 16);
     if (actionBar) actionBar.classList.toggle("is-visible", y > window.innerHeight * 0.55);
-    updateTimeline();
+    applyTimeline(tl);
   });
   window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -133,12 +135,13 @@
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
 
+    // Erst ALLE Positionen messen, dann erst Klassen setzen. Abwechselnd messen und
+    // schreiben würde den Browser zwingen, das Layout für jedes Element neu zu berechnen.
     var fold = window.innerHeight * 0.92;
-    revealEls.forEach(function (el) {
-      if (el.getBoundingClientRect().top > fold) {
-        el.classList.add("will-reveal");
-        revealObserver.observe(el);
-      }
+    var belowFold = revealEls.filter(function (el) { return el.getBoundingClientRect().top > fold; });
+    belowFold.forEach(function (el) {
+      el.classList.add("will-reveal");
+      revealObserver.observe(el);
     });
   }
 
@@ -318,7 +321,14 @@
    * 9. 3D-Karussell der Praxis
    * ------------------------------------------------------------------ */
   var carousel = $("#carousel");
-  if (carousel) whenIdle(function () { initCarousel(carousel); });
+  var carousel3dQuery = window.matchMedia("(min-width: 761px)");
+  if (carousel) {
+    // Platz für die 3D-Galerie SOFORT reservieren (sie ist höher als die einfache Wischgalerie).
+    // Sonst rutscht beim späteren Umschalten alles darunter nach unten – und wer über einen
+    // Link wie /#termin kommt, landet an der falschen Stelle.
+    if (carousel3dQuery.matches && !reduceMotion.matches) carousel.classList.add("carousel--reserve");
+    whenIdle(function () { initCarousel(carousel); });
+  }
 
   function initCarousel(el) {
     var viewport = $("#carousel-viewport", el);
@@ -338,7 +348,7 @@
     var inView = false;
     var paused = false;
     var dots = [];
-    var mq = window.matchMedia("(min-width: 761px)");
+    var mq = carousel3dQuery;
 
     // Punkte-Navigation
     buttons.forEach(function (b, i) {
@@ -411,7 +421,9 @@
     }
 
     function decide() {
-      if (mq.matches && !reduceMotion.matches) enable3d(); else disable3d();
+      var use3d = mq.matches && !reduceMotion.matches;
+      el.classList.toggle("carousel--reserve", use3d);
+      if (use3d) enable3d(); else disable3d();
     }
 
     // Klick: vorderes Bild -> Grossansicht, sonst nach vorne drehen
@@ -502,11 +514,15 @@
 
   function pad(h) { return (h < 10 ? "0" : "") + h + ":00"; }
 
+  var zurichFormat = null; // wird nur einmal erzeugt (das Anlegen ist vergleichsweise teuer)
   function zurichNow() {
     try {
-      var parts = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/Zurich", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
-      }).formatToParts(new Date());
+      if (!zurichFormat) {
+        zurichFormat = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/Zurich", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23"
+        });
+      }
+      var parts = zurichFormat.formatToParts(new Date());
       var o = {};
       parts.forEach(function (p) { o[p.type] = p.value; });
       return { day: WD[o.weekday], min: parseInt(o.hour, 10) * 60 + parseInt(o.minute, 10) };
@@ -516,8 +532,7 @@
     }
   }
 
-  function openState() {
-    var now = zurichNow();
+  function openState(now) {
     var today = HOURS[now.day];
     if (today && now.min >= today[0] * 60 && now.min < today[1] * 60) {
       return { open: true, title: "Jetzt geöffnet", sub: "heute bis " + pad(today[1]) + " Uhr", day: now.day };
@@ -536,7 +551,8 @@
   }
 
   function updateOpenStatus() {
-    var s = openState();
+    var now = zurichNow();
+    var s = openState(now);
     // Kontaktbereich: sachlicher Status (grau = geschlossen)
     var badgeDot = $("#open-status [data-open-dot]");
     if (badgeDot) badgeDot.classList.toggle("is-closed", !s.open);
@@ -561,7 +577,6 @@
     // Telefon: nur während der fixen Telefonzeiten als "jetzt erreichbar" anzeigen
     var phoneBadge = $("#phone-status");
     if (phoneBadge) {
-      var now = zurichNow();
       var ph = PHONE_HOURS[now.day];
       var reachable = !!ph && now.min >= ph[0] * 60 && now.min < ph[1] * 60;
       phoneBadge.hidden = !reachable;
@@ -587,6 +602,23 @@
     var submitLabel = $("[data-submit-label]", f);
     var reEmail = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[^\s@<>()[\]\\,;:"]{2,}$/;
     var rePhone = /^[0-9+()\/ .\-]{7,30}$/;
+
+    // Vorauswahl des Anliegens, wenn jemand von einer Leistungsseite kommt,
+    // z. B. /?anliegen=dry-needling#termin
+    // Sicherheit: Der Wert aus der Adresse wird NIE in die Seite geschrieben, sondern
+    // nur mit den fest im HTML hinterlegten Schlüsseln (data-key) verglichen.
+    try {
+      var wanted = new URLSearchParams(window.location.search).get("anliegen");
+      var topic = f.elements.anliegen;
+      if (wanted && topic && /^[a-z-]{1,40}$/.test(wanted)) {
+        for (var i = 0; i < topic.options.length; i++) {
+          if (topic.options[i].getAttribute("data-key") === wanted) {
+            topic.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    } catch (err) { /* ignorieren */ }
 
     function fieldOf(input) { return input.closest(".field"); }
 
@@ -666,8 +698,12 @@
       var data = new FormData(f);
       var params = new URLSearchParams();
       data.forEach(function (value, key) {
+        // Den Formularnamen setzen wir unten selbst – genau einmal. (Netlify fügt beim
+        // Veröffentlichen ein eigenes verstecktes Feld "form-name" ein; doppelt wäre unsauber.)
+        if (key === "form-name") return;
         params.append(key, String(value).slice(0, 2000));
       });
+      params.set("form-name", f.getAttribute("name"));
 
       f.classList.add("is-sending");
       if (submitLabel) submitLabel.textContent = "Wird gesendet …";
@@ -695,18 +731,26 @@
    * 12. Zeitstrahl füllt sich beim Scrollen
    * ------------------------------------------------------------------ */
   var timeline = $("#timeline");
-  var tlItems = timeline ? $$(".tl-item", timeline) : [];
-  function updateTimeline() {
-    if (!timeline) return;
-    var vh = window.innerHeight;
+  var tlItems = timeline
+    ? $$(".tl-item", timeline).map(function (it) { return { item: it, dot: $(".tl-item__dot", it) }; })
+    : [];
+
+  // 1. Schritt: nur messen (lesen)
+  function measureTimeline() {
+    if (!timeline) return null;
+    var line = window.innerHeight * 0.62;
     var r = timeline.getBoundingClientRect();
-    var p = clamp((vh * 0.62 - r.top) / r.height, 0, 1);
-    timeline.style.setProperty("--progress", p.toFixed(3));
-    tlItems.forEach(function (it) {
-      var dot = $(".tl-item__dot", it);
-      var top = dot.getBoundingClientRect().top;
-      it.classList.toggle("is-active", top < vh * 0.62);
-    });
+    return {
+      progress: r.height ? clamp((line - r.top) / r.height, 0, 1) : 0,
+      active: tlItems.map(function (t) { return !!t.dot && t.dot.getBoundingClientRect().top < line; })
+    };
+  }
+
+  // 2. Schritt: nur ändern (schreiben)
+  function applyTimeline(m) {
+    if (!m) return;
+    timeline.style.setProperty("--progress", m.progress.toFixed(3));
+    tlItems.forEach(function (t, i) { t.item.classList.toggle("is-active", m.active[i]); });
   }
 
   /* ------------------------------------------------------------------
@@ -714,6 +758,6 @@
    * ------------------------------------------------------------------ */
   $$("[data-year]").forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
 
+  // Startzustand von Kopfzeile, Aktionsleiste und Zeitstrahl – im nächsten Bild des Browsers
   onScroll();
-  updateTimeline();
 })();
