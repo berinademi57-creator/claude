@@ -2,7 +2,7 @@
 #  Netlify-Konfiguration – Physiotherapie Central Plaza
 #
 #  Diese Datei wird nur beim Veröffentlichen über GitHub gelesen (README, Variante B):
-#                     Netlify > "Add new project" > "Import an existing project"
+#                     in Netlify ein neues Projekt aus diesem Git-Repository anlegen
 #                     Base directory:     physio-plaza
 #                     Publish directory:  physio-plaza/public   (wird hier automatisch gesetzt)
 #                     Build command:      (leer lassen)

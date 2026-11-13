@@ -20,6 +20,8 @@ Neue Website für **Physiotherapie Central Plaza GmbH**, Gerliswilstrasse 30, 60
 1. Die ZIP-Datei **zuerst entpacken**. Netlify nimmt beim Hineinziehen einen **Ordner**, keine ZIP-Datei.
 2. Auf <https://app.netlify.com> einloggen und die Seite **Projects** öffnen. Ganz unten ist das Feld zum Hineinziehen.
 3. Den entpackten Ordner **`physio-plaza-website`** hineinziehen.
+   **Kontrolle vorher:** Direkt in diesem Ordner muss die Datei `index.html` liegen. Liegt dort nur ein weiterer
+   Ordner mit demselben Namen, ist es der falsche – dann den inneren Ordner nehmen.
    (Wer aus dem Repository arbeitet: Das ist der Ordner `physio-plaza/public` – nicht der ganze Projektordner!)
 4. Projektnamen ändern, z. B. `physio-plaza` → Adresse `physio-plaza.netlify.app`.
 
@@ -28,9 +30,10 @@ Neue Website für **Physiotherapie Central Plaza GmbH**, Gerliswilstrasse 30, 60
 **Später aktualisieren:** Projekt öffnen → **Deploys** → den neuen Ordner ins Feld ganz unten ziehen.
 
 ### Variante B – über GitHub (Updates gehen dann automatisch live)
-1. **Add new project → Import an existing project → GitHub** → dieses Repository wählen.
+1. In Netlify ein neues Projekt **aus einem Git-Repository** anlegen (GitHub verbinden) und dieses Repository wählen.
 2. Branch: `claude/physiotherapist-website-klnmf0` (oder nach dem Mergen `main`).
 3. **Base directory:** `physio-plaza` · **Build command:** leer lassen · **Publish directory:** `physio-plaza/public`.
+4. Achtung Kontingent: Bei dieser Variante ist **jeder Push** auf den gewählten Branch eine Veröffentlichung (15 Credits).
 
 ### ⚠️ Drei Dinge, die man bei Netlify wissen muss
 | Thema | Was gilt (Netlify-Doku, Nov. 2026) | Was du tust |
@@ -50,7 +53,7 @@ Neue Website für **Physiotherapie Central Plaza GmbH**, Gerliswilstrasse 30, 60
 | # | Was | Wo in Netlify | Warum |
 |---|-----|---------------|-------|
 | 1 | **Projekt öffentlich schalten** | Knopf **Make public** (oder Project configuration → General → Visitor access → Project visibility) | Neue Projekte können als «privat» starten – dann sieht nur das Netlify-Team die Seite, Besucher nicht. |
-| 2 | **«Powered by Netlify»-Abzeichen ausschalten** | Project configuration → General → Powered by Netlify badge → aus | Auf neuen Free-Projekten blendet Netlify unten rechts ein eigenes Abzeichen ein. Unsere Sicherheitsrichtlinie (CSP) blockiert es zwar – aber der blockierte Versuch erzeugt eine Fehlermeldung im Browser. Ausschalten = sauber. |
+| 2 | **«Powered by Netlify»-Abzeichen ausschalten** | Project configuration → General → Powered by Netlify badge → aus | Auf neuen Free-Projekten blendet Netlify unten rechts ein eigenes Abzeichen ein. Unsere Sicherheitsrichtlinie (CSP) blockiert es zwar – der blockierte Versuch hinterlässt aber eine Fehlermeldung in der Browser-Konsole (für Besucher unsichtbar, in Tests wie Lighthouse ein Abzug). Ausschalten = sauber. |
 | 3 | **Formular-Erkennung einschalten** | Forms → *Enable form detection*, danach **nochmals hochladen** (die Erkennung greift erst ab der nächsten Veröffentlichung) | Sonst kommen keine Anfragen an – das Formular zeigt dann eine Fehlermeldung. |
 | 4 | **E-Mail-Benachrichtigung** an `info@physio-plaza.ch` | Forms → Submission notifications → E-Mail hinzufügen (Formular „kontakt") | Hasan bekommt jede Anfrage sofort per Mail. |
 | 5 | **Hasan bestätigt die Benachrichtigung** | Netlify schickt an `info@physio-plaza.ch` eine Bestätigungs-Mail → **Confirm** anklicken | Adressen ausserhalb des Netlify-Teams bekommen erst nach dieser Bestätigung Mails; bis dahin steht «pending confirmation». Lehnt Netlify die Adresse ganz ab («must be the email of a team member»), ist die Bestätigung für das Konto noch nicht freigeschaltet → Konto der Praxis verwenden oder vorerst die eigene Adresse eintragen und weiterleiten. |
@@ -120,11 +123,17 @@ Feld 275 ab 1. Februar 2027). Ab Februar 2027 vereinfachen – am besten mit ein
 
 ### Andere Domain als www.physio-plaza.com?
 Die Adresse steht in `index.html`, `impressum/index.html`, `datenschutz/index.html`, `robots.txt`,
-`.well-known/security.txt` und als `SITE` in `tools/build_leistungen.py`. Einmal alles ersetzen, z. B.:
+`security.txt` und als `SITE` in `tools/build_leistungen.py`. Einmal alles ersetzen, z. B.:
 ```bash
 grep -rl "www.physio-plaza.com" public tools | xargs sed -i 's#https://www.physio-plaza.com#https://www.NEUE-DOMAIN.ch#g'
 python3 tools/build_leistungen.py
 ```
+
+### Einmal pro Jahr
+- `public/security.txt`: Das Datum in der Zeile `Expires:` läuft am **12. November 2027** ab – vorher um ein Jahr
+  verlängern und neu hochladen. (Abgelaufene Angaben gelten als ungültig.)
+- Jahreszahl im Footer aktualisiert sich von selbst.
+- Formular-Anfragen in Netlify löschen (siehe Abschnitt 2, letzter Punkt).
 
 ### Neue Fotos einbauen
 ```bash
@@ -230,7 +239,7 @@ physio-plaza/
 │   ├── _headers            Sicherheits-Header
 │   ├── _redirects          Weiterleitungen alter Wix-Adressen
 │   ├── robots.txt sitemap.xml site.webmanifest
-│   ├── .well-known/security.txt
+│   ├── security.txt        Kontakt für Sicherheitsmeldungen (auch unter /.well-known/security.txt erreichbar)
 │   └── assets/ (css, js, fonts, img)
 ├── brand/                  Logo als SVG (blau & weiss) für Drucksachen/Social Media
 ├── docs/

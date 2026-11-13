@@ -3,6 +3,11 @@
 #  301 = dauerhaft -> Google überträgt das bisherige Ranking
 # =====================================================================
 
+# security.txt liegt als normale Datei im Hauptordner (versteckte Ordner wie ".well-known"
+# gehen beim Hochladen per Drag & Drop leicht verloren). Die offizielle Adresse
+# /.well-known/security.txt liefert dieselbe Datei aus (200 = Inhalt zeigen, nicht umleiten).
+/.well-known/security.txt /security.txt    200
+
 /home                     /                 301
 /book-online              /#termin         301
 /booking-calendar         /#termin         301
